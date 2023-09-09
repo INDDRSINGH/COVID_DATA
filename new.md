@@ -2852,3 +2852,2805 @@ group by Month_year, Location
 | Zimbabwe                         | February-2021  |              246 |          984049 |             0.02 |
 | Zimbabwe                         | March-2021     |               60 |         1132264 |             0.01 |
 | Zimbabwe                         | April-2021     |               44 |         1126565 |             0.00 |
+
+
+
+
+**Query : Percentage of people diagnosed in a month, out of total population** 
+
+
+````sql
+select *,round((sum_total_cases/population)*100,2) as Death_Percentage
+from (
+select Location, date_format(date,"%M-%Y") as Month_year, 
+sum(total_cases) as sum_total_cases , max(population) as population
+from covid_death
+group by Month_year, Location
+) e ;
+````
+
+**Result:**
+
+| Location                         | Month_year     | sum_total_cases | population | Death_Percentage |
+|----------------------------------|----------------|-----------------|------------|------------------|
+| Afghanistan                      | February-2020  |               6 |   38928341 |                0 |
+| Afghanistan                      | March-2020     |            1164 |   38928341 |                0 |
+| Afghanistan                      | April-2020     |           27074 |   38928341 |             0.07 |
+| Afghanistan                      | May-2020       |          225674 |   38928341 |             0.58 |
+| Afghanistan                      | June-2020      |          750944 |   38928341 |             1.93 |
+| Afghanistan                      | July-2020      |         1077247 |   38928341 |             2.77 |
+| Afghanistan                      | August-2020    |         1163297 |   38928341 |             2.99 |
+| Afghanistan                      | September-2020 |         1163868 |   38928341 |             2.99 |
+| Afghanistan                      | October-2020   |         1245948 |   38928341 |              3.2 |
+| Afghanistan                      | November-2020  |         1308111 |   38928341 |             3.36 |
+| Afghanistan                      | December-2020  |         1522209 |   38928341 |             3.91 |
+| Afghanistan                      | January-2021   |         1668119 |   38928341 |             4.29 |
+| Afghanistan                      | February-2021  |         1553102 |   38928341 |             3.99 |
+| Afghanistan                      | March-2021     |         1737068 |   38928341 |             4.46 |
+| Afghanistan                      | April-2021     |         1733260 |   38928341 |             4.45 |
+| Albania                          | February-2020  |               0 |    2877800 |                0 |
+| Albania                          | March-2020     |            2232 |    2877800 |             0.08 |
+| Albania                          | April-2020     |           15632 |    2877800 |             0.54 |
+| Albania                          | May-2020       |           28873 |    2877800 |                1 |
+| Albania                          | June-2020      |           50880 |    2877800 |             1.77 |
+| Albania                          | July-2020      |          119660 |    2877800 |             4.16 |
+| Albania                          | August-2020    |          230278 |    2877800 |                8 |
+| Albania                          | September-2020 |          350148 |    2877800 |            12.17 |
+| Albania                          | October-2020   |          523084 |    2877800 |            18.18 |
+| Albania                          | November-2020  |          866248 |    2877800 |             30.1 |
+| Albania                          | December-2020  |         1540509 |    2877800 |            53.53 |
+| Albania                          | January-2021   |         2088163 |    2877800 |            72.56 |
+| Albania                          | February-2021  |         2610775 |    2877800 |            90.72 |
+| Albania                          | March-2021     |         3652195 |    2877800 |           126.91 |
+| Albania                          | April-2021     |         3865660 |    2877800 |           134.33 |
+| Algeria                          | February-2020  |               5 |   43851043 |                0 |
+| Algeria                          | March-2020     |            4823 |   43851043 |             0.01 |
+| Algeria                          | April-2020     |           69497 |   43851043 |             0.16 |
+| Algeria                          | May-2020       |          211394 |   43851043 |             0.48 |
+| Algeria                          | June-2020      |          337819 |   43851043 |             0.77 |
+| Algeria                          | July-2020      |          674286 |   43851043 |             1.54 |
+| Algeria                          | August-2020    |         1185076 |   43851043 |              2.7 |
+| Algeria                          | September-2020 |         1458290 |   43851043 |             3.33 |
+| Algeria                          | October-2020   |         1683631 |   43851043 |             3.84 |
+| Algeria                          | November-2020  |         2074384 |   43851043 |             4.73 |
+| Algeria                          | December-2020  |         2884170 |   43851043 |             6.58 |
+| Algeria                          | January-2021   |         3212268 |   43851043 |             7.33 |
+| Algeria                          | February-2021  |         3096714 |   43851043 |             7.06 |
+| Algeria                          | March-2021     |         3577898 |   43851043 |             8.16 |
+| Algeria                          | April-2021     |         3581338 |   43851043 |             8.17 |
+| Andorra                          | March-2020     |            2787 |      77265 |             3.61 |
+| Andorra                          | April-2020     |           19106 |      77265 |            24.73 |
+| Andorra                          | May-2020       |           23498 |      77265 |            30.41 |
+| Andorra                          | June-2020      |           25511 |      77265 |            33.02 |
+| Andorra                          | July-2020      |           27174 |      77265 |            35.17 |
+| Andorra                          | August-2020    |           31382 |      77265 |            40.62 |
+| Andorra                          | September-2020 |           45275 |      77265 |             58.6 |
+| Andorra                          | October-2020   |          103067 |      77265 |           133.39 |
+| Andorra                          | November-2020  |          174907 |      77265 |           226.37 |
+| Andorra                          | December-2020  |          230115 |      77265 |           297.83 |
+| Andorra                          | January-2021   |          279226 |      77265 |           361.39 |
+| Andorra                          | February-2021  |          293412 |      77265 |           379.75 |
+| Andorra                          | March-2021     |          352375 |      77265 |           456.06 |
+| Andorra                          | April-2021     |          380633 |      77265 |           492.63 |
+| Angola                           | March-2020     |              48 |   32866268 |                0 |
+| Angola                           | April-2020     |             601 |   32866268 |                0 |
+| Angola                           | May-2020       |            1639 |   32866268 |                0 |
+| Angola                           | June-2020      |            4660 |   32866268 |             0.01 |
+| Angola                           | July-2020      |           20049 |   32866268 |             0.06 |
+| Angola                           | August-2020    |           59160 |   32866268 |             0.18 |
+| Angola                           | September-2020 |          111469 |   32866268 |             0.34 |
+| Angola                           | October-2020   |          233349 |   32866268 |             0.71 |
+| Angola                           | November-2020  |          404417 |   32866268 |             1.23 |
+| Angola                           | December-2020  |          508018 |   32866268 |             1.55 |
+| Angola                           | January-2021   |          580289 |   32866268 |             1.77 |
+| Angola                           | February-2021  |          569508 |   32866268 |             1.73 |
+| Angola                           | March-2021     |          666295 |   32866268 |             2.03 |
+| Angola                           | April-2021     |          726071 |   32866268 |             2.21 |
+| Anguilla                         | February-2021  |               0 |      15002 |                0 |
+| Anguilla                         | March-2021     |               0 |      15002 |                0 |
+| Anguilla                         | April-2021     |               0 |      15002 |                0 |
+| Antigua and Barbuda              | March-2020     |              61 |      97928 |             0.06 |
+| Antigua and Barbuda              | April-2020     |             617 |      97928 |             0.63 |
+| Antigua and Barbuda              | May-2020       |             776 |      97928 |             0.79 |
+| Antigua and Barbuda              | June-2020      |            1026 |      97928 |             1.05 |
+| Antigua and Barbuda              | July-2020      |            2366 |      97928 |             2.42 |
+| Antigua and Barbuda              | August-2020    |            2881 |      97928 |             2.94 |
+| Antigua and Barbuda              | September-2020 |            2886 |      97928 |             2.95 |
+| Antigua and Barbuda              | October-2020   |            3586 |      97928 |             3.66 |
+| Antigua and Barbuda              | November-2020  |            4047 |      97928 |             4.13 |
+| Antigua and Barbuda              | December-2020  |            4656 |      97928 |             4.75 |
+| Antigua and Barbuda              | January-2021   |            5759 |      97928 |             5.88 |
+| Antigua and Barbuda              | February-2021  |           12957 |      97928 |            13.23 |
+| Antigua and Barbuda              | March-2021     |           30085 |      97928 |            30.72 |
+| Antigua and Barbuda              | April-2021     |           36073 |      97928 |            36.84 |
+| Argentina                        | January-2020   |               0 |   45195777 |                0 |
+| Argentina                        | February-2020  |               0 |   45195777 |                0 |
+| Argentina                        | March-2020     |            6529 |   45195777 |             0.01 |
+| Argentina                        | April-2020     |           77576 |   45195777 |             0.17 |
+| Argentina                        | May-2020       |          275556 |   45195777 |             0.61 |
+| Argentina                        | June-2020      |         1091252 |   45195777 |             2.41 |
+| Argentina                        | July-2020      |         3728771 |   45195777 |             8.25 |
+| Argentina                        | August-2020    |         9244163 |   45195777 |            20.45 |
+| Argentina                        | September-2020 |        17545982 |   45195777 |            38.82 |
+| Argentina                        | October-2020   |        29922509 |   45195777 |            66.21 |
+| Argentina                        | November-2020  |        39307295 |   45195777 |            86.97 |
+| Argentina                        | December-2020  |        47136788 |   45195777 |           104.29 |
+| Argentina                        | January-2021   |        55312462 |   45195777 |           122.38 |
+| Argentina                        | February-2021  |        56733848 |   45195777 |           125.53 |
+| Argentina                        | March-2021     |        68713761 |   45195777 |           152.04 |
+| Argentina                        | April-2021     |        79416752 |   45195777 |           175.72 |
+| Armenia                          | March-2020     |            4099 |    2963234 |             0.14 |
+| Armenia                          | April-2020     |           36511 |    2963234 |             1.23 |
+| Armenia                          | May-2020       |          151445 |    2963234 |             5.11 |
+| Armenia                          | June-2020      |          520967 |    2963234 |            17.58 |
+| Armenia                          | July-2020      |         1026463 |    2963234 |            34.64 |
+| Armenia                          | August-2020    |         1286089 |    2963234 |             43.4 |
+| Armenia                          | September-2020 |         1398359 |    2963234 |            47.19 |
+| Armenia                          | October-2020   |         2012415 |    2963234 |            67.91 |
+| Armenia                          | November-2020  |         3480514 |    2963234 |           117.46 |
+| Armenia                          | December-2020  |         4636215 |    2963234 |           156.46 |
+| Armenia                          | January-2021   |         5076072 |    2963234 |            171.3 |
+| Armenia                          | February-2021  |         4741148 |    2963234 |              160 |
+| Armenia                          | March-2021     |         5603135 |    2963234 |           189.09 |
+| Armenia                          | April-2021     |         6176164 |    2963234 |           208.43 |
+| Aruba                            | March-2021     |               0 |     106766 |                0 |
+| Aruba                            | April-2021     |               0 |     106766 |                0 |
+| Australia                        | January-2020   |              38 |   25499881 |                0 |
+| Australia                        | February-2020  |             431 |   25499881 |                0 |
+| Australia                        | March-2020     |           35679 |   25499881 |             0.14 |
+| Australia                        | April-2020     |          188206 |   25499881 |             0.74 |
+| Australia                        | May-2020       |          217625 |   25499881 |             0.85 |
+| Australia                        | June-2020      |          222611 |   25499881 |             0.87 |
+| Australia                        | July-2020      |          361720 |   25499881 |             1.42 |
+| Australia                        | August-2020    |          711091 |   25499881 |             2.79 |
+| Australia                        | September-2020 |          800899 |   25499881 |             3.14 |
+| Australia                        | October-2020   |          848364 |   25499881 |             3.33 |
+| Australia                        | November-2020  |          832514 |   25499881 |             3.26 |
+| Australia                        | December-2020  |          872046 |   25499881 |             3.42 |
+| Australia                        | January-2021   |          889012 |   25499881 |             3.49 |
+| Australia                        | February-2021  |          809190 |   25499881 |             3.17 |
+| Australia                        | March-2021     |          903649 |   25499881 |             3.54 |
+| Australia                        | April-2021     |          885710 |   25499881 |             3.47 |
+| Austria                          | February-2020  |              19 |    9006400 |                0 |
+| Austria                          | March-2020     |           84802 |    9006400 |             0.94 |
+| Austria                          | April-2020     |          417242 |    9006400 |             4.63 |
+| Austria                          | May-2020       |          500479 |    9006400 |             5.56 |
+| Austria                          | June-2020      |          515592 |    9006400 |             5.72 |
+| Austria                          | July-2020      |          600464 |    9006400 |             6.67 |
+| Austria                          | August-2020    |          735971 |    9006400 |             8.17 |
+| Austria                          | September-2020 |         1058863 |    9006400 |            11.76 |
+| Austria                          | October-2020   |         2039236 |    9006400 |            22.64 |
+| Austria                          | November-2020  |         6048662 |    9006400 |            67.16 |
+| Austria                          | December-2020  |        10147084 |    9006400 |           112.67 |
+| Austria                          | January-2021   |        12102376 |    9006400 |           134.38 |
+| Austria                          | February-2021  |        12191179 |    9006400 |           135.36 |
+| Austria                          | March-2021     |        15518627 |    9006400 |           172.31 |
+| Austria                          | April-2021     |        17593916 |    9006400 |           195.35 |
+| Azerbaijan                       | March-2020     |            1928 |   10139175 |             0.02 |
+| Azerbaijan                       | April-2020     |           35353 |   10139175 |             0.35 |
+| Azerbaijan                       | May-2020       |          101560 |   10139175 |                1 |
+| Azerbaijan                       | June-2020      |          326549 |   10139175 |             3.22 |
+| Azerbaijan                       | July-2020      |          794844 |   10139175 |             7.84 |
+| Azerbaijan                       | August-2020    |         1065366 |   10139175 |            10.51 |
+| Azerbaijan                       | September-2020 |         1156339 |   10139175 |             11.4 |
+| Azerbaijan                       | October-2020   |         1403733 |   10139175 |            13.84 |
+| Azerbaijan                       | November-2020  |         2434291 |   10139175 |            24.01 |
+| Azerbaijan                       | December-2020  |         5629069 |   10139175 |            55.52 |
+| Azerbaijan                       | January-2021   |         7006474 |   10139175 |             69.1 |
+| Azerbaijan                       | February-2021  |         6502320 |   10139175 |            64.13 |
+| Azerbaijan                       | March-2021     |         7560926 |   10139175 |            74.57 |
+| Azerbaijan                       | April-2021     |         8816077 |   10139175 |            86.95 |
+| Bahamas                          | March-2020     |              99 |     393248 |             0.03 |
+| Bahamas                          | April-2020     |            1578 |     393248 |              0.4 |
+| Bahamas                          | May-2020       |            2933 |     393248 |             0.75 |
+| Bahamas                          | June-2020      |            3100 |     393248 |             0.79 |
+| Bahamas                          | July-2020      |            6403 |     393248 |             1.63 |
+| Bahamas                          | August-2020    |           41780 |     393248 |            10.62 |
+| Bahamas                          | September-2020 |           93104 |     393248 |            23.68 |
+| Bahamas                          | October-2020   |          170339 |     393248 |            43.32 |
+| Bahamas                          | November-2020  |          215718 |     393248 |            54.86 |
+| Bahamas                          | December-2020  |          238552 |     393248 |            60.66 |
+| Bahamas                          | January-2021   |          249177 |     393248 |            63.36 |
+| Bahamas                          | February-2021  |          233940 |     393248 |            59.49 |
+| Bahamas                          | March-2021     |          271796 |     393248 |            69.12 |
+| Bahamas                          | April-2021     |          289640 |     393248 |            73.65 |
+| Bahrain                          | February-2020  |             167 |    1701583 |             0.01 |
+| Bahrain                          | March-2020     |            7765 |    1701583 |             0.46 |
+| Bahrain                          | April-2020     |           48676 |    1701583 |             2.86 |
+| Bahrain                          | May-2020       |          210502 |    1701583 |            12.37 |
+| Bahrain                          | June-2020      |          575360 |    1701583 |            33.81 |
+| Bahrain                          | July-2020      |         1074705 |    1701583 |            63.16 |
+| Bahrain                          | August-2020    |         1447593 |    1701583 |            85.07 |
+| Bahrain                          | September-2020 |         1856231 |    1701583 |           109.09 |
+| Bahrain                          | October-2020   |         2388821 |    1701583 |           140.39 |
+| Bahrain                          | November-2020  |         2539313 |    1701583 |           149.23 |
+| Bahrain                          | December-2020  |         2780573 |    1701583 |           163.41 |
+| Bahrain                          | January-2021   |         3022735 |    1701583 |           177.64 |
+| Bahrain                          | February-2021  |         3165005 |    1701583 |              186 |
+| Bahrain                          | March-2021     |         4119520 |    1701583 |            242.1 |
+| Bahrain                          | April-2021     |         4837969 |    1701583 |           284.32 |
+| Bangladesh                       | March-2020     |             546 |  164689383 |                0 |
+| Bangladesh                       | April-2020     |           70283 |  164689383 |             0.04 |
+| Bangladesh                       | May-2020       |          731311 |  164689383 |             0.44 |
+| Bangladesh                       | June-2020      |         2836656 |  164689383 |             1.72 |
+| Bangladesh                       | July-2020      |         6049862 |  164689383 |             3.67 |
+| Bangladesh                       | August-2020    |         8565945 |  164689383 |              5.2 |
+| Bangladesh                       | September-2020 |        10232791 |  164689383 |             6.21 |
+| Bangladesh                       | October-2020   |        11965030 |  164689383 |             7.27 |
+| Bangladesh                       | November-2020  |        13055589 |  164689383 |             7.93 |
+| Bangladesh                       | December-2020  |        15301465 |  164689383 |             9.29 |
+| Bangladesh                       | January-2021   |        16311378 |  164689383 |              9.9 |
+| Bangladesh                       | February-2021  |        15145689 |  164689383 |              9.2 |
+| Bangladesh                       | March-2021     |        17583288 |  164689383 |            10.68 |
+| Bangladesh                       | April-2021     |        21032790 |  164689383 |            12.77 |
+| Barbados                         | March-2020     |             255 |     287371 |             0.09 |
+| Barbados                         | April-2020     |            2071 |     287371 |             0.72 |
+| Barbados                         | May-2020       |            2697 |     287371 |             0.94 |
+| Barbados                         | June-2020      |            2860 |     287371 |                1 |
+| Barbados                         | July-2020      |            3209 |     287371 |             1.12 |
+| Barbados                         | August-2020    |            4654 |     287371 |             1.62 |
+| Barbados                         | September-2020 |            5515 |     287371 |             1.92 |
+| Barbados                         | October-2020   |            6692 |     287371 |             2.33 |
+| Barbados                         | November-2020  |            7563 |     287371 |             2.63 |
+| Barbados                         | December-2020  |            9713 |     287371 |             3.38 |
+| Barbados                         | January-2021   |           32342 |     287371 |            11.25 |
+| Barbados                         | February-2021  |           63279 |     287371 |            22.02 |
+| Barbados                         | March-2021     |          106483 |     287371 |            37.05 |
+| Barbados                         | April-2021     |          112693 |     287371 |            39.22 |
+| Belarus                          | February-2020  |               2 |    9449321 |                0 |
+| Belarus                          | March-2020     |            1465 |    9449321 |             0.02 |
+| Belarus                          | April-2020     |          150554 |    9449321 |             1.59 |
+| Belarus                          | May-2020       |          888892 |    9449321 |             9.41 |
+| Belarus                          | June-2020      |         1626878 |    9449321 |            17.22 |
+| Belarus                          | July-2020      |         2029325 |    9449321 |            21.48 |
+| Belarus                          | August-2020    |         2159686 |    9449321 |            22.86 |
+| Belarus                          | September-2020 |         2246305 |    9449321 |            23.77 |
+| Belarus                          | October-2020   |         2701983 |    9449321 |            28.59 |
+| Belarus                          | November-2020  |         3481029 |    9449321 |            36.84 |
+| Belarus                          | December-2020  |         5144839 |    9449321 |            54.45 |
+| Belarus                          | January-2021   |         6908021 |    9449321 |            73.11 |
+| Belarus                          | February-2021  |         7520716 |    9449321 |            79.59 |
+| Belarus                          | March-2021     |         9451715 |    9449321 |           100.03 |
+| Belarus                          | April-2021     |        10229519 |    9449321 |           108.26 |
+| Belgium                          | February-2020  |              26 |   11589616 |                0 |
+| Belgium                          | March-2020     |           89009 |   11589616 |             0.77 |
+| Belgium                          | April-2020     |          993613 |   11589616 |             8.57 |
+| Belgium                          | May-2020       |         1688377 |   11589616 |            14.57 |
+| Belgium                          | June-2020      |         1801706 |   11589616 |            15.55 |
+| Belgium                          | July-2020      |         1979139 |   11589616 |            17.08 |
+| Belgium                          | August-2020    |         2409779 |   11589616 |            20.79 |
+| Belgium                          | September-2020 |         2955815 |   11589616 |             25.5 |
+| Belgium                          | October-2020   |         7060830 |   11589616 |            60.92 |
+| Belgium                          | November-2020  |        15807456 |   11589616 |           136.39 |
+| Belgium                          | December-2020  |        19046283 |   11589616 |           164.34 |
+| Belgium                          | January-2021   |        20983559 |   11589616 |           181.05 |
+| Belgium                          | February-2021  |        20733707 |   11589616 |            178.9 |
+| Belgium                          | March-2021     |        25421637 |   11589616 |           219.35 |
+| Belgium                          | April-2021     |        28207302 |   11589616 |           243.38 |
+| Belize                           | March-2020     |              18 |     397621 |                0 |
+| Belize                           | April-2020     |             411 |     397621 |              0.1 |
+| Belize                           | May-2020       |             558 |     397621 |             0.14 |
+| Belize                           | June-2020      |             633 |     397621 |             0.16 |
+| Belize                           | July-2020      |            1208 |     397621 |              0.3 |
+| Belize                           | August-2020    |           13861 |     397621 |             3.49 |
+| Belize                           | September-2020 |           45432 |     397621 |            11.43 |
+| Belize                           | October-2020   |           84329 |     397621 |            21.21 |
+| Belize                           | November-2020  |          142741 |     397621 |             35.9 |
+| Belize                           | December-2020  |          285706 |     397621 |            71.85 |
+| Belize                           | January-2021   |          355291 |     397621 |            89.35 |
+| Belize                           | February-2021  |          340198 |     397621 |            85.56 |
+| Belize                           | March-2021     |          383735 |     397621 |            96.51 |
+| Belize                           | April-2021     |          376175 |     397621 |            94.61 |
+| Benin                            | March-2020     |              68 |   12123198 |                0 |
+| Benin                            | April-2020     |            1178 |   12123198 |             0.01 |
+| Benin                            | May-2020       |            6566 |   12123198 |             0.05 |
+| Benin                            | June-2020      |           17757 |   12123198 |             0.15 |
+| Benin                            | July-2020      |           46022 |   12123198 |             0.38 |
+| Benin                            | August-2020    |           62855 |   12123198 |             0.52 |
+| Benin                            | September-2020 |           68013 |   12123198 |             0.56 |
+| Benin                            | October-2020   |           76944 |   12123198 |             0.63 |
+| Benin                            | November-2020  |           85621 |   12123198 |             0.71 |
+| Benin                            | December-2020  |           97112 |   12123198 |              0.8 |
+| Benin                            | January-2021   |          107836 |   12123198 |             0.89 |
+| Benin                            | February-2021  |          133911 |   12123198 |              1.1 |
+| Benin                            | March-2021     |          203298 |   12123198 |             1.68 |
+| Benin                            | April-2021     |          227170 |   12123198 |             1.87 |
+| Bermuda                          | January-2021   |               0 |      62273 |                0 |
+| Bermuda                          | February-2021  |               0 |      62273 |                0 |
+| Bermuda                          | March-2021     |               0 |      62273 |                0 |
+| Bermuda                          | April-2021     |               0 |      62273 |                0 |
+| Bhutan                           | March-2020     |              46 |     771612 |             0.01 |
+| Bhutan                           | April-2020     |             167 |     771612 |             0.02 |
+| Bhutan                           | May-2020       |             561 |     771612 |             0.07 |
+| Bhutan                           | June-2020      |            1897 |     771612 |             0.25 |
+| Bhutan                           | July-2020      |            2700 |     771612 |             0.35 |
+| Bhutan                           | August-2020    |            4396 |     771612 |             0.57 |
+| Bhutan                           | September-2020 |            7485 |     771612 |             0.97 |
+| Bhutan                           | October-2020   |            9919 |     771612 |             1.29 |
+| Bhutan                           | November-2020  |           11234 |     771612 |             1.46 |
+| Bhutan                           | December-2020  |           15035 |     771612 |             1.95 |
+| Bhutan                           | January-2021   |           25294 |     771612 |             3.28 |
+| Bhutan                           | February-2021  |           24183 |     771612 |             3.13 |
+| Bhutan                           | March-2021     |           26933 |     771612 |             3.49 |
+| Bhutan                           | April-2021     |           28670 |     771612 |             3.72 |
+| Bolivia                          | March-2020     |             682 |   11673029 |             0.01 |
+| Bolivia                          | April-2020     |           14801 |   11673029 |             0.13 |
+| Bolivia                          | May-2020       |          137671 |   11673029 |             1.18 |
+| Bolivia                          | June-2020      |          614758 |   11673029 |             5.27 |
+| Bolivia                          | July-2020      |         1700323 |   11673029 |            14.57 |
+| Bolivia                          | August-2020    |         3085662 |   11673029 |            26.43 |
+| Bolivia                          | September-2020 |         3821303 |   11673029 |            32.74 |
+| Bolivia                          | October-2020   |         4317118 |   11673029 |            36.98 |
+| Bolivia                          | November-2020  |         4298716 |   11673029 |            36.83 |
+| Bolivia                          | December-2020  |         4637462 |   11673029 |            39.73 |
+| Bolivia                          | January-2021   |         5778389 |   11673029 |             49.5 |
+| Bolivia                          | February-2021  |         6603704 |   11673029 |            56.57 |
+| Bolivia                          | March-2021     |         8093271 |   11673029 |            69.33 |
+| Bolivia                          | April-2021     |         8619557 |   11673029 |            73.84 |
+| Bosnia and Herzegovina           | March-2020     |            2826 |    3280815 |             0.09 |
+| Bosnia and Herzegovina           | April-2020     |           33408 |    3280815 |             1.02 |
+| Bosnia and Herzegovina           | May-2020       |           68816 |    3280815 |              2.1 |
+| Bosnia and Herzegovina           | June-2020      |           95167 |    3280815 |              2.9 |
+| Bosnia and Herzegovina           | July-2020      |          241630 |    3280815 |             7.36 |
+| Bosnia and Herzegovina           | August-2020    |          494986 |    3280815 |            15.09 |
+| Bosnia and Herzegovina           | September-2020 |          721110 |    3280815 |            21.98 |
+| Bosnia and Herzegovina           | October-2020   |         1082304 |    3280815 |            32.99 |
+| Bosnia and Herzegovina           | November-2020  |         2143108 |    3280815 |            65.32 |
+| Bosnia and Herzegovina           | December-2020  |         3166283 |    3280815 |            96.51 |
+| Bosnia and Herzegovina           | January-2021   |         3632102 |    3280815 |           110.71 |
+| Bosnia and Herzegovina           | February-2021  |         3535303 |    3280815 |           107.76 |
+| Bosnia and Herzegovina           | March-2021     |         4584265 |    3280815 |           139.73 |
+| Bosnia and Herzegovina           | April-2021     |         5603125 |    3280815 |           170.78 |
+| Botswana                         | March-2020     |               7 |    2351625 |                0 |
+| Botswana                         | April-2020     |             437 |    2351625 |             0.02 |
+| Botswana                         | May-2020       |             843 |    2351625 |             0.04 |
+| Botswana                         | June-2020      |            2211 |    2351625 |             0.09 |
+| Botswana                         | July-2020      |           14959 |    2351625 |             0.64 |
+| Botswana                         | August-2020    |           37084 |    2351625 |             1.58 |
+| Botswana                         | September-2020 |           73122 |    2351625 |             3.11 |
+| Botswana                         | October-2020   |          144559 |    2351625 |             6.15 |
+| Botswana                         | November-2020  |          261748 |    2351625 |            11.13 |
+| Botswana                         | December-2020  |          398982 |    2351625 |            16.97 |
+| Botswana                         | January-2021   |          556279 |    2351625 |            23.66 |
+| Botswana                         | February-2021  |          715384 |    2351625 |            30.42 |
+| Botswana                         | March-2021     |         1087347 |    2351625 |            46.24 |
+| Botswana                         | April-2021     |         1315455 |    2351625 |            55.94 |
+| Brazil                           | February-2020  |               5 |  212559409 |                0 |
+| Brazil                           | March-2020     |           37127 |  212559409 |             0.02 |
+| Brazil                           | April-2020     |         1048506 |  212559409 |             0.49 |
+| Brazil                           | May-2020       |         7944285 |  212559409 |             3.74 |
+| Brazil                           | June-2020      |        28161222 |  212559409 |            13.25 |
+| Brazil                           | July-2020      |        62641865 |  212559409 |            29.47 |
+| Brazil                           | August-2020    |       102903896 |  212559409 |            48.41 |
+| Brazil                           | September-2020 |       132059962 |  212559409 |            62.13 |
+| Brazil                           | October-2020   |       160991539 |  212559409 |            75.74 |
+| Brazil                           | November-2020  |       176837421 |  212559409 |            83.19 |
+| Brazil                           | December-2020  |       218249737 |  212559409 |           102.68 |
+| Brazil                           | January-2021   |       261187142 |  212559409 |           122.88 |
+| Brazil                           | February-2021  |       276456100 |  212559409 |           130.06 |
+| Brazil                           | March-2021     |       361059664 |  212559409 |           169.86 |
+| Brazil                           | April-2021     |       412565115 |  212559409 |           194.09 |
+| Brunei                           | March-2020     |            1688 |     437483 |             0.39 |
+| Brunei                           | April-2020     |            4089 |     437483 |             0.93 |
+| Brunei                           | May-2020       |            4354 |     437483 |                1 |
+| Brunei                           | June-2020      |            4230 |     437483 |             0.97 |
+| Brunei                           | July-2020      |            4371 |     437483 |                1 |
+| Brunei                           | August-2020    |            4416 |     437483 |             1.01 |
+| Brunei                           | September-2020 |            4355 |     437483 |                1 |
+| Brunei                           | October-2020   |            4554 |     437483 |             1.04 |
+| Brunei                           | November-2020  |            4455 |     437483 |             1.02 |
+| Brunei                           | December-2020  |            4715 |     437483 |             1.08 |
+| Brunei                           | January-2021   |            5379 |     437483 |             1.23 |
+| Brunei                           | February-2021  |            5133 |     437483 |             1.17 |
+| Brunei                           | March-2021     |            6155 |     437483 |             1.41 |
+| Brunei                           | April-2021     |            6588 |     437483 |             1.51 |
+| Bulgaria                         | March-2020     |            3576 |    6948445 |             0.05 |
+| Bulgaria                         | April-2020     |           25790 |    6948445 |             0.37 |
+| Bulgaria                         | May-2020       |           65828 |    6948445 |             0.95 |
+| Bulgaria                         | June-2020      |          105731 |    6948445 |             1.52 |
+| Bulgaria                         | July-2020      |          254933 |    6948445 |             3.67 |
+| Bulgaria                         | August-2020    |          443823 |    6948445 |             6.39 |
+| Bulgaria                         | September-2020 |          552189 |    6948445 |             7.95 |
+| Bulgaria                         | October-2020   |          962977 |    6948445 |            13.86 |
+| Bulgaria                         | November-2020  |         3044632 |    6948445 |            43.82 |
+| Bulgaria                         | December-2020  |         5636378 |    6948445 |            81.12 |
+| Bulgaria                         | January-2021   |         6550706 |    6948445 |            94.28 |
+| Bulgaria                         | February-2021  |         6492052 |    6948445 |            93.43 |
+| Bulgaria                         | March-2021     |         9012470 |    6948445 |            129.7 |
+| Bulgaria                         | April-2021     |        11402304 |    6948445 |            164.1 |
+| Burkina Faso                     | March-2020     |            1901 |   20903278 |             0.01 |
+| Burkina Faso                     | April-2020     |           15230 |   20903278 |             0.07 |
+| Burkina Faso                     | May-2020       |           24013 |   20903278 |             0.11 |
+| Burkina Faso                     | June-2020      |           27120 |   20903278 |             0.13 |
+| Burkina Faso                     | July-2020      |           32311 |   20903278 |             0.15 |
+| Burkina Faso                     | August-2020    |           38874 |   20903278 |             0.19 |
+| Burkina Faso                     | September-2020 |           51159 |   20903278 |             0.24 |
+| Burkina Faso                     | October-2020   |           72258 |   20903278 |             0.35 |
+| Burkina Faso                     | November-2020  |           79775 |   20903278 |             0.38 |
+| Burkina Faso                     | December-2020  |          143616 |   20903278 |             0.69 |
+| Burkina Faso                     | January-2021   |          275921 |   20903278 |             1.32 |
+| Burkina Faso                     | February-2021  |          322977 |   20903278 |             1.55 |
+| Burkina Faso                     | March-2021     |          384211 |   20903278 |             1.84 |
+| Burkina Faso                     | April-2021     |          391736 |   20903278 |             1.87 |
+| Burundi                          | March-2020     |               2 |   11890781 |                0 |
+| Burundi                          | April-2020     |             183 |   11890781 |                0 |
+| Burundi                          | May-2020       |             889 |   11890781 |             0.01 |
+| Burundi                          | June-2020      |            3219 |   11890781 |             0.03 |
+| Burundi                          | July-2020      |            8597 |   11890781 |             0.07 |
+| Burundi                          | August-2020    |           12907 |   11890781 |             0.11 |
+| Burundi                          | September-2020 |           14171 |   11890781 |             0.12 |
+| Burundi                          | October-2020   |           16650 |   11890781 |             0.14 |
+| Burundi                          | November-2020  |           19096 |   11890781 |             0.16 |
+| Burundi                          | December-2020  |           23099 |   11890781 |             0.19 |
+| Burundi                          | January-2021   |           36863 |   11890781 |             0.31 |
+| Burundi                          | February-2021  |           52468 |   11890781 |             0.44 |
+| Burundi                          | March-2021     |           77229 |   11890781 |             0.65 |
+| Burundi                          | April-2021     |          102093 |   11890781 |             0.86 |
+| Cambodia                         | January-2020   |               5 |   16718971 |                0 |
+| Cambodia                         | February-2020  |              29 |   16718971 |                0 |
+| Cambodia                         | March-2020     |            1225 |   16718971 |             0.01 |
+| Cambodia                         | April-2020     |            3583 |   16718971 |             0.02 |
+| Cambodia                         | May-2020       |            3804 |   16718971 |             0.02 |
+| Cambodia                         | June-2020      |            3885 |   16718971 |             0.02 |
+| Cambodia                         | July-2020      |            5473 |   16718971 |             0.03 |
+| Cambodia                         | August-2020    |            8173 |   16718971 |             0.05 |
+| Cambodia                         | September-2020 |            8247 |   16718971 |             0.05 |
+| Cambodia                         | October-2020   |            8809 |   16718971 |             0.05 |
+| Cambodia                         | November-2020  |            9085 |   16718971 |             0.05 |
+| Cambodia                         | December-2020  |           11076 |   16718971 |             0.07 |
+| Cambodia                         | January-2021   |           13195 |   16718971 |             0.08 |
+| Cambodia                         | February-2021  |           15201 |   16718971 |             0.09 |
+| Cambodia                         | March-2021     |           46744 |   16718971 |             0.28 |
+| Cambodia                         | April-2021     |          189155 |   16718971 |             1.13 |
+| Cameroon                         | March-2020     |            1067 |   26545864 |                0 |
+| Cameroon                         | April-2020     |           30497 |   26545864 |             0.11 |
+| Cameroon                         | May-2020       |          109504 |   26545864 |             0.41 |
+| Cameroon                         | June-2020      |          295083 |   26545864 |             1.11 |
+| Cameroon                         | July-2020      |          477610 |   26545864 |              1.8 |
+| Cameroon                         | August-2020    |          570225 |   26545864 |             2.15 |
+| Cameroon                         | September-2020 |          606411 |   26545864 |             2.28 |
+| Cameroon                         | October-2020   |          662489 |   26545864 |              2.5 |
+| Cameroon                         | November-2020  |          690210 |   26545864 |              2.6 |
+| Cameroon                         | December-2020  |          788845 |   26545864 |             2.97 |
+| Cameroon                         | January-2021   |          867295 |   26545864 |             3.27 |
+| Cameroon                         | February-2021  |          910920 |   26545864 |             3.43 |
+| Cameroon                         | March-2021     |         1255724 |   26545864 |             4.73 |
+| Cameroon                         | April-2021     |         1886280 |   26545864 |             7.11 |
+| Canada                           | January-2020   |              12 |   37742157 |                0 |
+| Canada                           | February-2020  |             234 |   37742157 |                0 |
+| Canada                           | March-2020     |           52015 |   37742157 |             0.14 |
+| Canada                           | April-2020     |          929888 |   37742157 |             2.46 |
+| Canada                           | May-2020       |         2369720 |   37742157 |             6.28 |
+| Canada                           | June-2020      |         3016433 |   37742157 |             7.99 |
+| Canada                           | July-2020      |         3460185 |   37742157 |             9.17 |
+| Canada                           | August-2020    |         3854051 |   37742157 |            10.21 |
+| Canada                           | September-2020 |         4290890 |   37742157 |            11.37 |
+| Canada                           | October-2020   |         6126216 |   37742157 |            16.23 |
+| Canada                           | November-2020  |         9141329 |   37742157 |            24.22 |
+| Canada                           | December-2020  |        15031370 |   37742157 |            39.83 |
+| Canada                           | January-2021   |        21663417 |   37742157 |             57.4 |
+| Canada                           | February-2021  |        23280680 |   37742157 |            61.68 |
+| Canada                           | March-2021     |        28667193 |   37742157 |            75.96 |
+| Canada                           | April-2021     |        33242319 |   37742157 |            88.08 |
+| Cape Verde                       | March-2020     |              49 |     555988 |             0.01 |
+| Cape Verde                       | April-2020     |            1423 |     555988 |             0.26 |
+| Cape Verde                       | May-2020       |            9336 |     555988 |             1.68 |
+| Cape Verde                       | June-2020      |           23482 |     555988 |             4.22 |
+| Cape Verde                       | July-2020      |           58038 |     555988 |            10.44 |
+| Cape Verde                       | August-2020    |           98700 |     555988 |            17.75 |
+| Cape Verde                       | September-2020 |          148629 |     555988 |            26.73 |
+| Cape Verde                       | October-2020   |          232518 |     555988 |            41.82 |
+| Cape Verde                       | November-2020  |          295451 |     555988 |            53.14 |
+| Cape Verde                       | December-2020  |          353444 |     555988 |            63.57 |
+| Cape Verde                       | January-2021   |          399245 |     555988 |            71.81 |
+| Cape Verde                       | February-2021  |          412799 |     555988 |            74.25 |
+| Cape Verde                       | March-2021     |          504501 |     555988 |            90.74 |
+| Cape Verde                       | April-2021     |          604208 |     555988 |           108.67 |
+| Cayman Islands                   | December-2020  |               0 |      65720 |                0 |
+| Cayman Islands                   | January-2021   |               0 |      65720 |                0 |
+| Cayman Islands                   | February-2021  |               0 |      65720 |                0 |
+| Cayman Islands                   | March-2021     |               0 |      65720 |                0 |
+| Cayman Islands                   | April-2021     |               0 |      65720 |                0 |
+| Central African Republic         | March-2020     |              41 |    4829764 |                0 |
+| Central African Republic         | April-2020     |             444 |    4829764 |             0.01 |
+| Central African Republic         | May-2020       |           11339 |    4829764 |             0.23 |
+| Central African Republic         | June-2020      |           70765 |    4829764 |             1.47 |
+| Central African Republic         | July-2020      |          134487 |    4829764 |             2.78 |
+| Central African Republic         | August-2020    |          144485 |    4829764 |             2.99 |
+| Central African Republic         | September-2020 |          143052 |    4829764 |             2.96 |
+| Central African Republic         | October-2020   |          150498 |    4829764 |             3.12 |
+| Central African Republic         | November-2020  |          146812 |    4829764 |             3.04 |
+| Central African Republic         | December-2020  |          153026 |    4829764 |             3.17 |
+| Central African Republic         | January-2021   |          154155 |    4829764 |             3.19 |
+| Central African Republic         | February-2021  |          139885 |    4829764 |              2.9 |
+| Central African Republic         | March-2021     |          156694 |    4829764 |             3.24 |
+| Central African Republic         | April-2021     |          173004 |    4829764 |             3.58 |
+| Chad                             | March-2020     |              35 |   16425859 |                0 |
+| Chad                             | April-2020     |             797 |   16425859 |                0 |
+| Chad                             | May-2020       |           14051 |   16425859 |             0.09 |
+| Chad                             | June-2020      |           25427 |   16425859 |             0.15 |
+| Chad                             | July-2020      |           27639 |   16425859 |             0.17 |
+| Chad                             | August-2020    |           29949 |   16425859 |             0.18 |
+| Chad                             | September-2020 |           33155 |   16425859 |              0.2 |
+| Chad                             | October-2020   |           41806 |   16425859 |             0.25 |
+| Chad                             | November-2020  |           47873 |   16425859 |             0.29 |
+| Chad                             | December-2020  |           57171 |   16425859 |             0.35 |
+| Chad                             | January-2021   |           86880 |   16425859 |             0.53 |
+| Chad                             | February-2021  |          102859 |   16425859 |             0.63 |
+| Chad                             | March-2021     |          133784 |   16425859 |             0.81 |
+| Chad                             | April-2021     |          140453 |   16425859 |             0.86 |
+| Chile                            | February-2020  |              14 |   19116209 |                0 |
+| Chile                            | March-2020     |           18796 |   19116209 |              0.1 |
+| Chile                            | April-2020     |          285413 |   19116209 |             1.49 |
+| Chile                            | May-2020       |         1763115 |   19116209 |             9.22 |
+| Chile                            | June-2020      |         6291295 |   19116209 |            32.91 |
+| Chile                            | July-2020      |         9987599 |   19116209 |            52.25 |
+| Chile                            | August-2020    |        11936049 |   19116209 |            62.44 |
+| Chile                            | September-2020 |        13147124 |   19116209 |            68.77 |
+| Chile                            | October-2020   |        15134758 |   19116209 |            79.17 |
+| Chile                            | November-2020  |        15945192 |   19116209 |            83.41 |
+| Chile                            | December-2020  |        17938094 |   19116209 |            93.84 |
+| Chile                            | January-2021   |        20661911 |   19116209 |           108.09 |
+| Chile                            | February-2021  |        21754084 |   19116209 |            113.8 |
+| Chile                            | March-2021     |        28062147 |   19116209 |            146.8 |
+| Chile                            | April-2021     |        33124646 |   19116209 |           173.28 |
+| China                            | January-2020   |           38008 | 1439323774 |                0 |
+| China                            | February-2020  |         1633361 | 1439323774 |             0.11 |
+| China                            | March-2020     |         2515426 | 1439323774 |             0.17 |
+| China                            | April-2020     |         2500143 | 1439323774 |             0.17 |
+| China                            | May-2020       |         2605281 | 1439323774 |             0.18 |
+| China                            | June-2020      |         2532679 | 1439323774 |             0.18 |
+| China                            | July-2020      |         2654943 | 1439323774 |             0.18 |
+| China                            | August-2020    |         2764441 | 1439323774 |             0.19 |
+| China                            | September-2020 |         2707451 | 1439323774 |             0.19 |
+| China                            | October-2020   |         2818977 | 1439323774 |              0.2 |
+| China                            | November-2020  |         2758806 | 1439323774 |             0.19 |
+| China                            | December-2020  |         2931959 | 1439323774 |              0.2 |
+| China                            | January-2021   |         3035071 | 1439323774 |             0.21 |
+| China                            | February-2021  |         2816372 | 1439323774 |              0.2 |
+| China                            | March-2021     |         3143003 | 1439323774 |             0.22 |
+| China                            | April-2021     |         3064656 | 1439323774 |             0.21 |
+| Colombia                         | March-2020     |            6190 |   50882884 |             0.01 |
+| Colombia                         | April-2020     |          101704 |   50882884 |              0.2 |
+| Colombia                         | May-2020       |          492214 |   50882884 |             0.97 |
+| Colombia                         | June-2020      |         1745908 |   50882884 |             3.43 |
+| Colombia                         | July-2020      |         5680255 |   50882884 |            11.16 |
+| Colombia                         | August-2020    |        14415644 |   50882884 |            28.33 |
+| Colombia                         | September-2020 |        21951355 |   50882884 |            43.14 |
+| Colombia                         | October-2020   |        29377177 |   50882884 |            57.73 |
+| Colombia                         | November-2020  |        35993382 |   50882884 |            70.74 |
+| Colombia                         | December-2020  |        45578807 |   50882884 |            89.58 |
+| Colombia                         | January-2021   |        58374546 |   50882884 |           114.72 |
+| Colombia                         | February-2021  |        61356188 |   50882884 |           120.58 |
+| Colombia                         | March-2021     |        71861747 |   50882884 |           141.23 |
+| Colombia                         | April-2021     |        78567887 |   50882884 |           154.41 |
+| Comoros                          | April-2020     |               1 |     869595 |                0 |
+| Comoros                          | May-2020       |            1116 |     869595 |             0.13 |
+| Comoros                          | June-2020      |            5961 |     869595 |             0.69 |
+| Comoros                          | July-2020      |           10233 |     869595 |             1.18 |
+| Comoros                          | August-2020    |           12580 |     869595 |             1.45 |
+| Comoros                          | September-2020 |           13863 |     869595 |             1.59 |
+| Comoros                          | October-2020   |           15608 |     869595 |             1.79 |
+| Comoros                          | November-2020  |           17436 |     869595 |             2.01 |
+| Comoros                          | December-2020  |           20497 |     869595 |             2.36 |
+| Comoros                          | January-2021   |           51485 |     869595 |             5.92 |
+| Comoros                          | February-2021  |           92325 |     869595 |            10.62 |
+| Comoros                          | March-2021     |          112884 |     869595 |            12.98 |
+| Comoros                          | April-2021     |          113736 |     869595 |            13.08 |
+| Congo                            | March-2020     |              97 |    5518092 |                0 |
+| Congo                            | April-2020     |            3419 |    5518092 |             0.06 |
+| Congo                            | May-2020       |           12105 |    5518092 |             0.22 |
+| Congo                            | June-2020      |           25460 |    5518092 |             0.46 |
+| Congo                            | July-2020      |           73328 |    5518092 |             1.33 |
+| Congo                            | August-2020    |          116513 |    5518092 |             2.11 |
+| Congo                            | September-2020 |          146292 |    5518092 |             2.65 |
+| Congo                            | October-2020   |          159997 |    5518092 |              2.9 |
+| Congo                            | November-2020  |          165519 |    5518092 |                3 |
+| Congo                            | December-2020  |          193968 |    5518092 |             3.52 |
+| Congo                            | January-2021   |          232416 |    5518092 |             4.21 |
+| Congo                            | February-2021  |          234475 |    5518092 |             4.25 |
+| Congo                            | March-2021     |          290998 |    5518092 |             5.27 |
+| Congo                            | April-2021     |          304069 |    5518092 |             5.51 |
+| Costa Rica                       | March-2020     |            2987 |    5094114 |             0.06 |
+| Costa Rica                       | April-2020     |           17866 |    5094114 |             0.35 |
+| Costa Rica                       | May-2020       |           26697 |    5094114 |             0.52 |
+| Costa Rica                       | June-2020      |           58319 |    5094114 |             1.14 |
+| Costa Rica                       | July-2020      |          309536 |    5094114 |             6.08 |
+| Costa Rica                       | August-2020    |          890542 |    5094114 |            17.48 |
+| Costa Rica                       | September-2020 |         1771225 |    5094114 |            34.77 |
+| Costa Rica                       | October-2020   |         2901099 |    5094114 |            56.95 |
+| Costa Rica                       | November-2020  |         3734891 |    5094114 |            73.32 |
+| Costa Rica                       | December-2020  |         4796194 |    5094114 |            94.15 |
+| Costa Rica                       | January-2021   |         5681017 |    5094114 |           111.52 |
+| Costa Rica                       | February-2021  |         5594208 |    5094114 |           109.82 |
+| Costa Rica                       | March-2021     |         6522718 |    5094114 |           128.04 |
+| Costa Rica                       | April-2021     |         6872891 |    5094114 |           134.92 |
+| Croatia                          | February-2020  |              18 |    4105268 |                0 |
+| Croatia                          | March-2020     |            6404 |    4105268 |             0.16 |
+| Croatia                          | April-2020     |           49646 |    4105268 |             1.21 |
+| Croatia                          | May-2020       |           68134 |    4105268 |             1.66 |
+| Croatia                          | June-2020      |           70331 |    4105268 |             1.71 |
+| Croatia                          | July-2020      |          124811 |    4105268 |             3.04 |
+| Croatia                          | August-2020    |          217353 |    4105268 |             5.29 |
+| Croatia                          | September-2020 |          415353 |    4105268 |            10.12 |
+| Croatia                          | October-2020   |          831572 |    4105268 |            20.26 |
+| Croatia                          | November-2020  |         2599232 |    4105268 |            63.31 |
+| Croatia                          | December-2020  |         5539120 |    4105268 |           134.93 |
+| Croatia                          | January-2021   |         6921173 |    4105268 |           168.59 |
+| Croatia                          | February-2021  |         6657593 |    4105268 |           162.17 |
+| Croatia                          | March-2021     |         7881286 |    4105268 |           191.98 |
+| Croatia                          | April-2021     |         9063636 |    4105268 |           220.78 |
+| Cuba                             | March-2020     |            1020 |   11326616 |             0.01 |
+| Cuba                             | April-2020     |           25438 |   11326616 |             0.22 |
+| Cuba                             | May-2020       |           56950 |   11326616 |              0.5 |
+| Cuba                             | June-2020      |           67429 |   11326616 |              0.6 |
+| Cuba                             | July-2020      |           75857 |   11326616 |             0.67 |
+| Cuba                             | August-2020    |          102621 |   11326616 |             0.91 |
+| Cuba                             | September-2020 |          145208 |   11326616 |             1.28 |
+| Cuba                             | October-2020   |          192396 |   11326616 |              1.7 |
+| Cuba                             | November-2020  |          228288 |   11326616 |             2.02 |
+| Cuba                             | December-2020  |          305830 |   11326616 |              2.7 |
+| Cuba                             | January-2021   |          554408 |   11326616 |             4.89 |
+| Cuba                             | February-2021  |         1088096 |   11326616 |             9.61 |
+| Cuba                             | March-2021     |         1949383 |   11326616 |            17.21 |
+| Cuba                             | April-2021     |         2738557 |   11326616 |            24.18 |
+| Curacao                          | March-2021     |               0 |     164100 |                0 |
+| Curacao                          | April-2021     |               0 |     164100 |                0 |
+| Cyprus                           | February-2020  |               0 |     875899 |                0 |
+| Cyprus                           | March-2020     |            2089 |     875899 |             0.24 |
+| Cyprus                           | April-2020     |           19846 |     875899 |             2.27 |
+| Cyprus                           | May-2020       |           28209 |     875899 |             3.22 |
+| Cyprus                           | June-2020      |           29366 |     875899 |             3.35 |
+| Cyprus                           | July-2020      |           32017 |     875899 |             3.66 |
+| Cyprus                           | August-2020    |           41372 |     875899 |             4.72 |
+| Cyprus                           | September-2020 |           47357 |     875899 |             5.41 |
+| Cyprus                           | October-2020   |           82890 |     875899 |             9.46 |
+| Cyprus                           | November-2020  |          222920 |     875899 |            25.45 |
+| Cyprus                           | December-2020  |          500151 |     875899 |             57.1 |
+| Cyprus                           | January-2021   |          872089 |     875899 |            99.57 |
+| Cyprus                           | February-2021  |          913382 |     875899 |           104.28 |
+| Cyprus                           | March-2021     |         1250242 |     875899 |           142.74 |
+| Cyprus                           | April-2021     |         1655891 |     875899 |           189.05 |
+| Czechia                          | March-2020     |           25984 |   10708982 |             0.24 |
+| Czechia                          | April-2020     |          184001 |   10708982 |             1.72 |
+| Czechia                          | May-2020       |          262979 |   10708982 |             2.46 |
+| Czechia                          | June-2020      |          307889 |   10708982 |             2.88 |
+| Czechia                          | July-2020      |          430742 |   10708982 |             4.02 |
+| Czechia                          | August-2020    |          628547 |   10708982 |             5.87 |
+| Czechia                          | September-2020 |         1304611 |   10708982 |            12.18 |
+| Czechia                          | October-2020   |         5443207 |   10708982 |            50.83 |
+| Czechia                          | November-2020  |        13617115 |   10708982 |           127.16 |
+| Czechia                          | December-2020  |        18743896 |   10708982 |           175.03 |
+| Czechia                          | January-2021   |        26959120 |   10708982 |           251.74 |
+| Czechia                          | February-2021  |        30777715 |   10708982 |            287.4 |
+| Czechia                          | March-2021     |        43611257 |   10708982 |           407.24 |
+| Czechia                          | April-2021     |        47718289 |   10708982 |           445.59 |
+| Democratic Republic of Congo     | March-2020     |             642 |   89561404 |                0 |
+| Democratic Republic of Congo     | April-2020     |            8639 |   89561404 |             0.01 |
+| Democratic Republic of Congo     | May-2020       |           48228 |   89561404 |             0.05 |
+| Democratic Republic of Congo     | June-2020      |          152518 |   89561404 |             0.17 |
+| Democratic Republic of Congo     | July-2020      |          253461 |   89561404 |             0.28 |
+| Democratic Republic of Congo     | August-2020    |          298422 |   89561404 |             0.33 |
+| Democratic Republic of Congo     | September-2020 |          312145 |   89561404 |             0.35 |
+| Democratic Republic of Congo     | October-2020   |          340349 |   89561404 |             0.38 |
+| Democratic Republic of Congo     | November-2020  |          357658 |   89561404 |              0.4 |
+| Democratic Republic of Congo     | December-2020  |          465473 |   89561404 |             0.52 |
+| Democratic Republic of Congo     | January-2021   |          633392 |   89561404 |             0.71 |
+| Democratic Republic of Congo     | February-2021  |          682090 |   89561404 |             0.76 |
+| Democratic Republic of Congo     | March-2021     |          841033 |   89561404 |             0.94 |
+| Democratic Republic of Congo     | April-2021     |          867489 |   89561404 |             0.97 |
+| Denmark                          | February-2020  |               5 |    5792203 |                0 |
+| Denmark                          | March-2020     |           32722 |    5792203 |             0.56 |
+| Denmark                          | April-2020     |          203547 |    5792203 |             3.51 |
+| Denmark                          | May-2020       |          338822 |    5792203 |             5.85 |
+| Denmark                          | June-2020      |          373368 |    5792203 |             6.45 |
+| Denmark                          | July-2020      |          414692 |    5792203 |             7.16 |
+| Denmark                          | August-2020    |          490789 |    5792203 |             8.47 |
+| Denmark                          | September-2020 |          658184 |    5792203 |            11.36 |
+| Denmark                          | October-2020   |         1116242 |    5792203 |            19.27 |
+| Denmark                          | November-2020  |         1916850 |    5792203 |            33.09 |
+| Denmark                          | December-2020  |         3767540 |    5792203 |            65.05 |
+| Denmark                          | January-2021   |         5785270 |    5792203 |            99.88 |
+| Denmark                          | February-2021  |         5754590 |    5792203 |            99.35 |
+| Denmark                          | March-2021     |         6880888 |    5792203 |            118.8 |
+| Denmark                          | April-2021     |         7249735 |    5792203 |           125.16 |
+| Djibouti                         | March-2020     |             125 |     988002 |             0.01 |
+| Djibouti                         | April-2020     |           16283 |     988002 |             1.65 |
+| Djibouti                         | May-2020       |           54254 |     988002 |             5.49 |
+| Djibouti                         | June-2020      |          132173 |     988002 |            13.38 |
+| Djibouti                         | July-2020      |          153695 |     988002 |            15.56 |
+| Djibouti                         | August-2020    |          165639 |     988002 |            16.77 |
+| Djibouti                         | September-2020 |          161960 |     988002 |            16.39 |
+| Djibouti                         | October-2020   |          169641 |     988002 |            17.17 |
+| Djibouti                         | November-2020  |          169185 |     988002 |            17.12 |
+| Djibouti                         | December-2020  |          178378 |     988002 |            18.05 |
+| Djibouti                         | January-2021   |          182684 |     988002 |            18.49 |
+| Djibouti                         | February-2021  |          167737 |     988002 |            16.98 |
+| Djibouti                         | March-2021     |          203948 |     988002 |            20.64 |
+| Djibouti                         | April-2021     |          300878 |     988002 |            30.45 |
+| Dominica                         | March-2020     |              79 |      71991 |             0.11 |
+| Dominica                         | April-2020     |             460 |      71991 |             0.64 |
+| Dominica                         | May-2020       |             496 |      71991 |             0.69 |
+| Dominica                         | June-2020      |             538 |      71991 |             0.75 |
+| Dominica                         | July-2020      |             558 |      71991 |             0.78 |
+| Dominica                         | August-2020    |             576 |      71991 |              0.8 |
+| Dominica                         | September-2020 |             718 |      71991 |                1 |
+| Dominica                         | October-2020   |            1061 |      71991 |             1.47 |
+| Dominica                         | November-2020  |            2033 |      71991 |             2.82 |
+| Dominica                         | December-2020  |            2696 |      71991 |             3.74 |
+| Dominica                         | January-2021   |            3325 |      71991 |             4.62 |
+| Dominica                         | February-2021  |            3612 |      71991 |             5.02 |
+| Dominica                         | March-2021     |            4761 |      71991 |             6.61 |
+| Dominica                         | April-2021     |            5029 |      71991 |             6.99 |
+| Dominican Republic               | March-2020     |            6140 |   10847904 |             0.06 |
+| Dominican Republic               | April-2020     |          115932 |   10847904 |             1.07 |
+| Dominican Republic               | May-2020       |          376401 |   10847904 |             3.47 |
+| Dominican Republic               | June-2020      |          721962 |   10847904 |             6.66 |
+| Dominican Republic               | July-2020      |         1543434 |   10847904 |            14.23 |
+| Dominican Republic               | August-2020    |         2630788 |   10847904 |            24.25 |
+| Dominican Republic               | September-2020 |         3143556 |   10847904 |            28.98 |
+| Dominican Republic               | October-2020   |         3727191 |   10847904 |            34.36 |
+| Dominican Republic               | November-2020  |         4036491 |   10847904 |            37.21 |
+| Dominican Republic               | December-2020  |         4864830 |   10847904 |            44.85 |
+| Dominican Republic               | January-2021   |         5941766 |   10847904 |            54.77 |
+| Dominican Republic               | February-2021  |         6413645 |   10847904 |            59.12 |
+| Dominican Republic               | March-2021     |         7652946 |   10847904 |            70.55 |
+| Dominican Republic               | April-2021     |         7794798 |   10847904 |            71.86 |
+| Ecuador                          | March-2020     |           16469 |   17643060 |             0.09 |
+| Ecuador                          | April-2020     |          321161 |   17643060 |             1.82 |
+| Ecuador                          | May-2020       |         1029314 |   17643060 |             5.83 |
+| Ecuador                          | June-2020      |         1429745 |   17643060 |              8.1 |
+| Ecuador                          | July-2020      |         2217004 |   17643060 |            12.57 |
+| Ecuador                          | August-2020    |         3121790 |   17643060 |            17.69 |
+| Ecuador                          | September-2020 |         3678159 |   17643060 |            20.85 |
+| Ecuador                          | October-2020   |         4714534 |   17643060 |            26.72 |
+| Ecuador                          | November-2020  |         5411330 |   17643060 |            30.67 |
+| Ecuador                          | December-2020  |         6306084 |   17643060 |            35.74 |
+| Ecuador                          | January-2021   |         7125483 |   17643060 |            40.39 |
+| Ecuador                          | February-2021  |         7472445 |   17643060 |            42.35 |
+| Ecuador                          | March-2021     |         9480656 |   17643060 |            53.74 |
+| Ecuador                          | April-2021     |        10654344 |   17643060 |            60.39 |
+| Egypt                            | February-2020  |              16 |  102334403 |                0 |
+| Egypt                            | March-2020     |            7140 |  102334403 |             0.01 |
+| Egypt                            | April-2020     |           83386 |  102334403 |             0.08 |
+| Egypt                            | May-2020       |          403993 |  102334403 |             0.39 |
+| Egypt                            | June-2020      |         1406847 |  102334403 |             1.37 |
+| Egypt                            | July-2020      |         2615575 |  102334403 |             2.56 |
+| Egypt                            | August-2020    |         2991066 |  102334403 |             2.92 |
+| Egypt                            | September-2020 |         3038840 |  102334403 |             2.97 |
+| Egypt                            | October-2020   |         3263459 |  102334403 |             3.19 |
+| Egypt                            | November-2020  |         3339298 |  102334403 |             3.26 |
+| Egypt                            | December-2020  |         3859859 |  102334403 |             3.77 |
+| Egypt                            | January-2021   |         4792291 |  102334403 |             4.68 |
+| Egypt                            | February-2021  |         4878915 |  102334403 |             4.77 |
+| Egypt                            | March-2021     |         5961213 |  102334403 |             5.83 |
+| Egypt                            | April-2021     |         6435218 |  102334403 |             6.29 |
+| El Salvador                      | March-2020     |             156 |    6486201 |                0 |
+| El Salvador                      | April-2020     |            5333 |    6486201 |             0.08 |
+| El Salvador                      | May-2020       |           41262 |    6486201 |             0.64 |
+| El Salvador                      | June-2020      |          122784 |    6486201 |             1.89 |
+| El Salvador                      | July-2020      |          347650 |    6486201 |             5.36 |
+| El Salvador                      | August-2020    |          692113 |    6486201 |            10.67 |
+| El Salvador                      | September-2020 |          819156 |    6486201 |            12.63 |
+| El Salvador                      | October-2020   |          969372 |    6486201 |            14.95 |
+| El Salvador                      | November-2020  |         1095940 |    6486201 |             16.9 |
+| El Salvador                      | December-2020  |         1318177 |    6486201 |            20.32 |
+| El Salvador                      | January-2021   |         1573181 |    6486201 |            24.25 |
+| El Salvador                      | February-2021  |         1619262 |    6486201 |            24.96 |
+| El Salvador                      | March-2021     |         1939285 |    6486201 |             29.9 |
+| El Salvador                      | April-2021     |         2010965 |    6486201 |               31 |
+| Equatorial Guinea                | March-2020     |             130 |    1402985 |             0.01 |
+| Equatorial Guinea                | April-2020     |            2867 |    1402985 |              0.2 |
+| Equatorial Guinea                | May-2020       |           21842 |    1402985 |             1.56 |
+| Equatorial Guinea                | June-2020      |           46572 |    1402985 |             3.32 |
+| Equatorial Guinea                | July-2020      |           95881 |    1402985 |             6.83 |
+| Equatorial Guinea                | August-2020    |          150812 |    1402985 |            10.75 |
+| Equatorial Guinea                | September-2020 |          149975 |    1402985 |            10.69 |
+| Equatorial Guinea                | October-2020   |          157079 |    1402985 |             11.2 |
+| Equatorial Guinea                | November-2020  |          153445 |    1402985 |            10.94 |
+| Equatorial Guinea                | December-2020  |          161321 |    1402985 |             11.5 |
+| Equatorial Guinea                | January-2021   |          166183 |    1402985 |            11.84 |
+| Equatorial Guinea                | February-2021  |          159963 |    1402985 |             11.4 |
+| Equatorial Guinea                | March-2021     |          203858 |    1402985 |            14.53 |
+| Equatorial Guinea                | April-2021     |          219014 |    1402985 |            15.61 |
+| Eritrea                          | March-2020     |              65 |    3546427 |                0 |
+| Eritrea                          | April-2020     |            1027 |    3546427 |             0.03 |
+| Eritrea                          | May-2020       |            1209 |    3546427 |             0.03 |
+| Eritrea                          | June-2020      |            3083 |    3546427 |             0.09 |
+| Eritrea                          | July-2020      |            7490 |    3546427 |             0.21 |
+| Eritrea                          | August-2020    |            9178 |    3546427 |             0.26 |
+| Eritrea                          | September-2020 |           10664 |    3546427 |              0.3 |
+| Eritrea                          | October-2020   |           13346 |    3546427 |             0.38 |
+| Eritrea                          | November-2020  |           15545 |    3546427 |             0.44 |
+| Eritrea                          | December-2020  |           24769 |    3546427 |              0.7 |
+| Eritrea                          | January-2021   |           54320 |    3546427 |             1.53 |
+| Eritrea                          | February-2021  |           70980 |    3546427 |                2 |
+| Eritrea                          | March-2021     |           95058 |    3546427 |             2.68 |
+| Eritrea                          | April-2021     |          104836 |    3546427 |             2.96 |
+| Estonia                          | February-2020  |               3 |    1326539 |                0 |
+| Estonia                          | March-2020     |            7350 |    1326539 |             0.55 |
+| Estonia                          | April-2020     |           41075 |    1326539 |              3.1 |
+| Estonia                          | May-2020       |           55005 |    1326539 |             4.15 |
+| Estonia                          | June-2020      |           58725 |    1326539 |             4.43 |
+| Estonia                          | July-2020      |           62542 |    1326539 |             4.71 |
+| Estonia                          | August-2020    |           68481 |    1326539 |             5.16 |
+| Estonia                          | September-2020 |           83987 |    1326539 |             6.33 |
+| Estonia                          | October-2020   |          125799 |    1326539 |             9.48 |
+| Estonia                          | November-2020  |          241995 |    1326539 |            18.24 |
+| Estonia                          | December-2020  |          612913 |    1326539 |             46.2 |
+| Estonia                          | January-2021   |         1127645 |    1326539 |            85.01 |
+| Estonia                          | February-2021  |         1495578 |    1326539 |           112.74 |
+| Estonia                          | March-2021     |         2713051 |    1326539 |           204.52 |
+| Estonia                          | April-2021     |         3472209 |    1326539 |           261.75 |
+| Eswatini                         | March-2020     |              75 |    1160164 |             0.01 |
+| Eswatini                         | April-2020     |             843 |    1160164 |             0.07 |
+| Eswatini                         | May-2020       |            6137 |    1160164 |             0.53 |
+| Eswatini                         | June-2020      |           15782 |    1160164 |             1.36 |
+| Eswatini                         | July-2020      |           50503 |    1160164 |             4.35 |
+| Eswatini                         | August-2020    |          115702 |    1160164 |             9.97 |
+| Eswatini                         | September-2020 |          153585 |    1160164 |            13.24 |
+| Eswatini                         | October-2020   |          177725 |    1160164 |            15.32 |
+| Eswatini                         | November-2020  |          183907 |    1160164 |            15.85 |
+| Eswatini                         | December-2020  |          227464 |    1160164 |            19.61 |
+| Eswatini                         | January-2021   |          394910 |    1160164 |            34.04 |
+| Eswatini                         | February-2021  |          462296 |    1160164 |            39.85 |
+| Eswatini                         | March-2021     |          534337 |    1160164 |            46.06 |
+| Eswatini                         | April-2021     |          541073 |    1160164 |            46.64 |
+| Ethiopia                         | March-2020     |             203 |  114963583 |                0 |
+| Ethiopia                         | April-2020     |            2558 |  114963583 |                0 |
+| Ethiopia                         | May-2020       |           12773 |  114963583 |             0.01 |
+| Ethiopia                         | June-2020      |          106607 |  114963583 |             0.09 |
+| Ethiopia                         | July-2020      |          300942 |  114963583 |             0.26 |
+| Ethiopia                         | August-2020    |          998557 |  114963583 |             0.87 |
+| Ethiopia                         | September-2020 |         1964723 |  114963583 |             1.71 |
+| Ethiopia                         | October-2020   |         2703736 |  114963583 |             2.35 |
+| Ethiopia                         | November-2020  |         3089373 |  114963583 |             2.69 |
+| Ethiopia                         | December-2020  |         3653211 |  114963583 |             3.18 |
+| Ethiopia                         | January-2021   |         4052409 |  114963583 |             3.52 |
+| Ethiopia                         | February-2021  |         4140296 |  114963583 |              3.6 |
+| Ethiopia                         | March-2021     |         5589105 |  114963583 |             4.86 |
+| Ethiopia                         | April-2021     |         7079762 |  114963583 |             6.16 |
+| Faeroe Islands                   | January-2021   |               0 |      48865 |                0 |
+| Faeroe Islands                   | February-2021  |               0 |      48865 |                0 |
+| Faeroe Islands                   | March-2021     |               0 |      48865 |                0 |
+| Faeroe Islands                   | April-2021     |               0 |      48865 |                0 |
+| Falkland Islands                 | February-2021  |               0 |       3483 |                0 |
+| Falkland Islands                 | March-2021     |               0 |       3483 |                0 |
+| Falkland Islands                 | April-2021     |               0 |       3483 |                0 |
+| Fiji                             | January-2020   |               0 |     896444 |                0 |
+| Fiji                             | February-2020  |               0 |     896444 |                0 |
+| Fiji                             | March-2020     |              47 |     896444 |             0.01 |
+| Fiji                             | April-2020     |             464 |     896444 |             0.05 |
+| Fiji                             | May-2020       |             558 |     896444 |             0.06 |
+| Fiji                             | June-2020      |             540 |     896444 |             0.06 |
+| Fiji                             | July-2020      |             765 |     896444 |             0.09 |
+| Fiji                             | August-2020    |             856 |     896444 |              0.1 |
+| Fiji                             | September-2020 |             944 |     896444 |             0.11 |
+| Fiji                             | October-2020   |            1006 |     896444 |             0.11 |
+| Fiji                             | November-2020  |            1065 |     896444 |             0.12 |
+| Fiji                             | December-2020  |            1405 |     896444 |             0.16 |
+| Fiji                             | January-2021   |            1659 |     896444 |             0.19 |
+| Fiji                             | February-2021  |            1577 |     896444 |             0.18 |
+| Fiji                             | March-2021     |            2031 |     896444 |             0.23 |
+| Fiji                             | April-2021     |            2357 |     896444 |             0.26 |
+| Finland                          | January-2020   |               3 |    5540718 |                0 |
+| Finland                          | February-2020  |              34 |    5540718 |                0 |
+| Finland                          | March-2020     |           13382 |    5540718 |             0.24 |
+| Finland                          | April-2020     |           99473 |    5540718 |              1.8 |
+| Finland                          | May-2020       |          190615 |    5540718 |             3.44 |
+| Finland                          | June-2020      |          212396 |    5540718 |             3.83 |
+| Finland                          | July-2020      |          226937 |    5540718 |              4.1 |
+| Finland                          | August-2020    |          240361 |    5540718 |             4.34 |
+| Finland                          | September-2020 |          265431 |    5540718 |             4.79 |
+| Finland                          | October-2020   |          403740 |    5540718 |             7.29 |
+| Finland                          | November-2020  |          596628 |    5540718 |            10.77 |
+| Finland                          | December-2020  |          973027 |    5540718 |            17.56 |
+| Finland                          | January-2021   |         1250210 |    5540718 |            22.56 |
+| Finland                          | February-2021  |         1425623 |    5540718 |            25.73 |
+| Finland                          | March-2021     |         2109166 |    5540718 |            38.07 |
+| Finland                          | April-2021     |         2491149 |    5540718 |            44.96 |
+| France                           | January-2020   |              30 |   68147687 |                0 |
+| France                           | February-2020  |             466 |   68147687 |                0 |
+| France                           | March-2020     |          407938 |   68147687 |              0.6 |
+| France                           | April-2020     |         3456319 |   68147687 |             5.07 |
+| France                           | May-2020       |         5602193 |   68147687 |             8.22 |
+| France                           | June-2020      |         5922508 |   68147687 |             8.69 |
+| France                           | July-2020      |         6640187 |   68147687 |             9.74 |
+| France                           | August-2020    |         8150489 |   68147687 |            11.96 |
+| France                           | September-2020 |        13600511 |   68147687 |            19.96 |
+| France                           | October-2020   |        28773948 |   68147687 |            42.22 |
+| France                           | November-2020  |        59733195 |   68147687 |            87.65 |
+| France                           | December-2020  |        76678082 |   68147687 |           112.52 |
+| France                           | January-2021   |        91573599 |   68147687 |           134.38 |
+| France                           | February-2021  |        98925593 |   68147687 |           145.16 |
+| France                           | March-2021     |       130615782 |   68147687 |           191.67 |
+| France                           | April-2021     |       157155770 |   68147687 |           230.61 |
+| Gabon                            | March-2020     |              86 |    2225728 |                0 |
+| Gabon                            | April-2020     |            3106 |    2225728 |             0.14 |
+| Gabon                            | May-2020       |           40885 |    2225728 |             1.84 |
+| Gabon                            | June-2020      |          120239 |    2225728 |              5.4 |
+| Gabon                            | July-2020      |          195607 |    2225728 |             8.79 |
+| Gabon                            | August-2020    |          252682 |    2225728 |            11.35 |
+| Gabon                            | September-2020 |          259821 |    2225728 |            11.67 |
+| Gabon                            | October-2020   |          275060 |    2225728 |            12.36 |
+| Gabon                            | November-2020  |          272546 |    2225728 |            12.25 |
+| Gabon                            | December-2020  |          290679 |    2225728 |            13.06 |
+| Gabon                            | January-2021   |          310352 |    2225728 |            13.94 |
+| Gabon                            | February-2021  |          356809 |    2225728 |            16.03 |
+| Gabon                            | March-2021     |          529781 |    2225728 |             23.8 |
+| Gabon                            | April-2021     |          641075 |    2225728 |             28.8 |
+| Gambia                           | March-2020     |              35 |    2416664 |                0 |
+| Gambia                           | April-2020     |             233 |    2416664 |             0.01 |
+| Gambia                           | May-2020       |             680 |    2416664 |             0.03 |
+| Gambia                           | June-2020      |            1016 |    2416664 |             0.04 |
+| Gambia                           | July-2020      |            4434 |    2416664 |             0.18 |
+| Gambia                           | August-2020    |           56688 |    2416664 |             2.35 |
+| Gambia                           | September-2020 |          101729 |    2416664 |             4.21 |
+| Gambia                           | October-2020   |          112779 |    2416664 |             4.67 |
+| Gambia                           | November-2020  |          111147 |    2416664 |              4.6 |
+| Gambia                           | December-2020  |          117237 |    2416664 |             4.85 |
+| Gambia                           | January-2021   |          121312 |    2416664 |             5.02 |
+| Gambia                           | February-2021  |          123614 |    2416664 |             5.12 |
+| Gambia                           | March-2021     |          156651 |    2416664 |             6.48 |
+| Gambia                           | April-2021     |          170688 |    2416664 |             7.06 |
+| Georgia                          | February-2020  |               4 |    3989175 |                0 |
+| Georgia                          | March-2020     |            1256 |    3989175 |             0.03 |
+| Georgia                          | April-2020     |            9767 |    3989175 |             0.24 |
+| Georgia                          | May-2020       |           20931 |    3989175 |             0.52 |
+| Georgia                          | June-2020      |           25966 |    3989175 |             0.65 |
+| Georgia                          | July-2020      |           31917 |    3989175 |              0.8 |
+| Georgia                          | August-2020    |           41023 |    3989175 |             1.03 |
+| Georgia                          | September-2020 |           91939 |    3989175 |              2.3 |
+| Georgia                          | October-2020   |          573395 |    3989175 |            14.37 |
+| Georgia                          | November-2020  |         2505524 |    3989175 |            62.81 |
+| Georgia                          | December-2020  |         5970896 |    3989175 |           149.68 |
+| Georgia                          | January-2021   |         7590826 |    3989175 |           190.29 |
+| Georgia                          | February-2021  |         7429803 |    3989175 |           186.25 |
+| Georgia                          | March-2021     |         8552929 |    3989175 |            214.4 |
+| Georgia                          | April-2021     |         8819854 |    3989175 |           221.09 |
+| Germany                          | January-2020   |              18 |   83783945 |                0 |
+| Germany                          | February-2020  |             561 |   83783945 |                0 |
+| Germany                          | March-2020     |          588179 |   83783945 |              0.7 |
+| Germany                          | April-2020     |         3942925 |   83783945 |             4.71 |
+| Germany                          | May-2020       |         5427815 |   83783945 |             6.48 |
+| Germany                          | June-2020      |         5670762 |   83783945 |             6.77 |
+| Germany                          | July-2020      |         6265079 |   83783945 |             7.48 |
+| Germany                          | August-2020    |         7024733 |   83783945 |             8.38 |
+| Germany                          | September-2020 |         8023521 |   83783945 |             9.58 |
+| Germany                          | October-2020   |        11653042 |   83783945 |            13.91 |
+| Germany                          | November-2020  |        24564361 |   83783945 |            29.32 |
+| Germany                          | December-2020  |        44141683 |   83783945 |            52.69 |
+| Germany                          | January-2021   |        62555458 |   83783945 |            74.66 |
+| Germany                          | February-2021  |        65660655 |   83783945 |            78.37 |
+| Germany                          | March-2021     |        81277883 |   83783945 |            97.01 |
+| Germany                          | April-2021     |        93513080 |   83783945 |           111.61 |
+| Ghana                            | March-2020     |            1146 |   31072945 |                0 |
+| Ghana                            | April-2020     |           24029 |   31072945 |             0.08 |
+| Ghana                            | May-2020       |          164583 |   31072945 |             0.53 |
+| Ghana                            | June-2020      |          370733 |   31072945 |             1.19 |
+| Ghana                            | July-2020      |          826344 |   31072945 |             2.66 |
+| Ghana                            | August-2020    |         1296178 |   31072945 |             4.17 |
+| Ghana                            | September-2020 |         1368073 |   31072945 |              4.4 |
+| Ghana                            | October-2020   |         1465886 |   31072945 |             4.72 |
+| Ghana                            | November-2020  |         1501148 |   31072945 |             4.83 |
+| Ghana                            | December-2020  |         1651837 |   31072945 |             5.32 |
+| Ghana                            | January-2021   |         1813441 |   31072945 |             5.84 |
+| Ghana                            | February-2021  |         2124578 |   31072945 |             6.84 |
+| Ghana                            | March-2021     |         2726591 |   31072945 |             8.77 |
+| Ghana                            | April-2021     |         2746420 |   31072945 |             8.84 |
+| Gibraltar                        | January-2021   |               0 |      33691 |                0 |
+| Gibraltar                        | February-2021  |               0 |      33691 |                0 |
+| Gibraltar                        | March-2021     |               0 |      33691 |                0 |
+| Gibraltar                        | April-2021     |               0 |      33691 |                0 |
+| Greece                           | February-2020  |              12 |   10423056 |                0 |
+| Greece                           | March-2020     |           13397 |   10423056 |             0.13 |
+| Greece                           | April-2020     |           64317 |   10423056 |             0.62 |
+| Greece                           | May-2020       |           86384 |   10423056 |             0.83 |
+| Greece                           | June-2020      |           94867 |   10423056 |             0.91 |
+| Greece                           | July-2020      |          121131 |   10423056 |             1.16 |
+| Greece                           | August-2020    |          222406 |   10423056 |             2.13 |
+| Greece                           | September-2020 |          424201 |   10423056 |             4.07 |
+| Greece                           | October-2020   |          802968 |   10423056 |              7.7 |
+| Greece                           | November-2020  |         2243451 |   10423056 |            21.52 |
+| Greece                           | December-2020  |         3904326 |   10423056 |            37.46 |
+| Greece                           | January-2021   |         4585941 |   10423056 |               44 |
+| Greece                           | February-2021  |         4844582 |   10423056 |            46.48 |
+| Greece                           | March-2021     |         7014206 |   10423056 |             67.3 |
+| Greece                           | April-2021     |         9230831 |   10423056 |            88.56 |
+| Greenland                        | January-2021   |               0 |      56772 |                0 |
+| Greenland                        | February-2021  |               0 |      56772 |                0 |
+| Greenland                        | March-2021     |               0 |      56772 |                0 |
+| Greenland                        | April-2021     |               0 |      56772 |                0 |
+| Grenada                          | March-2020     |              52 |     112519 |             0.05 |
+| Grenada                          | April-2020     |             429 |     112519 |             0.38 |
+| Grenada                          | May-2020       |             674 |     112519 |              0.6 |
+| Grenada                          | June-2020      |             690 |     112519 |             0.61 |
+| Grenada                          | July-2020      |             715 |     112519 |             0.64 |
+| Grenada                          | August-2020    |             744 |     112519 |             0.66 |
+| Grenada                          | September-2020 |             720 |     112519 |             0.64 |
+| Grenada                          | October-2020   |             802 |     112519 |             0.71 |
+| Grenada                          | November-2020  |            1051 |     112519 |             0.93 |
+| Grenada                          | December-2020  |            2429 |     112519 |             2.16 |
+| Grenada                          | January-2021   |            4240 |     112519 |             3.77 |
+| Grenada                          | February-2021  |            4144 |     112519 |             3.68 |
+| Grenada                          | March-2021     |            4696 |     112519 |             4.17 |
+| Grenada                          | April-2021     |            4694 |     112519 |             4.17 |
+| Guatemala                        | February-2020  |               0 |   17915567 |                0 |
+| Guatemala                        | March-2020     |             333 |   17915567 |                0 |
+| Guatemala                        | April-2020     |            7312 |   17915567 |             0.04 |
+| Guatemala                        | May-2020       |           67102 |   17915567 |             0.37 |
+| Guatemala                        | June-2020      |          329549 |   17915567 |             1.84 |
+| Guatemala                        | July-2020      |         1062083 |   17915567 |             5.93 |
+| Guatemala                        | August-2020    |         1938713 |   17915567 |            10.82 |
+| Guatemala                        | September-2020 |         2495864 |   17915567 |            13.93 |
+| Guatemala                        | October-2020   |         3106103 |   17915567 |            17.34 |
+| Guatemala                        | November-2020  |         3454791 |   17915567 |            19.28 |
+| Guatemala                        | December-2020  |         4047232 |   17915567 |            22.59 |
+| Guatemala                        | January-2021   |         4594145 |   17915567 |            25.64 |
+| Guatemala                        | February-2021  |         4687392 |   17915567 |            26.16 |
+| Guatemala                        | March-2021     |         5723666 |   17915567 |            31.95 |
+| Guatemala                        | April-2021     |         6287226 |   17915567 |            35.09 |
+| Guernsey                         | January-2021   |               0 |      67052 |                0 |
+| Guernsey                         | February-2021  |               0 |      67052 |                0 |
+| Guernsey                         | March-2021     |               0 |      67052 |                0 |
+| Guernsey                         | April-2021     |               0 |      67052 |                0 |
+| Guinea                           | March-2020     |             104 |   13132792 |                0 |
+| Guinea                           | April-2020     |           15955 |   13132792 |             0.12 |
+| Guinea                           | May-2020       |           80843 |   13132792 |             0.62 |
+| Guinea                           | June-2020      |          139077 |   13132792 |             1.06 |
+| Guinea                           | July-2020      |          196485 |   13132792 |              1.5 |
+| Guinea                           | August-2020    |          261346 |   13132792 |             1.99 |
+| Guinea                           | September-2020 |          303547 |   13132792 |             2.31 |
+| Guinea                           | October-2020   |          350904 |   13132792 |             2.67 |
+| Guinea                           | November-2020  |          379110 |   13132792 |             2.89 |
+| Guinea                           | December-2020  |          417156 |   13132792 |             3.18 |
+| Guinea                           | January-2021   |          437663 |   13132792 |             3.33 |
+| Guinea                           | February-2021  |          422601 |   13132792 |             3.22 |
+| Guinea                           | March-2021     |          558415 |   13132792 |             4.25 |
+| Guinea                           | April-2021     |          637554 |   13132792 |             4.85 |
+| Guinea-Bissau                    | March-2020     |              26 |    1967998 |                0 |
+| Guinea-Bissau                    | April-2020     |            1515 |    1967998 |             0.08 |
+| Guinea-Bissau                    | May-2020       |           26923 |    1967998 |             1.37 |
+| Guinea-Bissau                    | June-2020      |           44361 |    1967998 |             2.25 |
+| Guinea-Bissau                    | July-2020      |           58039 |    1967998 |             2.95 |
+| Guinea-Bissau                    | August-2020    |           65237 |    1967998 |             3.31 |
+| Guinea-Bissau                    | September-2020 |           68413 |    1967998 |             3.48 |
+| Guinea-Bissau                    | October-2020   |           74077 |    1967998 |             3.76 |
+| Guinea-Bissau                    | November-2020  |           72580 |    1967998 |             3.69 |
+| Guinea-Bissau                    | December-2020  |           75812 |    1967998 |             3.85 |
+| Guinea-Bissau                    | January-2021   |           77361 |    1967998 |             3.93 |
+| Guinea-Bissau                    | February-2021  |           82413 |    1967998 |             4.19 |
+| Guinea-Bissau                    | March-2021     |          107408 |    1967998 |             5.46 |
+| Guinea-Bissau                    | April-2021     |          110920 |    1967998 |             5.64 |
+| Guyana                           | March-2020     |             141 |     786559 |             0.02 |
+| Guyana                           | April-2020     |            1562 |     786559 |              0.2 |
+| Guyana                           | May-2020       |            3617 |     786559 |             0.46 |
+| Guyana                           | June-2020      |            5398 |     786559 |             0.69 |
+| Guyana                           | July-2020      |            9979 |     786559 |             1.27 |
+| Guyana                           | August-2020    |           24093 |     786559 |             3.06 |
+| Guyana                           | September-2020 |           61590 |     786559 |             7.83 |
+| Guyana                           | October-2020   |          112427 |     786559 |            14.29 |
+| Guyana                           | November-2020  |          144708 |     786559 |             18.4 |
+| Guyana                           | December-2020  |          185193 |     786559 |            23.54 |
+| Guyana                           | January-2021   |          213438 |     786559 |            27.14 |
+| Guyana                           | February-2021  |          229334 |     786559 |            29.16 |
+| Guyana                           | March-2021     |          289705 |     786559 |            36.83 |
+| Guyana                           | April-2021     |          349462 |     786559 |            44.43 |
+| Haiti                            | March-2020     |              84 |   11402533 |                0 |
+| Haiti                            | April-2020     |            1261 |   11402533 |             0.01 |
+| Haiti                            | May-2020       |           15126 |   11402533 |             0.13 |
+| Haiti                            | June-2020      |          123311 |   11402533 |             1.08 |
+| Haiti                            | July-2020      |          209881 |   11402533 |             1.84 |
+| Haiti                            | August-2020    |          242437 |   11402533 |             2.13 |
+| Haiti                            | September-2020 |          254840 |   11402533 |             2.23 |
+| Haiti                            | October-2020   |          276326 |   11402533 |             2.42 |
+| Haiti                            | November-2020  |          275045 |   11402533 |             2.41 |
+| Haiti                            | December-2020  |          297680 |   11402533 |             2.61 |
+| Haiti                            | January-2021   |          330582 |   11402533 |              2.9 |
+| Haiti                            | February-2021  |          337607 |   11402533 |             2.96 |
+| Haiti                            | March-2021     |          391885 |   11402533 |             3.44 |
+| Haiti                            | April-2021     |          386496 |   11402533 |             3.39 |
+| Honduras                         | March-2020     |             821 |    9904608 |             0.01 |
+| Honduras                         | April-2020     |           13307 |    9904608 |             0.13 |
+| Honduras                         | May-2020       |           86306 |    9904608 |             0.87 |
+| Honduras                         | June-2020      |          317671 |    9904608 |             3.21 |
+| Honduras                         | July-2020      |          975322 |    9904608 |             9.85 |
+| Honduras                         | August-2020    |         1584516 |    9904608 |               16 |
+| Honduras                         | September-2020 |         2074882 |    9904608 |            20.95 |
+| Honduras                         | October-2020   |         2704316 |    9904608 |             27.3 |
+| Honduras                         | November-2020  |         3085315 |    9904608 |            31.15 |
+| Honduras                         | December-2020  |         3569628 |    9904608 |            36.04 |
+| Honduras                         | January-2021   |         4149890 |    9904608 |             41.9 |
+| Honduras                         | February-2021  |         4488251 |    9904608 |            45.31 |
+| Honduras                         | March-2021     |         5569807 |    9904608 |            56.23 |
+| Honduras                         | April-2021     |         5982916 |    9904608 |            60.41 |
+| Hong Kong                        | January-2020   |               0 |    7496988 |                0 |
+| Hong Kong                        | February-2020  |               0 |    7496988 |                0 |
+| Hong Kong                        | March-2020     |               0 |    7496988 |                0 |
+| Hong Kong                        | April-2020     |               0 |    7496988 |                0 |
+| Hong Kong                        | May-2020       |               0 |    7496988 |                0 |
+| Hong Kong                        | June-2020      |               0 |    7496988 |                0 |
+| Hong Kong                        | July-2020      |               0 |    7496988 |                0 |
+| Hong Kong                        | August-2020    |               0 |    7496988 |                0 |
+| Hong Kong                        | September-2020 |               0 |    7496988 |                0 |
+| Hong Kong                        | October-2020   |               0 |    7496988 |                0 |
+| Hong Kong                        | November-2020  |               0 |    7496988 |                0 |
+| Hong Kong                        | December-2020  |               0 |    7496988 |                0 |
+| Hong Kong                        | January-2021   |               0 |    7496988 |                0 |
+| Hong Kong                        | February-2021  |               0 |    7496988 |                0 |
+| Hong Kong                        | March-2021     |               0 |    7496988 |                0 |
+| Hong Kong                        | April-2021     |               0 |    7496988 |                0 |
+| Hungary                          | March-2020     |            3512 |    9660350 |             0.04 |
+| Hungary                          | April-2020     |           48858 |    9660350 |             0.51 |
+| Hungary                          | May-2020       |          106717 |    9660350 |              1.1 |
+| Hungary                          | June-2020      |          121673 |    9660350 |             1.26 |
+| Hungary                          | July-2020      |          133397 |    9660350 |             1.38 |
+| Hungary                          | August-2020    |          154696 |    9660350 |              1.6 |
+| Hungary                          | September-2020 |          450339 |    9660350 |             4.66 |
+| Hungary                          | October-2020   |         1426535 |    9660350 |            14.77 |
+| Hungary                          | November-2020  |         4340462 |    9660350 |            44.93 |
+| Hungary                          | December-2020  |         8774928 |    9660350 |            90.83 |
+| Hungary                          | January-2021   |        10794651 |    9660350 |           111.74 |
+| Hungary                          | February-2021  |        10954073 |    9660350 |           113.39 |
+| Hungary                          | March-2021     |        16553070 |    9660350 |           171.35 |
+| Hungary                          | April-2021     |        21975323 |    9660350 |           227.48 |
+| Iceland                          | February-2020  |               2 |     341250 |                0 |
+| Iceland                          | March-2020     |           11298 |     341250 |             3.31 |
+| Iceland                          | April-2020     |           50142 |     341250 |            14.69 |
+| Iceland                          | May-2020       |           55864 |     341250 |            16.37 |
+| Iceland                          | June-2020      |           54362 |     341250 |            15.93 |
+| Iceland                          | July-2020      |           57048 |     341250 |            16.72 |
+| Iceland                          | August-2020    |           62238 |     341250 |            18.24 |
+| Iceland                          | September-2020 |           69104 |     341250 |            20.25 |
+| Iceland                          | October-2020   |          119128 |     341250 |            34.91 |
+| Iceland                          | November-2020  |          155412 |     341250 |            45.54 |
+| Iceland                          | December-2020  |          173260 |     341250 |            50.77 |
+| Iceland                          | January-2021   |          183571 |     341250 |            53.79 |
+| Iceland                          | February-2021  |          168952 |     341250 |            49.51 |
+| Iceland                          | March-2021     |          189143 |     341250 |            55.43 |
+| Iceland                          | April-2021     |          189420 |     341250 |            55.51 |
+| India                            | January-2020   |               2 | 1380004385 |                0 |
+| India                            | February-2020  |              84 | 1380004385 |                0 |
+| India                            | March-2020     |           10252 | 1380004385 |                0 |
+| India                            | April-2020     |          447607 | 1380004385 |             0.03 |
+| India                            | May-2020       |         3088494 | 1380004385 |             0.22 |
+| India                            | June-2020      |        10951713 | 1380004385 |             0.79 |
+| India                            | July-2020      |        32829678 | 1380004385 |             2.38 |
+| India                            | August-2020    |        82734792 | 1380004385 |                6 |
+| India                            | September-2020 |       151735176 | 1380004385 |               11 |
+| India                            | October-2020   |       228641810 | 1380004385 |            16.57 |
+| India                            | November-2020  |       265835139 | 1380004385 |            19.26 |
+| India                            | December-2020  |       307985456 | 1380004385 |            22.32 |
+| India                            | January-2021   |       326908857 | 1380004385 |            23.69 |
+| India                            | February-2021  |       305984490 | 1380004385 |            22.17 |
+| India                            | March-2021     |       357487053 | 1380004385 |             25.9 |
+| India                            | April-2021     |       447598593 | 1380004385 |            32.43 |
+| Indonesia                        | March-2020     |           11971 |  273523621 |                0 |
+| Indonesia                        | April-2020     |          164969 |  273523621 |             0.06 |
+| Indonesia                        | May-2020       |          546175 |  273523621 |              0.2 |
+| Indonesia                        | June-2020      |         1211857 |  273523621 |             0.44 |
+| Indonesia                        | July-2020      |         2544132 |  273523621 |             0.93 |
+| Indonesia                        | August-2020    |         4336124 |  273523621 |             1.59 |
+| Indonesia                        | September-2020 |         6879525 |  273523621 |             2.52 |
+| Indonesia                        | October-2020   |        10928941 |  273523621 |                4 |
+| Indonesia                        | November-2020  |        14115752 |  273523621 |             5.16 |
+| Indonesia                        | December-2020  |        19834279 |  273523621 |             7.25 |
+| Indonesia                        | January-2021   |        27904068 |  273523621 |             10.2 |
+| Indonesia                        | February-2021  |        34172220 |  273523621 |            12.49 |
+| Indonesia                        | March-2021     |        44344084 |  273523621 |            16.21 |
+| Indonesia                        | April-2021     |        47761250 |  273523621 |            17.46 |
+| Iran                             | February-2020  |            1617 |   83992953 |                0 |
+| Iran                             | March-2020     |          525947 |   83992953 |             0.63 |
+| Iran                             | April-2020     |         2255837 |   83992953 |             2.69 |
+| Iran                             | May-2020       |         3727988 |   83992953 |             4.44 |
+| Iran                             | June-2020      |         5749446 |   83992953 |             6.85 |
+| Iran                             | July-2020      |         8279348 |   83992953 |             9.86 |
+| Iran                             | August-2020    |        10622742 |   83992953 |            12.65 |
+| Iran                             | September-2020 |        12365981 |   83992953 |            14.72 |
+| Iran                             | October-2020   |        16323626 |   83992953 |            19.43 |
+| Iran                             | November-2020  |        23319184 |   83992953 |            27.76 |
+| Iran                             | December-2020  |        34734095 |   83992953 |            41.35 |
+| Iran                             | January-2021   |        41044213 |   83992953 |            48.87 |
+| Iran                             | February-2021  |        42690161 |   83992953 |            50.83 |
+| Iran                             | March-2021     |        54610163 |   83992953 |            65.02 |
+| Iran                             | April-2021     |        65501367 |   83992953 |            77.98 |
+| Iraq                             | February-2020  |              34 |   40222503 |                0 |
+| Iraq                             | March-2020     |            6335 |   40222503 |             0.02 |
+| Iraq                             | April-2020     |           42494 |   40222503 |             0.11 |
+| Iraq                             | May-2020       |          112314 |   40222503 |             0.28 |
+| Iraq                             | June-2020      |          731904 |   40222503 |             1.82 |
+| Iraq                             | July-2020      |         2680051 |   40222503 |             6.66 |
+| Iraq                             | August-2020    |         5516538 |   40222503 |            13.72 |
+| Iraq                             | September-2020 |         9025163 |   40222503 |            22.44 |
+| Iraq                             | October-2020   |        13048781 |   40222503 |            32.44 |
+| Iraq                             | November-2020  |        15543204 |   40222503 |            38.64 |
+| Iraq                             | December-2020  |        17911961 |   40222503 |            44.53 |
+| Iraq                             | January-2021   |        18838341 |   40222503 |            46.84 |
+| Iraq                             | February-2021  |        18220943 |   40222503 |             45.3 |
+| Iraq                             | March-2021     |        23904513 |   40222503 |            59.43 |
+| Iraq                             | April-2021     |        28798758 |   40222503 |             71.6 |
+| Ireland                          | February-2020  |               1 |    4937796 |                0 |
+| Ireland                          | March-2020     |           23308 |    4937796 |             0.47 |
+| Ireland                          | April-2020     |          365860 |    4937796 |             7.41 |
+| Ireland                          | May-2020       |          730677 |    4937796 |             14.8 |
+| Ireland                          | June-2020      |          758939 |    4937796 |            15.37 |
+| Ireland                          | July-2020      |          797096 |    4937796 |            16.14 |
+| Ireland                          | August-2020    |          847681 |    4937796 |            17.17 |
+| Ireland                          | September-2020 |          958194 |    4937796 |            19.41 |
+| Ireland                          | October-2020   |         1495470 |    4937796 |            30.29 |
+| Ireland                          | November-2020  |         2035798 |    4937796 |            41.23 |
+| Ireland                          | December-2020  |         2451763 |    4937796 |            49.65 |
+| Ireland                          | January-2021   |         4945372 |    4937796 |           100.15 |
+| Ireland                          | February-2021  |         5864137 |    4937796 |           118.76 |
+| Ireland                          | March-2021     |         7065554 |    4937796 |           143.09 |
+| Ireland                          | April-2021     |         7281321 |    4937796 |           147.46 |
+| Isle of Man                      | January-2021   |               0 |      85032 |                0 |
+| Isle of Man                      | February-2021  |               0 |      85032 |                0 |
+| Isle of Man                      | March-2021     |               0 |      85032 |                0 |
+| Isle of Man                      | April-2021     |               0 |      85032 |                0 |
+| Israel                           | February-2020  |              22 |    8655541 |                0 |
+| Israel                           | March-2020     |           35287 |    8655541 |             0.41 |
+| Israel                           | April-2020     |          367312 |    8655541 |             4.24 |
+| Israel                           | May-2020       |          512036 |    8655541 |             5.92 |
+| Israel                           | June-2020      |          602486 |    8655541 |             6.96 |
+| Israel                           | July-2020      |         1460503 |    8655541 |            16.87 |
+| Israel                           | August-2020    |         2916651 |    8655541 |             33.7 |
+| Israel                           | September-2020 |         5221620 |    8655541 |            60.33 |
+| Israel                           | October-2020   |         9176583 |    8655541 |           106.02 |
+| Israel                           | November-2020  |         9755418 |    8655541 |           112.71 |
+| Israel                           | December-2020  |        11475028 |    8655541 |           132.57 |
+| Israel                           | January-2021   |        16729422 |    8655541 |           193.28 |
+| Israel                           | February-2021  |        20255490 |    8655541 |           234.02 |
+| Israel                           | March-2021     |        25324771 |    8655541 |           292.58 |
+| Israel                           | April-2021     |        25095274 |    8655541 |           289.93 |
+| Italy                            | January-2020   |               2 |   60461828 |                0 |
+| Italy                            | February-2020  |            3966 |   60461828 |             0.01 |
+| Italy                            | March-2020     |         1209772 |   60461828 |                2 |
+| Italy                            | April-2020     |         4928524 |   60461828 |             8.15 |
+| Italy                            | May-2020       |         6914863 |   60461828 |            11.44 |
+| Italy                            | June-2020      |         7115232 |   60461828 |            11.77 |
+| Italy                            | July-2020      |         7560745 |   60461828 |             12.5 |
+| Italy                            | August-2020    |         7919622 |   60461828 |             13.1 |
+| Italy                            | September-2020 |         8749361 |   60461828 |            14.47 |
+| Italy                            | October-2020   |        13281216 |   60461828 |            21.97 |
+| Italy                            | November-2020  |        35324374 |   60461828 |            58.42 |
+| Italy                            | December-2020  |        58293082 |   60461828 |            96.41 |
+| Italy                            | January-2021   |        72917277 |   60461828 |            120.6 |
+| Italy                            | February-2021  |        76429829 |   60461828 |           126.41 |
+| Italy                            | March-2021     |       101162913 |   60461828 |           167.32 |
+| Italy                            | April-2021     |       114799462 |   60461828 |           189.87 |
+| Jamaica                          | March-2020     |             382 |    2961161 |             0.01 |
+| Jamaica                          | April-2020     |            5011 |    2961161 |             0.17 |
+| Jamaica                          | May-2020       |           16083 |    2961161 |             0.54 |
+| Jamaica                          | June-2020      |           19058 |    2961161 |             0.64 |
+| Jamaica                          | July-2020      |           24311 |    2961161 |             0.82 |
+| Jamaica                          | August-2020    |           40928 |    2961161 |             1.38 |
+| Jamaica                          | September-2020 |          130368 |    2961161 |              4.4 |
+| Jamaica                          | October-2020   |          247729 |    2961161 |             8.37 |
+| Jamaica                          | November-2020  |          297709 |    2961161 |            10.05 |
+| Jamaica                          | December-2020  |          368482 |    2961161 |            12.44 |
+| Jamaica                          | January-2021   |          439391 |    2961161 |            14.84 |
+| Jamaica                          | February-2021  |          540682 |    2961161 |            18.26 |
+| Jamaica                          | March-2021     |          982732 |    2961161 |            33.19 |
+| Jamaica                          | April-2021     |         1293840 |    2961161 |            43.69 |
+| Japan                            | January-2020   |              56 |  126476458 |                0 |
+| Japan                            | February-2020  |            2418 |  126476458 |                0 |
+| Japan                            | March-2020     |           29049 |  126476458 |             0.02 |
+| Japan                            | April-2020     |          264160 |  126476458 |             0.21 |
+| Japan                            | May-2020       |          496484 |  126476458 |             0.39 |
+| Japan                            | June-2020      |          525609 |  126476458 |             0.42 |
+| Japan                            | July-2020      |          771595 |  126476458 |             0.61 |
+| Japan                            | August-2020    |         1701916 |  126476458 |             1.35 |
+| Japan                            | September-2020 |         2297182 |  126476458 |             1.82 |
+| Japan                            | October-2020   |         2856221 |  126476458 |             2.26 |
+| Japan                            | November-2020  |         3650314 |  126476458 |             2.89 |
+| Japan                            | December-2020  |         5880523 |  126476458 |             4.65 |
+| Japan                            | January-2021   |         9902662 |  126476458 |             7.83 |
+| Japan                            | February-2021  |        11627561 |  126476458 |             9.19 |
+| Japan                            | March-2021     |        13976951 |  126476458 |            11.05 |
+| Japan                            | April-2021     |        15835437 |  126476458 |            12.52 |
+| Jersey                           | January-2021   |               0 |     101073 |                0 |
+| Jersey                           | February-2021  |               0 |     101073 |                0 |
+| Jersey                           | March-2021     |               0 |     101073 |                0 |
+| Jersey                           | April-2021     |               0 |     101073 |                0 |
+| Jordan                           | March-2020     |            2421 |   10203140 |             0.02 |
+| Jordan                           | April-2020     |           11816 |   10203140 |             0.12 |
+| Jordan                           | May-2020       |           18801 |   10203140 |             0.18 |
+| Jordan                           | June-2020      |           28514 |   10203140 |             0.28 |
+| Jordan                           | July-2020      |           36345 |   10203140 |             0.36 |
+| Jordan                           | August-2020    |           45488 |   10203140 |             0.45 |
+| Jordan                           | September-2020 |          140406 |   10203140 |             1.38 |
+| Jordan                           | October-2020   |         1138829 |   10203140 |            11.16 |
+| Jordan                           | November-2020  |         4471920 |   10203140 |            43.83 |
+| Jordan                           | December-2020  |         8196380 |   10203140 |            80.33 |
+| Jordan                           | January-2021   |         9694303 |   10203140 |            95.01 |
+| Jordan                           | February-2021  |         9868118 |   10203140 |            96.72 |
+| Jordan                           | March-2021     |        15461791 |   10203140 |           151.54 |
+| Jordan                           | April-2021     |        20243727 |   10203140 |           198.41 |
+| Kazakhstan                       | March-2020     |            1937 |   18776707 |             0.01 |
+| Kazakhstan                       | April-2020     |           46219 |   18776707 |             0.25 |
+| Kazakhstan                       | May-2020       |          202761 |   18776707 |             1.08 |
+| Kazakhstan                       | June-2020      |          476607 |   18776707 |             2.54 |
+| Kazakhstan                       | July-2020      |         2056485 |   18776707 |            10.95 |
+| Kazakhstan                       | August-2020    |         3642536 |   18776707 |             19.4 |
+| Kazakhstan                       | September-2020 |         4099504 |   18776707 |            21.83 |
+| Kazakhstan                       | October-2020   |         4489708 |   18776707 |            23.91 |
+| Kazakhstan                       | November-2020  |         4848928 |   18776707 |            25.82 |
+| Kazakhstan                       | December-2020  |         5844830 |   18776707 |            31.13 |
+| Kazakhstan                       | January-2021   |         6716862 |   18776707 |            35.77 |
+| Kazakhstan                       | February-2021  |         7028707 |   18776707 |            37.43 |
+| Kazakhstan                       | March-2021     |         8618791 |   18776707 |             45.9 |
+| Kazakhstan                       | April-2021     |        10069664 |   18776707 |            53.63 |
+| Kenya                            | March-2020     |             370 |   53771300 |                0 |
+| Kenya                            | April-2020     |            7263 |   53771300 |             0.01 |
+| Kenya                            | May-2020       |           29773 |   53771300 |             0.06 |
+| Kenya                            | June-2020      |          118824 |   53771300 |             0.22 |
+| Kenya                            | July-2020      |          386628 |   53771300 |             0.72 |
+| Kenya                            | August-2020    |          902573 |   53771300 |             1.68 |
+| Kenya                            | September-2020 |         1091882 |   53771300 |             2.03 |
+| Kenya                            | October-2020   |         1385303 |   53771300 |             2.58 |
+| Kenya                            | November-2020  |         2106033 |   53771300 |             3.92 |
+| Kenya                            | December-2020  |         2856847 |   53771300 |             5.31 |
+| Kenya                            | January-2021   |         3065046 |   53771300 |              5.7 |
+| Kenya                            | February-2021  |         2887159 |   53771300 |             5.37 |
+| Kenya                            | March-2021     |         3634398 |   53771300 |             6.76 |
+| Kenya                            | April-2021     |         4463081 |   53771300 |              8.3 |
+| Kosovo                           | March-2020     |             844 |    1932774 |             0.04 |
+| Kosovo                           | April-2020     |           12732 |    1932774 |             0.66 |
+| Kosovo                           | May-2020       |           29343 |    1932774 |             1.52 |
+| Kosovo                           | June-2020      |           51853 |    1932774 |             2.68 |
+| Kosovo                           | July-2020      |          166431 |    1932774 |             8.61 |
+| Kosovo                           | August-2020    |          349836 |    1932774 |             18.1 |
+| Kosovo                           | September-2020 |          442311 |    1932774 |            22.88 |
+| Kosovo                           | October-2020   |          524640 |    1932774 |            27.14 |
+| Kosovo                           | November-2020  |          883320 |    1932774 |             45.7 |
+| Kosovo                           | December-2020  |         1447730 |    1932774 |             74.9 |
+| Kosovo                           | January-2021   |         1720254 |    1932774 |               89 |
+| Kosovo                           | February-2021  |         1801727 |    1932774 |            93.22 |
+| Kosovo                           | March-2021     |         2424115 |    1932774 |           125.42 |
+| Kosovo                           | April-2021     |         2957297 |    1932774 |           153.01 |
+| Kuwait                           | February-2020  |             171 |    4270563 |                0 |
+| Kuwait                           | March-2020     |            4154 |    4270563 |              0.1 |
+| Kuwait                           | April-2020     |           51368 |    4270563 |              1.2 |
+| Kuwait                           | May-2020       |          445816 |    4270563 |            10.44 |
+| Kuwait                           | June-2020      |         1106772 |    4270563 |            25.92 |
+| Kuwait                           | July-2020      |         1776417 |    4270563 |             41.6 |
+| Kuwait                           | August-2020    |         2362626 |    4270563 |            55.32 |
+| Kuwait                           | September-2020 |         2885759 |    4270563 |            67.57 |
+| Kuwait                           | October-2020   |         3569876 |    4270563 |            83.59 |
+| Kuwait                           | November-2020  |         4082135 |    4270563 |            95.59 |
+| Kuwait                           | December-2020  |         4554849 |    4270563 |           106.66 |
+| Kuwait                           | January-2021   |         4881830 |    4270563 |           114.31 |
+| Kuwait                           | February-2021  |         4988724 |    4270563 |           116.82 |
+| Kuwait                           | March-2021     |         6584268 |    4270563 |           154.18 |
+| Kuwait                           | April-2021     |         7607062 |    4270563 |           178.13 |
+| Kyrgyzstan                       | March-2020     |             587 |    6524191 |             0.01 |
+| Kyrgyzstan                       | April-2020     |           13260 |    6524191 |              0.2 |
+| Kyrgyzstan                       | May-2020       |           36450 |    6524191 |             0.56 |
+| Kyrgyzstan                       | June-2020      |           87845 |    6524191 |             1.35 |
+| Kyrgyzstan                       | July-2020      |          597522 |    6524191 |             9.16 |
+| Kyrgyzstan                       | August-2020    |         1276140 |    6524191 |            19.56 |
+| Kyrgyzstan                       | September-2020 |         1354021 |    6524191 |            20.75 |
+| Kyrgyzstan                       | October-2020   |         1605533 |    6524191 |            24.61 |
+| Kyrgyzstan                       | November-2020  |         1994975 |    6524191 |            30.58 |
+| Kyrgyzstan                       | December-2020  |         2411196 |    6524191 |            36.96 |
+| Kyrgyzstan                       | January-2021   |         2571550 |    6524191 |            39.42 |
+| Kyrgyzstan                       | February-2021  |         2393821 |    6524191 |            36.69 |
+| Kyrgyzstan                       | March-2021     |         2701863 |    6524191 |            41.41 |
+| Kyrgyzstan                       | April-2021     |         2744413 |    6524191 |            42.07 |
+| Laos                             | March-2020     |              50 |    7275556 |                0 |
+| Laos                             | April-2020     |             503 |    7275556 |             0.01 |
+| Laos                             | May-2020       |             589 |    7275556 |             0.01 |
+| Laos                             | June-2020      |             570 |    7275556 |             0.01 |
+| Laos                             | July-2020      |             597 |    7275556 |             0.01 |
+| Laos                             | August-2020    |             656 |    7275556 |             0.01 |
+| Laos                             | September-2020 |             680 |    7275556 |             0.01 |
+| Laos                             | October-2020   |             724 |    7275556 |             0.01 |
+| Laos                             | November-2020  |             846 |    7275556 |             0.01 |
+| Laos                             | December-2020  |            1259 |    7275556 |             0.02 |
+| Laos                             | January-2021   |            1292 |    7275556 |             0.02 |
+| Laos                             | February-2021  |            1258 |    7275556 |             0.02 |
+| Laos                             | March-2021     |            1485 |    7275556 |             0.02 |
+| Laos                             | April-2021     |            4930 |    7275556 |             0.07 |
+| Latvia                           | February-2020  |               0 |    1886202 |                0 |
+| Latvia                           | March-2020     |            3277 |    1886202 |             0.17 |
+| Latvia                           | April-2020     |           20149 |    1886202 |             1.07 |
+| Latvia                           | May-2020       |           30402 |    1886202 |             1.61 |
+| Latvia                           | June-2020      |           32971 |    1886202 |             1.75 |
+| Latvia                           | July-2020      |           36487 |    1886202 |             1.93 |
+| Latvia                           | August-2020    |           40754 |    1886202 |             2.16 |
+| Latvia                           | September-2020 |           45572 |    1886202 |             2.42 |
+| Latvia                           | October-2020   |          106264 |    1886202 |             5.63 |
+| Latvia                           | November-2020  |          326976 |    1886202 |            17.34 |
+| Latvia                           | December-2020  |          875710 |    1886202 |            46.43 |
+| Latvia                           | January-2021   |         1678918 |    1886202 |            89.01 |
+| Latvia                           | February-2021  |         2151827 |    1886202 |           114.08 |
+| Latvia                           | March-2021     |         2937772 |    1886202 |           155.75 |
+| Latvia                           | April-2021     |         3303437 |    1886202 |           175.14 |
+| Lebanon                          | February-2020  |              15 |    6825442 |                0 |
+| Lebanon                          | March-2020     |            5177 |    6825442 |             0.08 |
+| Lebanon                          | April-2020     |           18944 |    6825442 |             0.28 |
+| Lebanon                          | May-2020       |           29199 |    6825442 |             0.43 |
+| Lebanon                          | June-2020      |           44582 |    6825442 |             0.65 |
+| Lebanon                          | July-2020      |           85807 |    6825442 |             1.26 |
+| Lebanon                          | August-2020    |          302900 |    6825442 |             4.44 |
+| Lebanon                          | September-2020 |          807478 |    6825442 |            11.83 |
+| Lebanon                          | October-2020   |         1859410 |    6825442 |            27.24 |
+| Lebanon                          | November-2020  |         3175672 |    6825442 |            46.53 |
+| Lebanon                          | December-2020  |         4730285 |    6825442 |             69.3 |
+| Lebanon                          | January-2021   |         7586618 |    6825442 |           111.15 |
+| Lebanon                          | February-2021  |         9501209 |    6825442 |            139.2 |
+| Lebanon                          | March-2021     |        13134891 |    6825442 |           192.44 |
+| Lebanon                          | April-2021     |        15091550 |    6825442 |           221.11 |
+| Lesotho                          | May-2020       |              29 |    2142252 |                0 |
+| Lesotho                          | June-2020      |             272 |    2142252 |             0.01 |
+| Lesotho                          | July-2020      |            8782 |    2142252 |             0.41 |
+| Lesotho                          | August-2020    |           27809 |    2142252 |              1.3 |
+| Lesotho                          | September-2020 |           39807 |    2142252 |             1.86 |
+| Lesotho                          | October-2020   |           56894 |    2142252 |             2.66 |
+| Lesotho                          | November-2020  |           61138 |    2142252 |             2.85 |
+| Lesotho                          | December-2020  |           76083 |    2142252 |             3.55 |
+| Lesotho                          | January-2021   |          194193 |    2142252 |             9.06 |
+| Lesotho                          | February-2021  |          278256 |    2142252 |            12.99 |
+| Lesotho                          | March-2021     |          327749 |    2142252 |             15.3 |
+| Lesotho                          | April-2021     |          321443 |    2142252 |               15 |
+| Liberia                          | March-2020     |              41 |    5057677 |                0 |
+| Liberia                          | April-2020     |            2056 |    5057677 |             0.04 |
+| Liberia                          | May-2020       |            6898 |    5057677 |             0.14 |
+| Liberia                          | June-2020      |           15416 |    5057677 |              0.3 |
+| Liberia                          | July-2020      |           32087 |    5057677 |             0.63 |
+| Liberia                          | August-2020    |           39105 |    5057677 |             0.77 |
+| Liberia                          | September-2020 |           39742 |    5057677 |             0.79 |
+| Liberia                          | October-2020   |           42758 |    5057677 |             0.85 |
+| Liberia                          | November-2020  |           45235 |    5057677 |             0.89 |
+| Liberia                          | December-2020  |           53423 |    5057677 |             1.06 |
+| Liberia                          | January-2021   |           57740 |    5057677 |             1.14 |
+| Liberia                          | February-2021  |           55281 |    5057677 |             1.09 |
+| Liberia                          | March-2021     |           63015 |    5057677 |             1.25 |
+| Liberia                          | April-2021     |           61806 |    5057677 |             1.22 |
+| Libya                            | March-2020     |              33 |    6871287 |                0 |
+| Libya                            | April-2020     |            1180 |    6871287 |             0.02 |
+| Libya                            | May-2020       |            2340 |    6871287 |             0.03 |
+| Libya                            | June-2020      |           14275 |    6871287 |             0.21 |
+| Libya                            | July-2020      |           57791 |    6871287 |             0.84 |
+| Libya                            | August-2020    |          257246 |    6871287 |             3.74 |
+| Libya                            | September-2020 |          739939 |    6871287 |            10.77 |
+| Libya                            | October-2020   |         1475402 |    6871287 |            21.47 |
+| Libya                            | November-2020  |         2198676 |    6871287 |               32 |
+| Libya                            | December-2020  |         2861262 |    6871287 |            41.64 |
+| Libya                            | January-2021   |         3375585 |    6871287 |            49.13 |
+| Libya                            | February-2021  |         3560392 |    6871287 |            51.82 |
+| Libya                            | March-2021     |         4553941 |    6871287 |            66.27 |
+| Libya                            | April-2021     |         5099709 |    6871287 |            74.22 |
+| Liechtenstein                    | March-2020     |             694 |      38137 |             1.82 |
+| Liechtenstein                    | April-2020     |            2372 |      38137 |             6.22 |
+| Liechtenstein                    | May-2020       |            2542 |      38137 |             6.67 |
+| Liechtenstein                    | June-2020      |            2460 |      38137 |             6.45 |
+| Liechtenstein                    | July-2020      |            2634 |      38137 |             6.91 |
+| Liechtenstein                    | August-2020    |            2952 |      38137 |             7.74 |
+| Liechtenstein                    | September-2020 |            3352 |      38137 |             8.79 |
+| Liechtenstein                    | October-2020   |            7561 |      38137 |            19.83 |
+| Liechtenstein                    | November-2020  |           28878 |      38137 |            75.72 |
+| Liechtenstein                    | December-2020  |           51462 |      38137 |           134.94 |
+| Liechtenstein                    | January-2021   |           73484 |      38137 |           192.68 |
+| Liechtenstein                    | February-2021  |           71015 |      38137 |           186.21 |
+| Liechtenstein                    | March-2021     |           81102 |      38137 |           212.66 |
+| Liechtenstein                    | April-2021     |           83726 |      38137 |           219.54 |
+| Lithuania                        | February-2020  |               1 |    2722291 |                0 |
+| Lithuania                        | March-2020     |            3022 |    2722291 |             0.11 |
+| Lithuania                        | April-2020     |           30598 |    2722291 |             1.12 |
+| Lithuania                        | May-2020       |           47420 |    2722291 |             1.74 |
+| Lithuania                        | June-2020      |           52692 |    2722291 |             1.94 |
+| Lithuania                        | July-2020      |           59304 |    2722291 |             2.18 |
+| Lithuania                        | August-2020    |           75618 |    2722291 |             2.78 |
+| Lithuania                        | September-2020 |          107305 |    2722291 |             3.94 |
+| Lithuania                        | October-2020   |          244755 |    2722291 |             8.99 |
+| Lithuania                        | November-2020  |         1090304 |    2722291 |            40.05 |
+| Lithuania                        | December-2020  |         3142080 |    2722291 |           115.42 |
+| Lithuania                        | January-2021   |         5173306 |    2722291 |           190.04 |
+| Lithuania                        | February-2021  |         5336974 |    2722291 |           196.05 |
+| Lithuania                        | March-2021     |         6413345 |    2722291 |           235.59 |
+| Lithuania                        | April-2021     |         6935557 |    2722291 |           254.77 |
+| Luxembourg                       | February-2020  |               1 |     625976 |                0 |
+| Luxembourg                       | March-2020     |           17209 |     625976 |             2.75 |
+| Luxembourg                       | April-2020     |           99317 |     625976 |            15.87 |
+| Luxembourg                       | May-2020       |          121711 |     625976 |            19.44 |
+| Luxembourg                       | June-2020      |          122950 |     625976 |            19.64 |
+| Luxembourg                       | July-2020      |          166386 |     625976 |            26.58 |
+| Luxembourg                       | August-2020    |          225779 |     625976 |            36.07 |
+| Luxembourg                       | September-2020 |          225144 |     625976 |            35.97 |
+| Luxembourg                       | October-2020   |          351609 |     625976 |            56.17 |
+| Luxembourg                       | November-2020  |          800948 |     625976 |           127.95 |
+| Luxembourg                       | December-2020  |         1297802 |     625976 |           207.32 |
+| Luxembourg                       | January-2021   |         1506358 |     625976 |           240.64 |
+| Luxembourg                       | February-2021  |         1482434 |     625976 |           236.82 |
+| Luxembourg                       | March-2021     |         1807017 |     625976 |           288.67 |
+| Luxembourg                       | April-2021     |         1934308 |     625976 |           309.01 |
+| Macao                            | February-2021  |               0 |     649342 |                0 |
+| Macao                            | March-2021     |               0 |     649342 |                0 |
+| Macao                            | April-2021     |               0 |     649342 |                0 |
+| Madagascar                       | March-2020     |             271 |   27691019 |                0 |
+| Madagascar                       | April-2020     |            3143 |   27691019 |             0.01 |
+| Madagascar                       | May-2020       |           10795 |   27691019 |             0.04 |
+| Madagascar                       | June-2020      |           42217 |   27691019 |             0.15 |
+| Madagascar                       | July-2020      |          192907 |   27691019 |              0.7 |
+| Madagascar                       | August-2020    |          420613 |   27691019 |             1.52 |
+| Madagascar                       | September-2020 |          473830 |   27691019 |             1.71 |
+| Madagascar                       | October-2020   |          519886 |   27691019 |             1.88 |
+| Madagascar                       | November-2020  |          517577 |   27691019 |             1.87 |
+| Madagascar                       | December-2020  |          544372 |   27691019 |             1.97 |
+| Madagascar                       | January-2021   |          564230 |   27691019 |             2.04 |
+| Madagascar                       | February-2021  |          545744 |   27691019 |             1.97 |
+| Madagascar                       | March-2021     |          671004 |   27691019 |             2.42 |
+| Madagascar                       | April-2021     |          920949 |   27691019 |             3.33 |
+| Malawi                           | March-2020     |               0 |   19129955 |                0 |
+| Malawi                           | April-2020     |             528 |   19129955 |                0 |
+| Malawi                           | May-2020       |            2747 |   19129955 |             0.01 |
+| Malawi                           | June-2020      |           19374 |   19129955 |              0.1 |
+| Malawi                           | July-2020      |           82400 |   19129955 |             0.43 |
+| Malawi                           | August-2020    |          154885 |   19129955 |             0.81 |
+| Malawi                           | September-2020 |          170733 |   19129955 |             0.89 |
+| Malawi                           | October-2020   |          181240 |   19129955 |             0.95 |
+| Malawi                           | November-2020  |          179342 |   19129955 |             0.94 |
+| Malawi                           | December-2020  |          191330 |   19129955 |                1 |
+| Malawi                           | January-2021   |          415229 |   19129955 |             2.17 |
+| Malawi                           | February-2021  |          808919 |   19129955 |             4.23 |
+| Malawi                           | March-2021     |         1020068 |   19129955 |             5.33 |
+| Malawi                           | April-2021     |         1016210 |   19129955 |             5.31 |
+| Malaysia                         | January-2020   |              38 |   32365998 |                0 |
+| Malaysia                         | February-2020  |             529 |   32365998 |                0 |
+| Malaysia                         | March-2020     |           27636 |   32365998 |             0.09 |
+| Malaysia                         | April-2020     |          145040 |   32365998 |             0.45 |
+| Malaysia                         | May-2020       |          214779 |   32365998 |             0.66 |
+| Malaysia                         | June-2020      |          252725 |   32365998 |             0.78 |
+| Malaysia                         | July-2020      |          271966 |   32365998 |             0.84 |
+| Malaysia                         | August-2020    |          284350 |   32365998 |             0.88 |
+| Malaysia                         | September-2020 |          302097 |   32365998 |             0.93 |
+| Malaysia                         | October-2020   |          621112 |   32365998 |             1.92 |
+| Malaysia                         | November-2020  |         1451172 |   32365998 |             4.48 |
+| Malaysia                         | December-2020  |         2734703 |   32365998 |             8.45 |
+| Malaysia                         | January-2021   |         4894111 |   32365998 |            15.12 |
+| Malaysia                         | February-2021  |         7379863 |   32365998 |             22.8 |
+| Malaysia                         | March-2021     |        10091945 |   32365998 |            31.18 |
+| Malaysia                         | April-2021     |        11169973 |   32365998 |            34.51 |
+| Maldives                         | March-2020     |             289 |     540542 |             0.05 |
+| Maldives                         | April-2020     |            2519 |     540542 |             0.47 |
+| Maldives                         | May-2020       |           32674 |     540542 |             6.04 |
+| Maldives                         | June-2020      |           62485 |     540542 |            11.56 |
+| Maldives                         | July-2020      |           90220 |     540542 |            16.69 |
+| Maldives                         | August-2020    |          182727 |     540542 |             33.8 |
+| Maldives                         | September-2020 |          278856 |     540542 |            51.59 |
+| Maldives                         | October-2020   |          343649 |     540542 |            63.57 |
+| Maldives                         | November-2020  |          369915 |     540542 |            68.43 |
+| Maldives                         | December-2020  |          415623 |     540542 |            76.89 |
+| Maldives                         | January-2021   |          451616 |     540542 |            83.55 |
+| Maldives                         | February-2021  |          500324 |     540542 |            92.56 |
+| Maldives                         | March-2021     |          679662 |     540542 |           125.74 |
+| Maldives                         | April-2021     |          792272 |     540542 |           146.57 |
+| Mali                             | March-2020     |             106 |   20250834 |                0 |
+| Mali                             | April-2020     |            5898 |   20250834 |             0.03 |
+| Mali                             | May-2020       |           26486 |   20250834 |             0.13 |
+| Mali                             | June-2020      |           53905 |   20250834 |             0.27 |
+| Mali                             | July-2020      |           75197 |   20250834 |             0.37 |
+| Mali                             | August-2020    |           81775 |   20250834 |              0.4 |
+| Mali                             | September-2020 |           88671 |   20250834 |             0.44 |
+| Mali                             | October-2020   |          104007 |   20250834 |             0.51 |
+| Mali                             | November-2020  |          120596 |   20250834 |              0.6 |
+| Mali                             | December-2020  |          183402 |   20250834 |             0.91 |
+| Mali                             | January-2021   |          239845 |   20250834 |             1.18 |
+| Mali                             | February-2021  |          230661 |   20250834 |             1.14 |
+| Mali                             | March-2021     |          282009 |   20250834 |             1.39 |
+| Mali                             | April-2021     |          370821 |   20250834 |             1.83 |
+| Malta                            | February-2020  |               0 |     441539 |                0 |
+| Malta                            | March-2020     |            1707 |     441539 |             0.39 |
+| Malta                            | April-2020     |           11099 |     441539 |             2.51 |
+| Malta                            | May-2020       |           16920 |     441539 |             3.83 |
+| Malta                            | June-2020      |           19477 |     441539 |             4.41 |
+| Malta                            | July-2020      |           21346 |     441539 |             4.83 |
+| Malta                            | August-2020    |           41914 |     441539 |             9.49 |
+| Malta                            | September-2020 |           74643 |     441539 |            16.91 |
+| Malta                            | October-2020   |          137553 |     441539 |            31.15 |
+| Malta                            | November-2020  |          242409 |     441539 |             54.9 |
+| Malta                            | December-2020  |          352991 |     441539 |            79.95 |
+| Malta                            | January-2021   |          476588 |     441539 |           107.94 |
+| Malta                            | February-2021  |          559054 |     441539 |           126.61 |
+| Malta                            | March-2021     |          823697 |     441539 |           186.55 |
+| Malta                            | April-2021     |          893451 |     441539 |           202.35 |
+| Marshall Islands                 | October-2020   |               8 |      59194 |             0.01 |
+| Marshall Islands                 | November-2020  |              76 |      59194 |             0.13 |
+| Marshall Islands                 | December-2020  |             124 |      59194 |             0.21 |
+| Marshall Islands                 | January-2021   |             124 |      59194 |             0.21 |
+| Marshall Islands                 | February-2021  |             112 |      59194 |             0.19 |
+| Marshall Islands                 | March-2021     |             124 |      59194 |             0.21 |
+| Marshall Islands                 | April-2021     |             120 |      59194 |              0.2 |
+| Mauritania                       | March-2020     |              46 |    4649660 |                0 |
+| Mauritania                       | April-2020     |             204 |    4649660 |                0 |
+| Mauritania                       | May-2020       |            4057 |    4649660 |             0.09 |
+| Mauritania                       | June-2020      |           67050 |    4649660 |             1.44 |
+| Mauritania                       | July-2020      |          172865 |    4649660 |             3.72 |
+| Mauritania                       | August-2020    |          208217 |    4649660 |             4.48 |
+| Mauritania                       | September-2020 |          219109 |    4649660 |             4.71 |
+| Mauritania                       | October-2020   |          235602 |    4649660 |             5.07 |
+| Mauritania                       | November-2020  |          240629 |    4649660 |             5.18 |
+| Mauritania                       | December-2020  |          357674 |    4649660 |             7.69 |
+| Mauritania                       | January-2021   |          491063 |    4649660 |            10.56 |
+| Mauritania                       | February-2021  |          475129 |    4649660 |            10.22 |
+| Mauritania                       | March-2021     |          542837 |    4649660 |            11.67 |
+| Mauritania                       | April-2021     |          543196 |    4649660 |            11.68 |
+| Mauritius                        | March-2020     |             841 |    1271767 |             0.07 |
+| Mauritius                        | April-2020     |            8914 |    1271767 |              0.7 |
+| Mauritius                        | May-2020       |           10311 |    1271767 |             0.81 |
+| Mauritius                        | June-2020      |           10136 |    1271767 |              0.8 |
+| Mauritius                        | July-2020      |           10622 |    1271767 |             0.84 |
+| Mauritius                        | August-2020    |           10750 |    1271767 |             0.85 |
+| Mauritius                        | September-2020 |           10896 |    1271767 |             0.86 |
+| Mauritius                        | October-2020   |           12802 |    1271767 |             1.01 |
+| Mauritius                        | November-2020  |           14299 |    1271767 |             1.12 |
+| Mauritius                        | December-2020  |           16106 |    1271767 |             1.27 |
+| Mauritius                        | January-2021   |           17037 |    1271767 |             1.34 |
+| Mauritius                        | February-2021  |           16729 |    1271767 |             1.32 |
+| Mauritius                        | March-2021     |           23585 |    1271767 |             1.85 |
+| Mauritius                        | April-2021     |           35374 |    1271767 |             2.78 |
+| Mexico                           | January-2020   |               0 |  128932753 |                0 |
+| Mexico                           | February-2020  |               5 |  128932753 |                0 |
+| Mexico                           | March-2020     |            8124 |  128932753 |             0.01 |
+| Mexico                           | April-2020     |          229514 |  128932753 |             0.18 |
+| Mexico                           | May-2020       |         1560343 |  128932753 |             1.21 |
+| Mexico                           | June-2020      |         4692440 |  128932753 |             3.64 |
+| Mexico                           | July-2020      |        10107738 |  128932753 |             7.84 |
+| Mexico                           | August-2020    |        16108026 |  128932753 |            12.49 |
+| Mexico                           | September-2020 |        20309152 |  128932753 |            15.75 |
+| Mexico                           | October-2020   |        26077771 |  128932753 |            20.23 |
+| Mexico                           | November-2020  |        30342144 |  128932753 |            23.53 |
+| Mexico                           | December-2020  |        39586956 |  128932753 |             30.7 |
+| Mexico                           | January-2021   |        50652332 |  128932753 |            39.29 |
+| Mexico                           | February-2021  |        55678011 |  128932753 |            43.18 |
+| Mexico                           | March-2021     |        67295623 |  128932753 |            52.19 |
+| Mexico                           | April-2021     |        68840861 |  128932753 |            53.39 |
+| Micronesia (country)             | January-2021   |              11 |     115021 |             0.01 |
+| Micronesia (country)             | February-2021  |              28 |     115021 |             0.02 |
+| Micronesia (country)             | March-2021     |              31 |     115021 |             0.03 |
+| Micronesia (country)             | April-2021     |              30 |     115021 |             0.03 |
+| Moldova                          | March-2020     |            2328 |    4033963 |             0.06 |
+| Moldova                          | April-2020     |           62717 |    4033963 |             1.55 |
+| Moldova                          | May-2020       |          183842 |    4033963 |             4.56 |
+| Moldova                          | June-2020      |          370715 |    4033963 |             9.19 |
+| Moldova                          | July-2020      |          633899 |    4033963 |            15.71 |
+| Moldova                          | August-2020    |          948327 |    4033963 |            23.51 |
+| Moldova                          | September-2020 |         1336462 |    4033963 |            33.13 |
+| Moldova                          | October-2020   |         2024123 |    4033963 |            50.18 |
+| Moldova                          | November-2020  |         2719636 |    4033963 |            67.42 |
+| Moldova                          | December-2020  |         4002186 |    4033963 |            99.21 |
+| Moldova                          | January-2021   |         4724038 |    4033963 |           117.11 |
+| Moldova                          | February-2021  |         4799569 |    4033963 |           118.98 |
+| Moldova                          | March-2021     |         6450183 |    4033963 |            159.9 |
+| Moldova                          | April-2021     |         7299198 |    4033963 |           180.94 |
+| Monaco                           | February-2020  |               1 |      39244 |                0 |
+| Monaco                           | March-2020     |             433 |      39244 |              1.1 |
+| Monaco                           | April-2020     |            2606 |      39244 |             6.64 |
+| Monaco                           | May-2020       |            2993 |      39244 |             7.63 |
+| Monaco                           | June-2020      |            3000 |      39244 |             7.64 |
+| Monaco                           | July-2020      |            3437 |      39244 |             8.76 |
+| Monaco                           | August-2020    |            4408 |      39244 |            11.23 |
+| Monaco                           | September-2020 |            5389 |      39244 |            13.73 |
+| Monaco                           | October-2020   |            8263 |      39244 |            21.06 |
+| Monaco                           | November-2020  |           15872 |      39244 |            40.44 |
+| Monaco                           | December-2020  |           22056 |      39244 |             56.2 |
+| Monaco                           | January-2021   |           36725 |      39244 |            93.58 |
+| Monaco                           | February-2021  |           49492 |      39244 |           126.11 |
+| Monaco                           | March-2021     |           65951 |      39244 |           168.05 |
+| Monaco                           | April-2021     |           71688 |      39244 |           182.67 |
+| Mongolia                         | March-2020     |             150 |    3278292 |                0 |
+| Mongolia                         | April-2020     |             784 |    3278292 |             0.02 |
+| Mongolia                         | May-2020       |            3109 |    3278292 |             0.09 |
+| Mongolia                         | June-2020      |            6073 |    3278292 |             0.19 |
+| Mongolia                         | July-2020      |            8047 |    3278292 |             0.25 |
+| Mongolia                         | August-2020    |            9204 |    3278292 |             0.28 |
+| Mongolia                         | September-2020 |            9335 |    3278292 |             0.28 |
+| Mongolia                         | October-2020   |           10071 |    3278292 |             0.31 |
+| Mongolia                         | November-2020  |           15411 |    3278292 |             0.47 |
+| Mongolia                         | December-2020  |           30313 |    3278292 |             0.92 |
+| Mongolia                         | January-2021   |           47060 |    3278292 |             1.44 |
+| Mongolia                         | February-2021  |           67025 |    3278292 |             2.04 |
+| Mongolia                         | March-2021     |          149927 |    3278292 |             4.57 |
+| Mongolia                         | April-2021     |          630670 |    3278292 |            19.24 |
+| Montenegro                       | March-2020     |             702 |     628062 |             0.11 |
+| Montenegro                       | April-2020     |            8188 |     628062 |              1.3 |
+| Montenegro                       | May-2020       |           10037 |     628062 |              1.6 |
+| Montenegro                       | June-2020      |           10921 |     628062 |             1.74 |
+| Montenegro                       | July-2020      |           54628 |     628062 |              8.7 |
+| Montenegro                       | August-2020    |          124250 |     628062 |            19.78 |
+| Montenegro                       | September-2020 |          227189 |     628062 |            36.17 |
+| Montenegro                       | October-2020   |          461498 |     628062 |            73.48 |
+| Montenegro                       | November-2020  |          820589 |     628062 |           130.65 |
+| Montenegro                       | December-2020  |         1312373 |     628062 |           208.96 |
+| Montenegro                       | January-2021   |         1704974 |     628062 |           271.47 |
+| Montenegro                       | February-2021  |         1930633 |     628062 |            307.4 |
+| Montenegro                       | March-2021     |         2615404 |     628062 |           416.42 |
+| Montenegro                       | April-2021     |         2846834 |     628062 |           453.27 |
+| Montserrat                       | February-2021  |               0 |       4999 |                0 |
+| Montserrat                       | March-2021     |               0 |       4999 |                0 |
+| Montserrat                       | April-2021     |               0 |       4999 |                0 |
+| Morocco                          | February-2020  |               0 |   36910558 |                0 |
+| Morocco                          | March-2020     |            3758 |   36910558 |             0.01 |
+| Morocco                          | April-2020     |           71867 |   36910558 |             0.19 |
+| Morocco                          | May-2020       |          203338 |   36910558 |             0.55 |
+| Morocco                          | June-2020      |          284411 |   36910558 |             0.77 |
+| Morocco                          | July-2020      |          530553 |   36910558 |             1.44 |
+| Morocco                          | August-2020    |         1322632 |   36910558 |             3.58 |
+| Morocco                          | September-2020 |         2767280 |   36910558 |              7.5 |
+| Morocco                          | October-2020   |         5233086 |   36910558 |            14.18 |
+| Morocco                          | November-2020  |         8764895 |   36910558 |            23.75 |
+| Morocco                          | December-2020  |        12547642 |   36910558 |            33.99 |
+| Morocco                          | January-2021   |        14188137 |   36910558 |            38.44 |
+| Morocco                          | February-2021  |        13392533 |   36910558 |            36.28 |
+| Morocco                          | March-2021     |        15182695 |   36910558 |            41.13 |
+| Morocco                          | April-2021     |        15128193 |   36910558 |            40.99 |
+| Mozambique                       | March-2020     |              56 |   31255435 |                0 |
+| Mozambique                       | April-2020     |            1062 |   31255435 |                0 |
+| Mozambique                       | May-2020       |            4381 |   31255435 |             0.01 |
+| Mozambique                       | June-2020      |           17887 |   31255435 |             0.06 |
+| Mozambique                       | July-2020      |           41760 |   31255435 |             0.13 |
+| Mozambique                       | August-2020    |           88562 |   31255435 |             0.28 |
+| Mozambique                       | September-2020 |          179950 |   31255435 |             0.58 |
+| Mozambique                       | October-2020   |          332795 |   31255435 |             1.06 |
+| Mozambique                       | November-2020  |          432481 |   31255435 |             1.38 |
+| Mozambique                       | December-2020  |          532505 |   31255435 |              1.7 |
+| Mozambique                       | January-2021   |          831521 |   31255435 |             2.66 |
+| Mozambique                       | February-2021  |         1405822 |   31255435 |              4.5 |
+| Mozambique                       | March-2021     |         2000023 |   31255435 |              6.4 |
+| Mozambique                       | April-2021     |         2069494 |   31255435 |             6.62 |
+| Myanmar                          | March-2020     |              55 |   54409794 |                0 |
+| Myanmar                          | April-2020     |            2408 |   54409794 |                0 |
+| Myanmar                          | May-2020       |            5780 |   54409794 |             0.01 |
+| Myanmar                          | June-2020      |            8018 |   54409794 |             0.01 |
+| Myanmar                          | July-2020      |           10335 |   54409794 |             0.02 |
+| Myanmar                          | August-2020    |           13862 |   54409794 |             0.03 |
+| Myanmar                          | September-2020 |          150402 |   54409794 |             0.28 |
+| Myanmar                          | October-2020   |         1037537 |   54409794 |             1.91 |
+| Myanmar                          | November-2020  |         2128623 |   54409794 |             3.91 |
+| Myanmar                          | December-2020  |         3427806 |   54409794 |              6.3 |
+| Myanmar                          | January-2021   |         4135212 |   54409794 |              7.6 |
+| Myanmar                          | February-2021  |         3962034 |   54409794 |             7.28 |
+| Myanmar                          | March-2021     |         4407423 |   54409794 |              8.1 |
+| Myanmar                          | April-2021     |         4278611 |   54409794 |             7.86 |
+| Namibia                          | March-2020     |              97 |    2540916 |                0 |
+| Namibia                          | April-2020     |             472 |    2540916 |             0.02 |
+| Namibia                          | May-2020       |             554 |    2540916 |             0.02 |
+| Namibia                          | June-2020      |            1843 |    2540916 |             0.07 |
+| Namibia                          | July-2020      |           33954 |    2540916 |             1.34 |
+| Namibia                          | August-2020    |          137480 |    2540916 |             5.41 |
+| Namibia                          | September-2020 |          293487 |    2540916 |            11.55 |
+| Namibia                          | October-2020   |          377670 |    2540916 |            14.86 |
+| Namibia                          | November-2020  |          407143 |    2540916 |            16.02 |
+| Namibia                          | December-2020  |          559188 |    2540916 |            22.01 |
+| Namibia                          | January-2021   |          923307 |    2540916 |            36.34 |
+| Namibia                          | February-2021  |         1015143 |    2540916 |            39.95 |
+| Namibia                          | March-2021     |         1287688 |    2540916 |            50.68 |
+| Namibia                          | April-2021     |         1389191 |    2540916 |            54.67 |
+| Nauru                            | April-2021     |               0 |      10834 |                0 |
+| Nepal                            | January-2020   |               7 |   29136808 |                0 |
+| Nepal                            | February-2020  |              29 |   29136808 |                0 |
+| Nepal                            | March-2020     |              56 |   29136808 |                0 |
+| Nepal                            | April-2020     |             792 |   29136808 |                0 |
+| Nepal                            | May-2020       |           13506 |   29136808 |             0.05 |
+| Nepal                            | June-2020      |          210352 |   29136808 |             0.72 |
+| Nepal                            | July-2020      |          535535 |   29136808 |             1.84 |
+| Nepal                            | August-2020    |          863563 |   29136808 |             2.96 |
+| Nepal                            | September-2020 |         1747272 |   29136808 |                6 |
+| Nepal                            | October-2020   |         3896377 |   29136808 |            13.37 |
+| Nepal                            | November-2020  |         6233158 |   29136808 |            21.39 |
+| Nepal                            | December-2020  |         7741083 |   29136808 |            26.57 |
+| Nepal                            | January-2021   |         8268041 |   29136808 |            28.38 |
+| Nepal                            | February-2021  |         7636928 |   29136808 |            26.21 |
+| Nepal                            | March-2021     |         8542862 |   29136808 |            29.32 |
+| Nepal                            | April-2021     |         8652964 |   29136808 |             29.7 |
+| Netherlands                      | February-2020  |               8 |   17134873 |                0 |
+| Netherlands                      | March-2020     |          102010 |   17134873 |              0.6 |
+| Netherlands                      | April-2020     |          847556 |   17134873 |             4.95 |
+| Netherlands                      | May-2020       |         1357150 |   17134873 |             7.92 |
+| Netherlands                      | June-2020      |         1467908 |   17134873 |             8.57 |
+| Netherlands                      | July-2020      |         1610265 |   17134873 |              9.4 |
+| Netherlands                      | August-2020    |         1986507 |   17134873 |            11.59 |
+| Netherlands                      | September-2020 |         2803172 |   17134873 |            16.36 |
+| Netherlands                      | October-2020   |         7024864 |   17134873 |               41 |
+| Netherlands                      | November-2020  |        13649806 |   17134873 |            79.66 |
+| Netherlands                      | December-2020  |        20507503 |   17134873 |           119.68 |
+| Netherlands                      | January-2021   |        28343170 |   17134873 |           165.41 |
+| Netherlands                      | February-2021  |        29303549 |   17134873 |           171.02 |
+| Netherlands                      | March-2021     |        36901518 |   17134873 |           215.36 |
+| Netherlands                      | April-2021     |        42290027 |   17134873 |           246.81 |
+| New Zealand                      | February-2020  |               2 |    4822233 |                0 |
+| New Zealand                      | March-2020     |            3637 |    4822233 |             0.08 |
+| New Zealand                      | April-2020     |           38859 |    4822233 |             0.81 |
+| New Zealand                      | May-2020       |           46429 |    4822233 |             0.96 |
+| New Zealand                      | June-2020      |           45317 |    4822233 |             0.94 |
+| New Zealand                      | July-2020      |           47976 |    4822233 |             0.99 |
+| New Zealand                      | August-2020    |           50692 |    4822233 |             1.05 |
+| New Zealand                      | September-2020 |           54113 |    4822233 |             1.12 |
+| New Zealand                      | October-2020   |           58768 |    4822233 |             1.22 |
+| New Zealand                      | November-2020  |           60239 |    4822233 |             1.25 |
+| New Zealand                      | December-2020  |           65370 |    4822233 |             1.36 |
+| New Zealand                      | January-2021   |           69608 |    4822233 |             1.44 |
+| New Zealand                      | February-2021  |           65507 |    4822233 |             1.36 |
+| New Zealand                      | March-2021     |           75612 |    4822233 |             1.57 |
+| New Zealand                      | April-2021     |           77304 |    4822233 |              1.6 |
+| Nicaragua                        | March-2020     |              33 |    6624554 |                0 |
+| Nicaragua                        | April-2020     |             269 |    6624554 |                0 |
+| Nicaragua                        | May-2020       |            6802 |    6624554 |              0.1 |
+| Nicaragua                        | June-2020      |           49303 |    6624554 |             0.74 |
+| Nicaragua                        | July-2020      |           95826 |    6624554 |             1.45 |
+| Nicaragua                        | August-2020    |          128770 |    6624554 |             1.94 |
+| Nicaragua                        | September-2020 |          146980 |    6624554 |             2.22 |
+| Nicaragua                        | October-2020   |          165777 |    6624554 |              2.5 |
+| Nicaragua                        | November-2020  |          170201 |    6624554 |             2.57 |
+| Nicaragua                        | December-2020  |          183612 |    6624554 |             2.77 |
+| Nicaragua                        | January-2021   |          190873 |    6624554 |             2.88 |
+| Nicaragua                        | February-2021  |          178231 |    6624554 |             2.69 |
+| Nicaragua                        | March-2021     |          203458 |    6624554 |             3.07 |
+| Nicaragua                        | April-2021     |          203357 |    6624554 |             3.07 |
+| Niger                            | March-2020     |             119 |   24206636 |                0 |
+| Niger                            | April-2020     |           15083 |   24206636 |             0.06 |
+| Niger                            | May-2020       |           26985 |   24206636 |             0.11 |
+| Niger                            | June-2020      |           30260 |   24206636 |             0.13 |
+| Niger                            | July-2020      |           34308 |   24206636 |             0.14 |
+| Niger                            | August-2020    |           36069 |   24206636 |             0.15 |
+| Niger                            | September-2020 |           35530 |   24206636 |             0.15 |
+| Niger                            | October-2020   |           37451 |   24206636 |             0.15 |
+| Niger                            | November-2020  |           39812 |   24206636 |             0.16 |
+| Niger                            | December-2020  |           75726 |   24206636 |             0.31 |
+| Niger                            | January-2021   |          125511 |   24206636 |             0.52 |
+| Niger                            | February-2021  |          130884 |   24206636 |             0.54 |
+| Niger                            | March-2021     |          151178 |   24206636 |             0.62 |
+| Niger                            | April-2021     |          153386 |   24206636 |             0.63 |
+| Nigeria                          | February-2020  |               2 |  206139587 |                0 |
+| Nigeria                          | March-2020     |             843 |  206139587 |                0 |
+| Nigeria                          | April-2020     |           19506 |  206139587 |             0.01 |
+| Nigeria                          | May-2020       |          180866 |  206139587 |             0.09 |
+| Nigeria                          | June-2020      |          521195 |  206139587 |             0.25 |
+| Nigeria                          | July-2020      |         1081480 |  206139587 |             0.52 |
+| Nigeria                          | August-2020    |         1523808 |  206139587 |             0.74 |
+| Nigeria                          | September-2020 |         1697188 |  206139587 |             0.82 |
+| Nigeria                          | October-2020   |         1889825 |  206139587 |             0.92 |
+| Nigeria                          | November-2020  |         1957643 |  206139587 |             0.95 |
+| Nigeria                          | December-2020  |         2359755 |  206139587 |             1.14 |
+| Nigeria                          | January-2021   |         3386814 |  206139587 |             1.64 |
+| Nigeria                          | February-2021  |         4086780 |  206139587 |             1.98 |
+| Nigeria                          | March-2021     |         4974919 |  206139587 |             2.41 |
+| Nigeria                          | April-2021     |         4922431 |  206139587 |             2.39 |
+| North Macedonia                  | February-2020  |               4 |    2083380 |                0 |
+| North Macedonia                  | March-2020     |            2469 |    2083380 |             0.12 |
+| North Macedonia                  | April-2020     |           29086 |    2083380 |              1.4 |
+| North Macedonia                  | May-2020       |           55465 |    2083380 |             2.66 |
+| North Macedonia                  | June-2020      |          127852 |    2083380 |             6.14 |
+| North Macedonia                  | July-2020      |          267796 |    2083380 |            12.85 |
+| North Macedonia                  | August-2020    |          393574 |    2083380 |            18.89 |
+| North Macedonia                  | September-2020 |          484487 |    2083380 |            23.25 |
+| North Macedonia                  | October-2020   |          721228 |    2083380 |            34.62 |
+| North Macedonia                  | November-2020  |         1422228 |    2083380 |            68.27 |
+| North Macedonia                  | December-2020  |         2316938 |    2083380 |           111.21 |
+| North Macedonia                  | January-2021   |         2736461 |    2083380 |           131.35 |
+| North Macedonia                  | February-2021  |         2725082 |    2083380 |            130.8 |
+| North Macedonia                  | March-2021     |         3572167 |    2083380 |           171.46 |
+| North Macedonia                  | April-2021     |         4319854 |    2083380 |           207.35 |
+| Northern Cyprus                  | January-2021   |               0 |          0 |             NULL |
+| Northern Cyprus                  | February-2021  |               0 |          0 |             NULL |
+| Northern Cyprus                  | March-2021     |               0 |          0 |             NULL |
+| Northern Cyprus                  | April-2021     |               0 |          0 |             NULL |
+| Norway                           | February-2020  |              23 |    5421242 |                0 |
+| Norway                           | March-2020     |           51448 |    5421242 |             0.95 |
+| Norway                           | April-2020     |          200308 |    5421242 |             3.69 |
+| Norway                           | May-2020       |          253969 |    5421242 |             4.68 |
+| Norway                           | June-2020      |          259993 |    5421242 |              4.8 |
+| Norway                           | July-2020      |          279850 |    5421242 |             5.16 |
+| Norway                           | August-2020    |          309769 |    5421242 |             5.71 |
+| Norway                           | September-2020 |          373709 |    5421242 |             6.89 |
+| Norway                           | October-2020   |          512670 |    5421242 |             9.46 |
+| Norway                           | November-2020  |          868805 |    5421242 |            16.03 |
+| Norway                           | December-2020  |         1318834 |    5421242 |            24.33 |
+| Norway                           | January-2021   |         1785238 |    5421242 |            32.93 |
+| Norway                           | February-2021  |         1873818 |    5421242 |            34.56 |
+| Norway                           | March-2021     |         2572627 |    5421242 |            47.45 |
+| Norway                           | April-2021     |         3171867 |    5421242 |            58.51 |
+| Oman                             | February-2020  |              22 |    5106622 |                0 |
+| Oman                             | March-2020     |            1700 |    5106622 |             0.03 |
+| Oman                             | April-2020     |           32202 |    5106622 |             0.63 |
+| Oman                             | May-2020       |          169194 |    5106622 |             3.31 |
+| Oman                             | June-2020      |          752585 |    5106622 |            14.74 |
+| Oman                             | July-2020      |         1918861 |    5106622 |            37.58 |
+| Oman                             | August-2020    |         2564645 |    5106622 |            50.22 |
+| Oman                             | September-2020 |         2740993 |    5106622 |            53.68 |
+| Oman                             | October-2020   |         3346098 |    5106622 |            65.52 |
+| Oman                             | November-2020  |         3601350 |    5106622 |            70.52 |
+| Oman                             | December-2020  |         3926319 |    5106622 |            76.89 |
+| Oman                             | January-2021   |         4078314 |    5106622 |            79.86 |
+| Oman                             | February-2021  |         3852400 |    5106622 |            75.44 |
+| Oman                             | March-2021     |         4607228 |    5106622 |            90.22 |
+| Oman                             | April-2021     |         5301318 |    5106622 |           103.81 |
+| Pakistan                         | February-2020  |              14 |  220892331 |                0 |
+| Pakistan                         | March-2020     |           17691 |  220892331 |             0.01 |
+| Pakistan                         | April-2020     |          246405 |  220892331 |             0.11 |
+| Pakistan                         | May-2020       |         1316336 |  220892331 |              0.6 |
+| Pakistan                         | June-2020      |         4450339 |  220892331 |             2.01 |
+| Pakistan                         | July-2020      |         7910429 |  220892331 |             3.58 |
+| Pakistan                         | August-2020    |         8934372 |  220892331 |             4.04 |
+| Pakistan                         | September-2020 |         9118734 |  220892331 |             4.13 |
+| Pakistan                         | October-2020   |        10005964 |  220892331 |             4.53 |
+| Pakistan                         | November-2020  |        10891173 |  220892331 |             4.93 |
+| Pakistan                         | December-2020  |        13839663 |  220892331 |             6.27 |
+| Pakistan                         | January-2021   |        16029828 |  220892331 |             7.26 |
+| Pakistan                         | February-2021  |        15805181 |  220892331 |             7.16 |
+| Pakistan                         | March-2021     |        19174307 |  220892331 |             8.68 |
+| Pakistan                         | April-2021     |        22487129 |  220892331 |            10.18 |
+| Palestine                        | March-2020     |            1355 |    5101416 |             0.03 |
+| Palestine                        | April-2020     |            8597 |    5101416 |             0.17 |
+| Palestine                        | May-2020       |           12240 |    5101416 |             0.24 |
+| Palestine                        | June-2020      |           25938 |    5101416 |             0.51 |
+| Palestine                        | July-2020      |          230938 |    5101416 |             4.53 |
+| Palestine                        | August-2020    |          519581 |    5101416 |            10.19 |
+| Palestine                        | September-2020 |          965368 |    5101416 |            18.92 |
+| Palestine                        | October-2020   |         1445125 |    5101416 |            28.33 |
+| Palestine                        | November-2020  |         1983791 |    5101416 |            38.89 |
+| Palestine                        | December-2020  |         3560267 |    5101416 |            69.79 |
+| Palestine                        | January-2021   |         4668798 |    5101416 |            91.52 |
+| Palestine                        | February-2021  |         4737219 |    5101416 |            92.86 |
+| Palestine                        | March-2021     |         6630876 |    5101416 |           129.98 |
+| Palestine                        | April-2021     |         8237354 |    5101416 |           161.47 |
+| Panama                           | March-2020     |            7317 |    4314768 |             0.17 |
+| Panama                           | April-2020     |          112687 |    4314768 |             2.61 |
+| Panama                           | May-2020       |          296760 |    4314768 |             6.88 |
+| Panama                           | June-2020      |          671302 |    4314768 |            15.56 |
+| Panama                           | July-2020      |         1544999 |    4314768 |            35.81 |
+| Panama                           | August-2020    |         2495408 |    4314768 |            57.83 |
+| Panama                           | September-2020 |         3095304 |    4314768 |            71.74 |
+| Panama                           | October-2020   |         3823490 |    4314768 |            88.61 |
+| Panama                           | November-2020  |         4442214 |    4314768 |           102.95 |
+| Panama                           | December-2020  |         6281785 |    4314768 |           145.59 |
+| Panama                           | January-2021   |         9023901 |    4314768 |           209.14 |
+| Panama                           | February-2021  |         9296807 |    4314768 |           215.46 |
+| Panama                           | March-2021     |        10808142 |    4314768 |           250.49 |
+| Panama                           | April-2021     |        10799722 |    4314768 |            250.3 |
+| Papua New Guinea                 | March-2020     |              12 |    8947027 |                0 |
+| Papua New Guinea                 | April-2020     |             139 |    8947027 |                0 |
+| Papua New Guinea                 | May-2020       |             248 |    8947027 |                0 |
+| Papua New Guinea                 | June-2020      |             261 |    8947027 |                0 |
+| Papua New Guinea                 | July-2020      |             786 |    8947027 |             0.01 |
+| Papua New Guinea                 | August-2020    |            9181 |    8947027 |              0.1 |
+| Papua New Guinea                 | September-2020 |           15304 |    8947027 |             0.17 |
+| Papua New Guinea                 | October-2020   |           17613 |    8947027 |              0.2 |
+| Papua New Guinea                 | November-2020  |           18326 |    8947027 |              0.2 |
+| Papua New Guinea                 | December-2020  |           22656 |    8947027 |             0.25 |
+| Papua New Guinea                 | January-2021   |           25582 |    8947027 |             0.29 |
+| Papua New Guinea                 | February-2021  |           27487 |    8947027 |             0.31 |
+| Papua New Guinea                 | March-2021     |           87886 |    8947027 |             0.98 |
+| Papua New Guinea                 | April-2021     |          271554 |    8947027 |             3.04 |
+| Paraguay                         | March-2020     |             546 |    7132530 |             0.01 |
+| Paraguay                         | April-2020     |            5046 |    7132530 |             0.07 |
+| Paraguay                         | May-2020       |           22319 |    7132530 |             0.31 |
+| Paraguay                         | June-2020      |           41461 |    7132530 |             0.58 |
+| Paraguay                         | July-2020      |          107086 |    7132530 |              1.5 |
+| Paraguay                         | August-2020    |          322154 |    7132530 |             4.52 |
+| Paraguay                         | September-2020 |          895368 |    7132530 |            12.55 |
+| Paraguay                         | October-2020   |         1643914 |    7132530 |            23.05 |
+| Paraguay                         | November-2020  |         2172533 |    7132530 |            30.46 |
+| Paraguay                         | December-2020  |         2979709 |    7132530 |            41.78 |
+| Paraguay                         | January-2021   |         3746546 |    7132530 |            52.53 |
+| Paraguay                         | February-2021  |         4076019 |    7132530 |            57.15 |
+| Paraguay                         | March-2021     |         5750218 |    7132530 |            80.62 |
+| Paraguay                         | April-2021     |         7379850 |    7132530 |           103.47 |
+| Peru                             | January-2020   |               0 |   32971846 |                0 |
+| Peru                             | February-2020  |               0 |   32971846 |                0 |
+| Peru                             | March-2020     |            7702 |   32971846 |             0.02 |
+| Peru                             | April-2020     |          410944 |   32971846 |             1.25 |
+| Peru                             | May-2020       |         2852556 |   32971846 |             8.65 |
+| Peru                             | June-2020      |         6934846 |   32971846 |            21.03 |
+| Peru                             | July-2020      |        10661731 |   32971846 |            32.34 |
+| Peru                             | August-2020    |        16405207 |   32971846 |            49.76 |
+| Peru                             | September-2020 |        22054476 |   32971846 |            66.89 |
+| Peru                             | October-2020   |        26653391 |   32971846 |            80.84 |
+| Peru                             | November-2020  |        28025436 |   32971846 |               85 |
+| Peru                             | December-2020  |        30624534 |   32971846 |            92.88 |
+| Peru                             | January-2021   |        32876154 |   32971846 |            99.71 |
+| Peru                             | February-2021  |        34491490 |   32971846 |           104.61 |
+| Peru                             | March-2021     |        44328085 |   32971846 |           134.44 |
+| Peru                             | April-2021     |        50368511 |   32971846 |           152.76 |
+| Philippines                      | January-2020   |               2 |  109581085 |                0 |
+| Philippines                      | February-2020  |              80 |  109581085 |                0 |
+| Philippines                      | March-2020     |           11453 |  109581085 |             0.01 |
+| Philippines                      | April-2020     |          163684 |  109581085 |             0.15 |
+| Philippines                      | May-2020       |          386438 |  109581085 |             0.35 |
+| Philippines                      | June-2020      |          813411 |  109581085 |             0.74 |
+| Philippines                      | July-2020      |         1949430 |  109581085 |             1.78 |
+| Philippines                      | August-2020    |         4980560 |  109581085 |             4.55 |
+| Philippines                      | September-2020 |         8070661 |  109581085 |             7.37 |
+| Philippines                      | October-2020   |        10848463 |  109581085 |              9.9 |
+| Philippines                      | November-2020  |        12238336 |  109581085 |            11.17 |
+| Philippines                      | December-2020  |        14069315 |  109581085 |            12.84 |
+| Philippines                      | January-2021   |        15468721 |  109581085 |            14.12 |
+| Philippines                      | February-2021  |        15404710 |  109581085 |            14.06 |
+| Philippines                      | March-2021     |        19944409 |  109581085 |             18.2 |
+| Philippines                      | April-2021     |        27170027 |  109581085 |            24.79 |
+| Poland                           | March-2020     |           16224 |   37846605 |             0.04 |
+| Poland                           | April-2020     |          235230 |   37846605 |             0.62 |
+| Poland                           | May-2020       |          568704 |   37846605 |              1.5 |
+| Poland                           | June-2020      |          890824 |   37846605 |             2.35 |
+| Poland                           | July-2020      |         1223582 |   37846605 |             3.23 |
+| Poland                           | August-2020    |         1758274 |   37846605 |             4.65 |
+| Poland                           | September-2020 |         2314353 |   37846605 |             6.12 |
+| Poland                           | October-2020   |         5617354 |   37846605 |            14.84 |
+| Poland                           | November-2020  |        21289192 |   37846605 |            56.25 |
+| Poland                           | December-2020  |        35868875 |   37846605 |            94.77 |
+| Poland                           | January-2021   |        43986631 |   37846605 |           116.22 |
+| Poland                           | February-2021  |        44741606 |   37846605 |           118.22 |
+| Poland                           | March-2021     |        61090282 |   37846605 |           161.42 |
+| Poland                           | April-2021     |        78591316 |   37846605 |           207.66 |
+| Portugal                         | February-2020  |               0 |   10196707 |                0 |
+| Portugal                         | March-2020     |           46919 |   10196707 |             0.46 |
+| Portugal                         | April-2020     |          533042 |   10196707 |             5.23 |
+| Portugal                         | May-2020       |          891512 |   10196707 |             8.74 |
+| Portugal                         | June-2020      |         1120468 |   10196707 |            10.99 |
+| Portugal                         | July-2020      |         1466385 |   10196707 |            14.38 |
+| Portugal                         | August-2020    |         1681411 |   10196707 |            16.49 |
+| Portugal                         | September-2020 |         1979547 |   10196707 |            19.41 |
+| Portugal                         | October-2020   |         3100387 |   10196707 |            30.41 |
+| Portugal                         | November-2020  |         6631134 |   10196707 |            65.03 |
+| Portugal                         | December-2020  |        11078455 |   10196707 |           108.65 |
+| Portugal                         | January-2021   |        17049576 |   10196707 |           167.21 |
+| Portugal                         | February-2021  |        21832473 |   10196707 |           214.11 |
+| Portugal                         | March-2021     |        25249953 |   10196707 |           247.63 |
+| Portugal                         | April-2021     |        24884086 |   10196707 |           244.04 |
+| Qatar                            | February-2020  |               1 |    2881060 |                0 |
+| Qatar                            | March-2020     |           10292 |    2881060 |             0.36 |
+| Qatar                            | April-2020     |          156835 |    2881060 |             5.44 |
+| Qatar                            | May-2020       |         1004693 |    2881060 |            34.87 |
+| Qatar                            | June-2020      |         2393921 |    2881060 |            83.09 |
+| Qatar                            | July-2020      |         3253053 |    2881060 |           112.91 |
+| Qatar                            | August-2020    |         3564216 |    2881060 |           123.71 |
+| Qatar                            | September-2020 |         3670670 |    2881060 |           127.41 |
+| Qatar                            | October-2020   |         4003427 |    2881060 |           138.96 |
+| Qatar                            | November-2020  |         4075334 |    2881060 |           141.45 |
+| Qatar                            | December-2020  |         4383960 |    2881060 |           152.16 |
+| Qatar                            | January-2021   |         4566164 |    2881060 |           158.49 |
+| Qatar                            | February-2021  |         4411295 |    2881060 |           153.11 |
+| Qatar                            | March-2021     |         5315332 |    2881060 |           184.49 |
+| Qatar                            | April-2021     |         5816640 |    2881060 |           201.89 |
+| Romania                          | February-2020  |               8 |   19237682 |                0 |
+| Romania                          | March-2020     |           14734 |   19237682 |             0.08 |
+| Romania                          | April-2020     |          222963 |   19237682 |             1.16 |
+| Romania                          | May-2020       |          507655 |   19237682 |             2.64 |
+| Romania                          | June-2020      |          680012 |   19237682 |             3.53 |
+| Romania                          | July-2020      |         1133525 |   19237682 |             5.89 |
+| Romania                          | August-2020    |         2170182 |   19237682 |            11.28 |
+| Romania                          | September-2020 |         3212048 |   19237682 |             16.7 |
+| Romania                          | October-2020   |         5464640 |   19237682 |            28.41 |
+| Romania                          | November-2020  |        10889047 |   19237682 |             56.6 |
+| Romania                          | December-2020  |        17531041 |   19237682 |            91.13 |
+| Romania                          | January-2021   |        21284511 |   19237682 |           110.64 |
+| Romania                          | February-2021  |        21393593 |   19237682 |           111.21 |
+| Romania                          | March-2021     |        27072367 |   19237682 |           140.73 |
+| Romania                          | April-2021     |        30490112 |   19237682 |           158.49 |
+| Russia                           | January-2020   |               2 |  145934460 |                0 |
+| Russia                           | February-2020  |              58 |  145934460 |                0 |
+| Russia                           | March-2020     |           12224 |  145934460 |             0.01 |
+| Russia                           | April-2020     |         1129437 |  145934460 |             0.77 |
+| Russia                           | May-2020       |         8257093 |  145934460 |             5.66 |
+| Russia                           | June-2020      |        16097579 |  145934460 |            11.03 |
+| Russia                           | July-2020      |        23233041 |  145934460 |            15.92 |
+| Russia                           | August-2020    |        28508044 |  145934460 |            19.53 |
+| Russia                           | September-2020 |        32289140 |  145934460 |            22.13 |
+| Russia                           | October-2020   |        42549555 |  145934460 |            29.16 |
+| Russia                           | November-2020  |        57925419 |  145934460 |            39.69 |
+| Russia                           | December-2020  |        84102182 |  145934460 |            57.63 |
+| Russia                           | January-2021   |       108422409 |  145934460 |             74.3 |
+| Russia                           | February-2021  |       112712911 |  145934460 |            77.24 |
+| Russia                           | March-2021     |       135088504 |  145934460 |            92.57 |
+| Russia                           | April-2021     |       138817103 |  145934460 |            95.12 |
+| Rwanda                           | March-2020     |             579 |   12952209 |                0 |
+| Rwanda                           | April-2020     |            4265 |   12952209 |             0.03 |
+| Rwanda                           | May-2020       |            9340 |   12952209 |             0.07 |
+| Rwanda                           | June-2020      |           18926 |   12952209 |             0.15 |
+| Rwanda                           | July-2020      |           46037 |   12952209 |             0.36 |
+| Rwanda                           | August-2020    |           83766 |   12952209 |             0.65 |
+| Rwanda                           | September-2020 |          137668 |   12952209 |             1.06 |
+| Rwanda                           | October-2020   |          154093 |   12952209 |             1.19 |
+| Rwanda                           | November-2020  |          164524 |   12952209 |             1.27 |
+| Rwanda                           | December-2020  |          216567 |   12952209 |             1.67 |
+| Rwanda                           | January-2021   |          348874 |   12952209 |             2.69 |
+| Rwanda                           | February-2021  |          485642 |   12952209 |             3.75 |
+| Rwanda                           | March-2021     |          631948 |   12952209 |             4.88 |
+| Rwanda                           | April-2021     |          711088 |   12952209 |             5.49 |
+| Saint Helena                     | February-2021  |               0 |       6071 |                0 |
+| Saint Helena                     | March-2021     |               0 |       6071 |                0 |
+| Saint Helena                     | April-2021     |               0 |       6071 |                0 |
+| Saint Kitts and Nevis            | March-2020     |              25 |      53192 |             0.05 |
+| Saint Kitts and Nevis            | April-2020     |             385 |      53192 |             0.72 |
+| Saint Kitts and Nevis            | May-2020       |             465 |      53192 |             0.87 |
+| Saint Kitts and Nevis            | June-2020      |             450 |      53192 |             0.85 |
+| Saint Kitts and Nevis            | July-2020      |             515 |      53192 |             0.97 |
+| Saint Kitts and Nevis            | August-2020    |             527 |      53192 |             0.99 |
+| Saint Kitts and Nevis            | September-2020 |             530 |      53192 |                1 |
+| Saint Kitts and Nevis            | October-2020   |             589 |      53192 |             1.11 |
+| Saint Kitts and Nevis            | November-2020  |             593 |      53192 |             1.11 |
+| Saint Kitts and Nevis            | December-2020  |             862 |      53192 |             1.62 |
+| Saint Kitts and Nevis            | January-2021   |            1072 |      53192 |             2.02 |
+| Saint Kitts and Nevis            | February-2021  |            1130 |      53192 |             2.12 |
+| Saint Kitts and Nevis            | March-2021     |            1325 |      53192 |             2.49 |
+| Saint Kitts and Nevis            | April-2021     |            1320 |      53192 |             2.48 |
+| Saint Lucia                      | March-2020     |              66 |     183629 |             0.04 |
+| Saint Lucia                      | April-2020     |             442 |     183629 |             0.24 |
+| Saint Lucia                      | May-2020       |             556 |     183629 |              0.3 |
+| Saint Lucia                      | June-2020      |             567 |     183629 |             0.31 |
+| Saint Lucia                      | July-2020      |             703 |     183629 |             0.38 |
+| Saint Lucia                      | August-2020    |             789 |     183629 |             0.43 |
+| Saint Lucia                      | September-2020 |             802 |     183629 |             0.44 |
+| Saint Lucia                      | October-2020   |            1254 |     183629 |             0.68 |
+| Saint Lucia                      | November-2020  |            5201 |     183629 |             2.83 |
+| Saint Lucia                      | December-2020  |            8909 |     183629 |             4.85 |
+| Saint Lucia                      | January-2021   |           20063 |     183629 |            10.93 |
+| Saint Lucia                      | February-2021  |           68586 |     183629 |            37.35 |
+| Saint Lucia                      | March-2021     |          124502 |     183629 |             67.8 |
+| Saint Lucia                      | April-2021     |          131631 |     183629 |            71.68 |
+| Saint Vincent and the Grenadines | March-2020     |              18 |     110947 |             0.02 |
+| Saint Vincent and the Grenadines | April-2020     |             329 |     110947 |              0.3 |
+| Saint Vincent and the Grenadines | May-2020       |             567 |     110947 |             0.51 |
+| Saint Vincent and the Grenadines | June-2020      |             834 |     110947 |             0.75 |
+| Saint Vincent and the Grenadines | July-2020      |            1233 |     110947 |             1.11 |
+| Saint Vincent and the Grenadines | August-2020    |            1779 |     110947 |              1.6 |
+| Saint Vincent and the Grenadines | September-2020 |            1894 |     110947 |             1.71 |
+| Saint Vincent and the Grenadines | October-2020   |            2092 |     110947 |             1.89 |
+| Saint Vincent and the Grenadines | November-2020  |            2400 |     110947 |             2.16 |
+| Saint Vincent and the Grenadines | December-2020  |            3070 |     110947 |             2.77 |
+| Saint Vincent and the Grenadines | January-2021   |           14455 |     110947 |            13.03 |
+| Saint Vincent and the Grenadines | February-2021  |           38221 |     110947 |            34.45 |
+| Saint Vincent and the Grenadines | March-2021     |           52231 |     110947 |            47.08 |
+| Saint Vincent and the Grenadines | April-2021     |           54187 |     110947 |            48.84 |
+| Samoa                            | November-2020  |              17 |     198410 |             0.01 |
+| Samoa                            | December-2020  |              62 |     198410 |             0.03 |
+| Samoa                            | January-2021   |              62 |     198410 |             0.03 |
+| Samoa                            | February-2021  |              70 |     198410 |             0.04 |
+| Samoa                            | March-2021     |              93 |     198410 |             0.05 |
+| Samoa                            | April-2021     |              90 |     198410 |             0.05 |
+| San Marino                       | February-2020  |               3 |      33938 |             0.01 |
+| San Marino                       | March-2020     |            3461 |      33938 |             10.2 |
+| San Marino                       | April-2020     |           12054 |      33938 |            35.52 |
+| San Marino                       | May-2020       |           19843 |      33938 |            58.47 |
+| San Marino                       | June-2020      |           20723 |      33938 |            61.06 |
+| San Marino                       | July-2020      |           21661 |      33938 |            63.83 |
+| San Marino                       | August-2020    |           21784 |      33938 |            64.19 |
+| San Marino                       | September-2020 |           21717 |      33938 |            63.99 |
+| San Marino                       | October-2020   |           24252 |      33938 |            71.46 |
+| San Marino                       | November-2020  |           38064 |      33938 |           112.16 |
+| San Marino                       | December-2020  |           62595 |      33938 |           184.44 |
+| San Marino                       | January-2021   |           85076 |      33938 |           250.68 |
+| San Marino                       | February-2021  |           93487 |      33938 |           275.46 |
+| San Marino                       | March-2021     |          130848 |      33938 |           385.55 |
+| San Marino                       | April-2021     |          149013 |      33938 |           439.07 |
+| Sao Tome and Principe            | April-2020     |             118 |     219161 |             0.05 |
+| Sao Tome and Principe            | May-2020       |            7624 |     219161 |             3.48 |
+| Sao Tome and Principe            | June-2020      |           18865 |     219161 |             8.61 |
+| Sao Tome and Principe            | July-2020      |           23753 |     219161 |            10.84 |
+| Sao Tome and Principe            | August-2020    |           27436 |     219161 |            12.52 |
+| Sao Tome and Principe            | September-2020 |           27146 |     219161 |            12.39 |
+| Sao Tome and Principe            | October-2020   |           28809 |     219161 |            13.15 |
+| Sao Tome and Principe            | November-2020  |           29081 |     219161 |            13.27 |
+| Sao Tome and Principe            | December-2020  |           31257 |     219161 |            14.26 |
+| Sao Tome and Principe            | January-2021   |           34943 |     219161 |            15.94 |
+| Sao Tome and Principe            | February-2021  |           42060 |     219161 |            19.19 |
+| Sao Tome and Principe            | March-2021     |           64204 |     219161 |             29.3 |
+| Sao Tome and Principe            | April-2021     |           68164 |     219161 |             31.1 |
+| Saudi Arabia                     | March-2020     |           12266 |   34813867 |             0.04 |
+| Saudi Arabia                     | April-2020     |          262096 |   34813867 |             0.75 |
+| Saudi Arabia                     | May-2020       |         1660260 |   34813867 |             4.77 |
+| Saudi Arabia                     | June-2020      |         4063590 |   34813867 |            11.67 |
+| Saudi Arabia                     | July-2020      |         7458294 |   34813867 |            21.42 |
+| Saudi Arabia                     | August-2020    |         9232859 |   34813867 |            26.52 |
+| Saudi Arabia                     | September-2020 |         9799409 |   34813867 |            28.15 |
+| Saudi Arabia                     | October-2020   |        10580404 |   34813867 |            30.39 |
+| Saudi Arabia                     | November-2020  |        10591512 |   34813867 |            30.42 |
+| Saudi Arabia                     | December-2020  |        11170841 |   34813867 |            32.09 |
+| Saudi Arabia                     | January-2021   |        11315754 |   34813867 |             32.5 |
+| Saudi Arabia                     | February-2021  |        10439661 |   34813867 |            29.99 |
+| Saudi Arabia                     | March-2021     |        11883601 |   34813867 |            34.13 |
+| Saudi Arabia                     | April-2021     |        12092823 |   34813867 |            34.74 |
+| Senegal                          | February-2020  |               0 |   16743930 |                0 |
+| Senegal                          | March-2020     |            1444 |   16743930 |             0.01 |
+| Senegal                          | April-2020     |           12025 |   16743930 |             0.07 |
+| Senegal                          | May-2020       |           72254 |   16743930 |             0.43 |
+| Senegal                          | June-2020      |          157369 |   16743930 |             0.94 |
+| Senegal                          | July-2020      |          264469 |   16743930 |             1.58 |
+| Senegal                          | August-2020    |          372440 |   16743930 |             2.22 |
+| Senegal                          | September-2020 |          432699 |   16743930 |             2.58 |
+| Senegal                          | October-2020   |          476074 |   16743930 |             2.84 |
+| Senegal                          | November-2020  |          474263 |   16743930 |             2.83 |
+| Senegal                          | December-2020  |          540600 |   16743930 |             3.23 |
+| Senegal                          | January-2021   |          704660 |   16743930 |             4.21 |
+| Senegal                          | February-2021  |          865118 |   16743930 |             5.17 |
+| Senegal                          | March-2021     |         1146849 |   16743930 |             6.85 |
+| Senegal                          | April-2021     |         1188702 |   16743930 |              7.1 |
+| Serbia                           | February-2020  |               0 |    6804596 |                0 |
+| Serbia                           | March-2020     |            5865 |    6804596 |             0.09 |
+| Serbia                           | April-2020     |          149995 |    6804596 |              2.2 |
+| Serbia                           | May-2020       |          324948 |    6804596 |             4.78 |
+| Serbia                           | June-2020      |          377220 |    6804596 |             5.54 |
+| Serbia                           | July-2020      |          618471 |    6804596 |             9.09 |
+| Serbia                           | August-2020    |          906472 |    6804596 |            13.32 |
+| Serbia                           | September-2020 |          976669 |    6804596 |            14.35 |
+| Serbia                           | October-2020   |         1146697 |    6804596 |            16.85 |
+| Serbia                           | November-2020  |         2898418 |    6804596 |             42.6 |
+| Serbia                           | December-2020  |         8500530 |    6804596 |           124.92 |
+| Serbia                           | January-2021   |        11459767 |    6804596 |           168.41 |
+| Serbia                           | February-2021  |        11879989 |    6804596 |           174.59 |
+| Serbia                           | March-2021     |        16376145 |    6804596 |           240.66 |
+| Serbia                           | April-2021     |        19596057 |    6804596 |           287.98 |
+| Seychelles                       | March-2020     |             111 |      98340 |             0.11 |
+| Seychelles                       | April-2020     |             325 |      98340 |             0.33 |
+| Seychelles                       | May-2020       |             341 |      98340 |             0.35 |
+| Seychelles                       | June-2020      |             534 |      98340 |             0.54 |
+| Seychelles                       | July-2020      |            3122 |      98340 |             3.17 |
+| Seychelles                       | August-2020    |            3972 |      98340 |             4.04 |
+| Seychelles                       | September-2020 |            4195 |      98340 |             4.27 |
+| Seychelles                       | October-2020   |            4631 |      98340 |             4.71 |
+| Seychelles                       | November-2020  |            4863 |      98340 |             4.95 |
+| Seychelles                       | December-2020  |            6178 |      98340 |             6.28 |
+| Seychelles                       | January-2021   |           22300 |      98340 |            22.68 |
+| Seychelles                       | February-2021  |           55056 |      98340 |            55.99 |
+| Seychelles                       | March-2021     |          106823 |      98340 |           108.63 |
+| Seychelles                       | April-2021     |          144133 |      98340 |           146.57 |
+| Sierra Leone                     | March-2020     |               1 |    7976985 |                0 |
+| Sierra Leone                     | April-2020     |            1108 |    7976985 |             0.01 |
+| Sierra Leone                     | May-2020       |           14797 |    7976985 |             0.19 |
+| Sierra Leone                     | June-2020      |           35399 |    7976985 |             0.44 |
+| Sierra Leone                     | July-2020      |           51771 |    7976985 |             0.65 |
+| Sierra Leone                     | August-2020    |           60266 |    7976985 |             0.76 |
+| Sierra Leone                     | September-2020 |           63761 |    7976985 |              0.8 |
+| Sierra Leone                     | October-2020   |           71801 |    7976985 |              0.9 |
+| Sierra Leone                     | November-2020  |           71748 |    7976985 |              0.9 |
+| Sierra Leone                     | December-2020  |           76929 |    7976985 |             0.96 |
+| Sierra Leone                     | January-2021   |           92626 |    7976985 |             1.16 |
+| Sierra Leone                     | February-2021  |          106690 |    7976985 |             1.34 |
+| Sierra Leone                     | March-2021     |          122060 |    7976985 |             1.53 |
+| Sierra Leone                     | April-2021     |          120558 |    7976985 |             1.51 |
+| Singapore                        | January-2020   |              53 |    5850343 |                0 |
+| Singapore                        | February-2020  |            1795 |    5850343 |             0.03 |
+| Singapore                        | March-2020     |           11276 |    5850343 |             0.19 |
+| Singapore                        | April-2020     |          188949 |    5850343 |             3.23 |
+| Singapore                        | May-2020       |          824865 |    5850343 |             14.1 |
+| Singapore                        | June-2020      |         1210239 |    5850343 |            20.69 |
+| Singapore                        | July-2020      |         1472037 |    5850343 |            25.16 |
+| Singapore                        | August-2020    |         1719511 |    5850343 |            29.39 |
+| Singapore                        | September-2020 |         1721643 |    5850343 |            29.43 |
+| Singapore                        | October-2020   |         1794938 |    5850343 |            30.68 |
+| Singapore                        | November-2020  |         1743530 |    5850343 |             29.8 |
+| Singapore                        | December-2020  |         1809806 |    5850343 |            30.94 |
+| Singapore                        | January-2021   |         1831362 |    5850343 |             31.3 |
+| Singapore                        | February-2021  |         1673891 |    5850343 |            28.61 |
+| Singapore                        | March-2021     |         1864345 |    5850343 |            31.87 |
+| Singapore                        | April-2021     |         1822946 |    5850343 |            31.16 |
+| Slovakia                         | March-2020     |            3440 |    5459643 |             0.06 |
+| Slovakia                         | April-2020     |           28263 |    5459643 |             0.52 |
+| Slovakia                         | May-2020       |           45753 |    5459643 |             0.84 |
+| Slovakia                         | June-2020      |           47133 |    5459643 |             0.86 |
+| Slovakia                         | July-2020      |           60846 |    5459643 |             1.11 |
+| Slovakia                         | August-2020    |           92437 |    5459643 |             1.69 |
+| Slovakia                         | September-2020 |          187265 |    5459643 |             3.43 |
+| Slovakia                         | October-2020   |          891676 |    5459643 |            16.33 |
+| Slovakia                         | November-2020  |         2567554 |    5459643 |            47.03 |
+| Slovakia                         | December-2020  |         4363337 |    5459643 |            79.92 |
+| Slovakia                         | January-2021   |         6785954 |    5459643 |           124.29 |
+| Slovakia                         | February-2021  |         7798032 |    5459643 |           142.83 |
+| Slovakia                         | March-2021     |        10497944 |    5459643 |           192.28 |
+| Slovakia                         | April-2021     |        11201875 |    5459643 |           205.18 |
+| Slovenia                         | February-2020  |               0 |    2078932 |                0 |
+| Slovenia                         | March-2020     |            8609 |    2078932 |             0.41 |
+| Slovenia                         | April-2020     |           36605 |    2078932 |             1.76 |
+| Slovenia                         | May-2020       |           45272 |    2078932 |             2.18 |
+| Slovenia                         | June-2020      |           45374 |    2078932 |             2.18 |
+| Slovenia                         | July-2020      |           58783 |    2078932 |             2.83 |
+| Slovenia                         | August-2020    |           76193 |    2078932 |             3.67 |
+| Slovenia                         | September-2020 |          121393 |    2078932 |             5.84 |
+| Slovenia                         | October-2020   |          454130 |    2078932 |            21.84 |
+| Slovenia                         | November-2020  |         1671542 |    2078932 |             80.4 |
+| Slovenia                         | December-2020  |         3098836 |    2078932 |           149.06 |
+| Slovenia                         | January-2021   |         4541774 |    2078932 |           218.47 |
+| Slovenia                         | February-2021  |         5025008 |    2078932 |           241.71 |
+| Slovenia                         | March-2021     |         6272871 |    2078932 |           301.74 |
+| Slovenia                         | April-2021     |         6883212 |    2078932 |           331.09 |
+| Solomon Islands                  | October-2020   |              87 |     686878 |             0.01 |
+| Solomon Islands                  | November-2020  |             458 |     686878 |             0.07 |
+| Solomon Islands                  | December-2020  |             527 |     686878 |             0.08 |
+| Solomon Islands                  | January-2021   |             527 |     686878 |             0.08 |
+| Solomon Islands                  | February-2021  |             495 |     686878 |             0.07 |
+| Solomon Islands                  | March-2021     |             559 |     686878 |             0.08 |
+| Solomon Islands                  | April-2021     |             585 |     686878 |             0.09 |
+| Somalia                          | March-2020     |              29 |   15893219 |                0 |
+| Somalia                          | April-2020     |            5314 |   15893219 |             0.03 |
+| Somalia                          | May-2020       |           40774 |   15893219 |             0.26 |
+| Somalia                          | June-2020      |           77531 |   15893219 |             0.49 |
+| Somalia                          | July-2020      |           95846 |   15893219 |              0.6 |
+| Somalia                          | August-2020    |          100817 |   15893219 |             0.63 |
+| Somalia                          | September-2020 |          102629 |   15893219 |             0.65 |
+| Somalia                          | October-2020   |          118956 |   15893219 |             0.75 |
+| Somalia                          | November-2020  |          129609 |   15893219 |             0.82 |
+| Somalia                          | December-2020  |          143124 |   15893219 |              0.9 |
+| Somalia                          | January-2021   |          146980 |   15893219 |             0.92 |
+| Somalia                          | February-2021  |          154727 |   15893219 |             0.97 |
+| Somalia                          | March-2021     |          292095 |   15893219 |             1.84 |
+| Somalia                          | April-2021     |          384553 |   15893219 |             2.42 |
+| South Africa                     | February-2020  |               0 |   59308690 |                0 |
+| South Africa                     | March-2020     |           10173 |   59308690 |             0.02 |
+| South Africa                     | April-2020     |           88044 |   59308690 |             0.15 |
+| South Africa                     | May-2020       |          497374 |   59308690 |             0.84 |
+| South Africa                     | June-2020      |         2421471 |   59308690 |             4.08 |
+| South Africa                     | July-2020      |        10057917 |   59308690 |            16.96 |
+| South Africa                     | August-2020    |        17952588 |   59308690 |            30.27 |
+| South Africa                     | September-2020 |        19588033 |   59308690 |            33.03 |
+| South Africa                     | October-2020   |        21710951 |   59308690 |            36.61 |
+| South Africa                     | November-2020  |        22626679 |   59308690 |            38.15 |
+| South Africa                     | December-2020  |        27842916 |   59308690 |            46.95 |
+| South Africa                     | January-2021   |        40240702 |   59308690 |            67.85 |
+| South Africa                     | February-2021  |        41711243 |   59308690 |            70.33 |
+| South Africa                     | March-2021     |        47472251 |   59308690 |            80.04 |
+| South Africa                     | April-2021     |        46922791 |   59308690 |            79.12 |
+| South Korea                      | January-2020   |              36 |   51269183 |                0 |
+| South Korea                      | February-2020  |           12128 |   51269183 |             0.02 |
+| South Korea                      | March-2020     |          244918 |   51269183 |             0.48 |
+| South Korea                      | April-2020     |          315431 |   51269183 |             0.62 |
+| South Korea                      | May-2020       |          342959 |   51269183 |             0.67 |
+| South Korea                      | June-2020      |          365805 |   51269183 |             0.71 |
+| South Korea                      | July-2020      |          423421 |   51269183 |             0.83 |
+| South Korea                      | August-2020    |          505449 |   51269183 |             0.99 |
+| South Korea                      | September-2020 |          673170 |   51269183 |             1.31 |
+| South Korea                      | October-2020   |          780435 |   51269183 |             1.52 |
+| South Korea                      | November-2020  |          888618 |   51269183 |             1.73 |
+| South Korea                      | December-2020  |         1463251 |   51269183 |             2.85 |
+| South Korea                      | January-2021   |         2220738 |   51269183 |             4.33 |
+| South Korea                      | February-2021  |         2364057 |   51269183 |             4.61 |
+| South Korea                      | March-2021     |         3003141 |   51269183 |             5.86 |
+| South Korea                      | April-2021     |         3395144 |   51269183 |             6.62 |
+| South Sudan                      | April-2020     |             191 |   11193729 |                0 |
+| South Sudan                      | May-2020       |           12050 |   11193729 |             0.11 |
+| South Sudan                      | June-2020      |           49168 |   11193729 |             0.44 |
+| South Sudan                      | July-2020      |           66680 |   11193729 |              0.6 |
+| South Sudan                      | August-2020    |           76852 |   11193729 |             0.69 |
+| South Sudan                      | September-2020 |           78188 |   11193729 |              0.7 |
+| South Sudan                      | October-2020   |           87229 |   11193729 |             0.78 |
+| South Sudan                      | November-2020  |           90188 |   11193729 |             0.81 |
+| South Sudan                      | December-2020  |          101635 |   11193729 |             0.91 |
+| South Sudan                      | January-2021   |          115032 |   11193729 |             1.03 |
+| South Sudan                      | February-2021  |          158760 |   11193729 |             1.42 |
+| South Sudan                      | March-2021     |          291531 |   11193729 |              2.6 |
+| South Sudan                      | April-2021     |          312418 |   11193729 |             2.79 |
+| Spain                            | February-2020  |             151 |   46754783 |                0 |
+| Spain                            | March-2020     |          742546 |   46754783 |             1.59 |
+| Spain                            | April-2020     |         5236777 |   46754783 |             11.2 |
+| Spain                            | May-2020       |         7102653 |   46754783 |            15.19 |
+| Spain                            | June-2020      |         7331192 |   46754783 |            15.68 |
+| Spain                            | July-2020      |         8134290 |   46754783 |             17.4 |
+| Spain                            | August-2020    |        11159043 |   46754783 |            23.87 |
+| Spain                            | September-2020 |        18316260 |   46754783 |            39.18 |
+| Spain                            | October-2020   |        29494693 |   46754783 |            63.08 |
+| Spain                            | November-2020  |        43932783 |   46754783 |            93.96 |
+| Spain                            | December-2020  |        55067758 |   46754783 |           117.78 |
+| Spain                            | January-2021   |        71180786 |   46754783 |           152.24 |
+| Spain                            | February-2021  |        85568038 |   46754783 |           183.01 |
+| Spain                            | March-2021     |        99280629 |   46754783 |           212.34 |
+| Spain                            | April-2021     |       101966198 |   46754783 |           218.09 |
+| Sri Lanka                        | January-2020   |               5 |   21413250 |                0 |
+| Sri Lanka                        | February-2020  |              29 |   21413250 |                0 |
+| Sri Lanka                        | March-2020     |            1471 |   21413250 |             0.01 |
+| Sri Lanka                        | April-2020     |            9067 |   21413250 |             0.04 |
+| Sri Lanka                        | May-2020       |           31986 |   21413250 |             0.15 |
+| Sri Lanka                        | June-2020      |           57101 |   21413250 |             0.27 |
+| Sri Lanka                        | July-2020      |           78455 |   21413250 |             0.37 |
+| Sri Lanka                        | August-2020    |           90093 |   21413250 |             0.42 |
+| Sri Lanka                        | September-2020 |           97197 |   21413250 |             0.45 |
+| Sri Lanka                        | October-2020   |          184458 |   21413250 |             0.86 |
+| Sri Lanka                        | November-2020  |          519494 |   21413250 |             2.43 |
+| Sri Lanka                        | December-2020  |         1064723 |   21413250 |             4.97 |
+| Sri Lanka                        | January-2021   |         1640683 |   21413250 |             7.66 |
+| Sri Lanka                        | February-2021  |         2102971 |   21413250 |             9.82 |
+| Sri Lanka                        | March-2021     |         2741305 |   21413250 |             12.8 |
+| Sri Lanka                        | April-2021     |         2923063 |   21413250 |            13.65 |
+| Sudan                            | March-2020     |              48 |   43849269 |                0 |
+| Sudan                            | April-2020     |            2897 |   43849269 |             0.01 |
+| Sudan                            | May-2020       |           71755 |   43849269 |             0.16 |
+| Sudan                            | June-2020      |          221561 |   43849269 |             0.51 |
+| Sudan                            | July-2020      |          327938 |   43849269 |             0.75 |
+| Sudan                            | August-2020    |          385040 |   43849269 |             0.88 |
+| Sudan                            | September-2020 |          404872 |   43849269 |             0.92 |
+| Sudan                            | October-2020   |          424972 |   43849269 |             0.97 |
+| Sudan                            | November-2020  |          459778 |   43849269 |             1.05 |
+| Sudan                            | December-2020  |          686746 |   43849269 |             1.57 |
+| Sudan                            | January-2021   |          860954 |   43849269 |             1.96 |
+| Sudan                            | February-2021  |          838465 |   43849269 |             1.91 |
+| Sudan                            | March-2021     |          959112 |   43849269 |             2.19 |
+| Sudan                            | April-2021     |          982035 |   43849269 |             2.24 |
+| Suriname                         | March-2020     |              88 |     586634 |             0.02 |
+| Suriname                         | April-2020     |             300 |     586634 |             0.05 |
+| Suriname                         | May-2020       |             342 |     586634 |             0.06 |
+| Suriname                         | June-2020      |            7377 |     586634 |             1.26 |
+| Suriname                         | July-2020      |           30514 |     586634 |              5.2 |
+| Suriname                         | August-2020    |           92088 |     586634 |             15.7 |
+| Suriname                         | September-2020 |          137565 |     586634 |            23.45 |
+| Suriname                         | October-2020   |          157566 |     586634 |            26.86 |
+| Suriname                         | November-2020  |          158057 |     586634 |            26.94 |
+| Suriname                         | December-2020  |          172469 |     586634 |             29.4 |
+| Suriname                         | January-2021   |          230537 |     586634 |             39.3 |
+| Suriname                         | February-2021  |          245498 |     586634 |            41.85 |
+| Suriname                         | March-2021     |          279961 |     586634 |            47.72 |
+| Suriname                         | April-2021     |          287403 |     586634 |            48.99 |
+| Sweden                           | February-2020  |              55 |   10099270 |                0 |
+| Sweden                           | March-2020     |           47284 |   10099270 |             0.47 |
+| Sweden                           | April-2020     |          391340 |   10099270 |             3.87 |
+| Sweden                           | May-2020       |          938735 |   10099270 |              9.3 |
+| Sweden                           | June-2020      |         1611074 |   10099270 |            15.95 |
+| Sweden                           | July-2020      |         2280371 |   10099270 |            22.58 |
+| Sweden                           | August-2020    |         2519171 |   10099270 |            24.94 |
+| Sweden                           | September-2020 |         2632351 |   10099270 |            26.06 |
+| Sweden                           | October-2020   |         3240753 |   10099270 |            32.09 |
+| Sweden                           | November-2020  |         5546377 |   10099270 |            54.92 |
+| Sweden                           | December-2020  |        10695430 |   10099270 |            105.9 |
+| Sweden                           | January-2021   |        15946013 |   10099270 |           157.89 |
+| Sweden                           | February-2021  |        17201658 |   10099270 |           170.33 |
+| Sweden                           | March-2021     |        22569251 |   10099270 |           223.47 |
+| Sweden                           | April-2021     |        26658585 |   10099270 |           263.97 |
+| Switzerland                      | February-2020  |              36 |    8654618 |                0 |
+| Switzerland                      | March-2020     |          155101 |    8654618 |             1.79 |
+| Switzerland                      | April-2020     |          767858 |    8654618 |             8.87 |
+| Switzerland                      | May-2020       |          943988 |    8654618 |            10.91 |
+| Switzerland                      | June-2020      |          935609 |    8654618 |            10.81 |
+| Switzerland                      | July-2020      |         1033677 |    8654618 |            11.94 |
+| Switzerland                      | August-2020    |         1188157 |    8654618 |            13.73 |
+| Switzerland                      | September-2020 |         1438863 |    8654618 |            16.63 |
+| Switzerland                      | October-2020   |         2627252 |    8654618 |            30.36 |
+| Switzerland                      | November-2020  |         7765995 |    8654618 |            89.73 |
+| Switzerland                      | December-2020  |        12135482 |    8654618 |           140.22 |
+| Switzerland                      | January-2021   |        15277220 |    8654618 |           176.52 |
+| Switzerland                      | February-2021  |        15173740 |    8654618 |           175.33 |
+| Switzerland                      | March-2021     |        17873268 |    8654618 |           206.52 |
+| Switzerland                      | April-2021     |        18901590 |    8654618 |            218.4 |
+| Syria                            | March-2020     |              52 |   17500657 |                0 |
+| Syria                            | April-2020     |             921 |   17500657 |             0.01 |
+| Syria                            | May-2020       |            2083 |   17500657 |             0.01 |
+| Syria                            | June-2020      |            5546 |   17500657 |             0.03 |
+| Syria                            | July-2020      |           15250 |   17500657 |             0.09 |
+| Syria                            | August-2020    |           53007 |   17500657 |              0.3 |
+| Syria                            | September-2020 |          107816 |   17500657 |             0.62 |
+| Syria                            | October-2020   |          154191 |   17500657 |             0.88 |
+| Syria                            | November-2020  |          203042 |   17500657 |             1.16 |
+| Syria                            | December-2020  |          299051 |   17500657 |             1.71 |
+| Syria                            | January-2021   |          399586 |   17500657 |             2.28 |
+| Syria                            | February-2021  |          416099 |   17500657 |             2.38 |
+| Syria                            | March-2021     |          525778 |   17500657 |                3 |
+| Syria                            | April-2021     |          625640 |   17500657 |             3.57 |
+| Taiwan                           | January-2020   |              52 |   23816775 |                0 |
+| Taiwan                           | February-2020  |             616 |   23816775 |                0 |
+| Taiwan                           | March-2020     |            3877 |   23816775 |             0.02 |
+| Taiwan                           | April-2020     |           11888 |   23816775 |             0.05 |
+| Taiwan                           | May-2020       |           13625 |   23816775 |             0.06 |
+| Taiwan                           | June-2020      |           13341 |   23816775 |             0.06 |
+| Taiwan                           | July-2020      |           14062 |   23816775 |             0.06 |
+| Taiwan                           | August-2020    |           14954 |   23816775 |             0.06 |
+| Taiwan                           | September-2020 |           15038 |   23816775 |             0.06 |
+| Taiwan                           | October-2020   |           16593 |   23816775 |             0.07 |
+| Taiwan                           | November-2020  |           18038 |   23816775 |             0.08 |
+| Taiwan                           | December-2020  |           23118 |   23816775 |              0.1 |
+| Taiwan                           | January-2021   |           26502 |   23816775 |             0.11 |
+| Taiwan                           | February-2021  |           26198 |   23816775 |             0.11 |
+| Taiwan                           | March-2021     |           30735 |   23816775 |             0.13 |
+| Taiwan                           | April-2021     |           32190 |   23816775 |             0.14 |
+| Tajikistan                       | April-2020     |              15 |    9537642 |                0 |
+| Tajikistan                       | May-2020       |           51539 |    9537642 |             0.54 |
+| Tajikistan                       | June-2020      |          152296 |    9537642 |              1.6 |
+| Tajikistan                       | July-2020      |          208547 |    9537642 |             2.19 |
+| Tajikistan                       | August-2020    |          249268 |    9537642 |             2.61 |
+| Tajikistan                       | September-2020 |          275116 |    9537642 |             2.88 |
+| Tajikistan                       | October-2020   |          322893 |    9537642 |             3.39 |
+| Tajikistan                       | November-2020  |          348944 |    9537642 |             3.66 |
+| Tajikistan                       | December-2020  |          396783 |    9537642 |             4.16 |
+| Tajikistan                       | January-2021   |          412497 |    9537642 |             4.32 |
+| Tajikistan                       | February-2021  |          372624 |    9537642 |             3.91 |
+| Tajikistan                       | March-2021     |          412548 |    9537642 |             4.33 |
+| Tajikistan                       | April-2021     |          399240 |    9537642 |             4.19 |
+| Tanzania                         | March-2020     |             163 |   59734213 |                0 |
+| Tanzania                         | April-2020     |            4575 |   59734213 |             0.01 |
+| Tanzania                         | May-2020       |           15576 |   59734213 |             0.03 |
+| Tanzania                         | June-2020      |           15270 |   59734213 |             0.03 |
+| Tanzania                         | July-2020      |           15779 |   59734213 |             0.03 |
+| Tanzania                         | August-2020    |           15779 |   59734213 |             0.03 |
+| Tanzania                         | September-2020 |           15270 |   59734213 |             0.03 |
+| Tanzania                         | October-2020   |           15779 |   59734213 |             0.03 |
+| Tanzania                         | November-2020  |           15270 |   59734213 |             0.03 |
+| Tanzania                         | December-2020  |           15779 |   59734213 |             0.03 |
+| Tanzania                         | January-2021   |           15779 |   59734213 |             0.03 |
+| Tanzania                         | February-2021  |           14252 |   59734213 |             0.02 |
+| Tanzania                         | March-2021     |           15779 |   59734213 |             0.03 |
+| Tanzania                         | April-2021     |           15270 |   59734213 |             0.03 |
+| Thailand                         | January-2020   |              96 |   69799978 |                0 |
+| Thailand                         | February-2020  |             933 |   69799978 |                0 |
+| Thailand                         | March-2020     |           13480 |   69799978 |             0.02 |
+| Thailand                         | April-2020     |           77098 |   69799978 |             0.11 |
+| Thailand                         | May-2020       |           93701 |   69799978 |             0.13 |
+| Thailand                         | June-2020      |           93991 |   69799978 |             0.13 |
+| Thailand                         | July-2020      |          100363 |   69799978 |             0.14 |
+| Thailand                         | August-2020    |          104473 |   69799978 |             0.15 |
+| Thailand                         | September-2020 |          104554 |   69799978 |             0.15 |
+| Thailand                         | October-2020   |          114072 |   69799978 |             0.16 |
+| Thailand                         | November-2020  |          116509 |   69799978 |             0.17 |
+| Thailand                         | December-2020  |          154099 |   69799978 |             0.22 |
+| Thailand                         | January-2021   |          380681 |   69799978 |             0.55 |
+| Thailand                         | February-2021  |          680096 |   69799978 |             0.97 |
+| Thailand                         | March-2021     |          847502 |   69799978 |             1.21 |
+| Thailand                         | April-2021     |         1243742 |   69799978 |             1.78 |
+| Timor                            | March-2020     |              10 |    1318442 |                0 |
+| Timor                            | April-2020     |             365 |    1318442 |             0.03 |
+| Timor                            | May-2020       |             744 |    1318442 |             0.06 |
+| Timor                            | June-2020      |             720 |    1318442 |             0.05 |
+| Timor                            | July-2020      |             744 |    1318442 |             0.06 |
+| Timor                            | August-2020    |             787 |    1318442 |             0.06 |
+| Timor                            | September-2020 |             812 |    1318442 |             0.06 |
+| Timor                            | October-2020   |             894 |    1318442 |             0.07 |
+| Timor                            | November-2020  |             900 |    1318442 |             0.07 |
+| Timor                            | December-2020  |            1054 |    1318442 |             0.08 |
+| Timor                            | January-2021   |            1705 |    1318442 |             0.13 |
+| Timor                            | February-2021  |            2678 |    1318442 |              0.2 |
+| Timor                            | March-2021     |            8190 |    1318442 |             0.62 |
+| Timor                            | April-2021     |           38592 |    1318442 |             2.93 |
+| Togo                             | March-2020     |             278 |    8278737 |                0 |
+| Togo                             | April-2020     |            2313 |    8278737 |             0.03 |
+| Togo                             | May-2020       |            8434 |    8278737 |              0.1 |
+| Togo                             | June-2020      |           16202 |    8278737 |              0.2 |
+| Togo                             | July-2020      |           23804 |    8278737 |             0.29 |
+| Togo                             | August-2020    |           36091 |    8278737 |             0.44 |
+| Togo                             | September-2020 |           48078 |    8278737 |             0.58 |
+| Togo                             | October-2020   |           63293 |    8278737 |             0.76 |
+| Togo                             | November-2020  |           80374 |    8278737 |             0.97 |
+| Togo                             | December-2020  |          102862 |    8278737 |             1.24 |
+| Togo                             | January-2021   |          132772 |    8278737 |              1.6 |
+| Togo                             | February-2021  |          166043 |    8278737 |             2.01 |
+| Togo                             | March-2021     |          262504 |    8278737 |             3.17 |
+| Togo                             | April-2021     |          364486 |    8278737 |              4.4 |
+| Tonga                            | April-2021     |               0 |     105697 |                0 |
+| Trinidad and Tobago              | March-2020     |             757 |    1399491 |             0.05 |
+| Trinidad and Tobago              | April-2020     |            3315 |    1399491 |             0.24 |
+| Trinidad and Tobago              | May-2020       |            3598 |    1399491 |             0.26 |
+| Trinidad and Tobago              | June-2020      |            3629 |    1399491 |             0.26 |
+| Trinidad and Tobago              | July-2020      |            4310 |    1399491 |             0.31 |
+| Trinidad and Tobago              | August-2020    |           22008 |    1399491 |             1.57 |
+| Trinidad and Tobago              | September-2020 |           98238 |    1399491 |             7.02 |
+| Trinidad and Tobago              | October-2020   |          161320 |    1399491 |            11.53 |
+| Trinidad and Tobago              | November-2020  |          184145 |    1399491 |            13.16 |
+| Trinidad and Tobago              | December-2020  |          214764 |    1399491 |            15.35 |
+| Trinidad and Tobago              | January-2021   |          228015 |    1399491 |            16.29 |
+| Trinidad and Tobago              | February-2021  |          214119 |    1399491 |             15.3 |
+| Trinidad and Tobago              | March-2021     |          242510 |    1399491 |            17.33 |
+| Trinidad and Tobago              | April-2021     |          267657 |    1399491 |            19.13 |
+| Tunisia                          | March-2020     |            2476 |   11818618 |             0.02 |
+| Tunisia                          | April-2020     |           23056 |   11818618 |              0.2 |
+| Tunisia                          | May-2020       |           32212 |   11818618 |             0.27 |
+| Tunisia                          | June-2020      |           33677 |   11818618 |             0.28 |
+| Tunisia                          | July-2020      |           41174 |   11818618 |             0.35 |
+| Tunisia                          | August-2020    |           72295 |   11818618 |             0.61 |
+| Tunisia                          | September-2020 |          273502 |   11818618 |             2.31 |
+| Tunisia                          | October-2020   |         1173458 |   11818618 |             9.93 |
+| Tunisia                          | November-2020  |         2394119 |   11818618 |            20.26 |
+| Tunisia                          | December-2020  |         3603614 |   11818618 |            30.49 |
+| Tunisia                          | January-2021   |         5450840 |   11818618 |            46.12 |
+| Tunisia                          | February-2021  |         6240176 |   11818618 |             52.8 |
+| Tunisia                          | March-2021     |         7531509 |   11818618 |            63.73 |
+| Tunisia                          | April-2021     |         8436921 |   11818618 |            71.39 |
+| Turkey                           | March-2020     |           58776 |   84339067 |             0.07 |
+| Turkey                           | April-2020     |         2098207 |   84339067 |             2.49 |
+| Turkey                           | May-2020       |         4521709 |   84339067 |             5.36 |
+| Turkey                           | June-2020      |         5429570 |   84339067 |             6.44 |
+| Turkey                           | July-2020      |         6712753 |   84339067 |             7.96 |
+| Turkey                           | August-2020    |         7744882 |   84339067 |             9.18 |
+| Turkey                           | September-2020 |         8864996 |   84339067 |            10.51 |
+| Turkey                           | October-2020   |        10707361 |   84339067 |             12.7 |
+| Turkey                           | November-2020  |        13199045 |   84339067 |            15.65 |
+| Turkey                           | December-2020  |        51443548 |   84339067 |               61 |
+| Turkey                           | January-2021   |        73376598 |   84339067 |               87 |
+| Turkey                           | February-2021  |        72545924 |   84339067 |            86.02 |
+| Turkey                           | March-2021     |        91423494 |   84339067 |            108.4 |
+| Turkey                           | April-2021     |       123292520 |   84339067 |           146.19 |
+| Turks and Caicos Islands         | January-2021   |               0 |      38718 |                0 |
+| Turks and Caicos Islands         | February-2021  |               0 |      38718 |                0 |
+| Turks and Caicos Islands         | March-2021     |               0 |      38718 |                0 |
+| Turks and Caicos Islands         | April-2021     |               0 |      38718 |                0 |
+| Uganda                           | March-2020     |             211 |   45741000 |                0 |
+| Uganda                           | April-2020     |            1797 |   45741000 |                0 |
+| Uganda                           | May-2020       |            5937 |   45741000 |             0.01 |
+| Uganda                           | June-2020      |           21150 |   45741000 |             0.05 |
+| Uganda                           | July-2020      |           32169 |   45741000 |             0.07 |
+| Uganda                           | August-2020    |           54950 |   45741000 |             0.12 |
+| Uganda                           | September-2020 |          161746 |   45741000 |             0.35 |
+| Uganda                           | October-2020   |          320818 |   45741000 |              0.7 |
+| Uganda                           | November-2020  |          489403 |   45741000 |             1.07 |
+| Uganda                           | December-2020  |          882278 |   45741000 |             1.93 |
+| Uganda                           | January-2021   |         1179121 |   45741000 |             2.58 |
+| Uganda                           | February-2021  |         1120741 |   45741000 |             2.45 |
+| Uganda                           | March-2021     |         1258743 |   45741000 |             2.75 |
+| Uganda                           | April-2021     |         1239637 |   45741000 |             2.71 |
+| Ukraine                          | March-2020     |            3064 |   43733759 |             0.01 |
+| Ukraine                          | April-2020     |          137421 |   43733759 |             0.31 |
+| Ukraine                          | May-2020       |          543592 |   43733759 |             1.24 |
+| Ukraine                          | June-2020      |         1011298 |   43733759 |             2.31 |
+| Ukraine                          | July-2020      |         1797522 |   43733759 |             4.11 |
+| Ukraine                          | August-2020    |         2952987 |   43733759 |             6.75 |
+| Ukraine                          | September-2020 |         5019534 |   43733759 |            11.48 |
+| Ukraine                          | October-2020   |         9292272 |   43733759 |            21.25 |
+| Ukraine                          | November-2020  |        16972054 |   43733759 |            38.81 |
+| Ukraine                          | December-2020  |        29178756 |   43733759 |            66.72 |
+| Ukraine                          | January-2021   |        36713095 |   43733759 |            83.95 |
+| Ukraine                          | February-2021  |        37009908 |   43733759 |            84.63 |
+| Ukraine                          | March-2021     |        47885644 |   43733759 |           109.49 |
+| Ukraine                          | April-2021     |        58596168 |   43733759 |           133.98 |
+| United Arab Emirates             | January-2020   |              12 |    9890400 |                0 |
+| United Arab Emirates             | February-2020  |             268 |    9890400 |                0 |
+| United Arab Emirates             | March-2020     |            5515 |    9890400 |             0.06 |
+| United Arab Emirates             | April-2020     |          175824 |    9890400 |             1.78 |
+| United Arab Emirates             | May-2020       |          718686 |    9890400 |             7.27 |
+| United Arab Emirates             | June-2020      |         1274693 |    9890400 |            12.89 |
+| United Arab Emirates             | July-2020      |         1724036 |    9890400 |            17.43 |
+| United Arab Emirates             | August-2020    |         2009206 |    9890400 |            20.31 |
+| United Arab Emirates             | September-2020 |         2450597 |    9890400 |            24.78 |
+| United Arab Emirates             | October-2020   |         3511783 |    9890400 |            35.51 |
+| United Arab Emirates             | November-2020  |         4535051 |    9890400 |            45.85 |
+| United Arab Emirates             | December-2020  |         5847851 |    9890400 |            59.13 |
+| United Arab Emirates             | January-2021   |         7811891 |    9890400 |            78.98 |
+| United Arab Emirates             | February-2021  |         9796313 |    9890400 |            99.05 |
+| United Arab Emirates             | March-2021     |        13316657 |    9890400 |           134.64 |
+| United Arab Emirates             | April-2021     |        14769790 |    9890400 |           149.33 |
+| United Kingdom                   | January-2020   |               2 |   67886004 |                0 |
+| United Kingdom                   | February-2020  |             606 |   67886004 |                0 |
+| United Kingdom                   | March-2020     |          283199 |   67886004 |             0.42 |
+| United Kingdom                   | April-2020     |         3328344 |   67886004 |              4.9 |
+| United Kingdom                   | May-2020       |         7016710 |   67886004 |            10.34 |
+| United Kingdom                   | June-2020      |         8213357 |   67886004 |             12.1 |
+| United Kingdom                   | July-2020      |         9120400 |   67886004 |            13.43 |
+| United Kingdom                   | August-2020    |         9933759 |   67886004 |            14.63 |
+| United Kingdom                   | September-2020 |        11564506 |   67886004 |            17.04 |
+| United Kingdom                   | October-2020   |        22002570 |   67886004 |            32.41 |
+| United Kingdom                   | November-2020  |        40830975 |   67886004 |            60.15 |
+| United Kingdom                   | December-2020  |        61365366 |   67886004 |            90.39 |
+| United Kingdom                   | January-2021   |       102180395 |   67886004 |           150.52 |
+| United Kingdom                   | February-2021  |       113211684 |   67886004 |           166.77 |
+| United Kingdom                   | March-2021     |       132721966 |   67886004 |           195.51 |
+| United Kingdom                   | April-2021     |       131952179 |   67886004 |           194.37 |
+| United States                    | January-2020   |              41 |  331002647 |                0 |
+| United States                    | February-2020  |             402 |  331002647 |                0 |
+| United States                    | March-2020     |         1120122 |  331002647 |             0.34 |
+| United States                    | April-2020     |        19959287 |  331002647 |             6.03 |
+| United States                    | May-2020       |        45533906 |  331002647 |            13.76 |
+| United States                    | June-2020      |        64964762 |  331002647 |            19.63 |
+| United States                    | July-2020      |       111371152 |  331002647 |            33.65 |
+| United States                    | August-2020    |       166357378 |  331002647 |            50.26 |
+| United States                    | September-2020 |       199220181 |  331002647 |            60.19 |
+| United States                    | October-2020   |       251406215 |  331002647 |            75.95 |
+| United States                    | November-2020  |       339796331 |  331002647 |           102.66 |
+| United States                    | December-2020  |       528139775 |  331002647 |           159.56 |
+| United States                    | January-2021   |       730894746 |  331002647 |           220.81 |
+| United States                    | February-2021  |       774254261 |  331002647 |           233.91 |
+| United States                    | March-2021     |       916643837 |  331002647 |           276.93 |
+| United States                    | April-2021     |       944543693 |  331002647 |           285.36 |
+| Uruguay                          | March-2020     |            3023 |    3473727 |             0.09 |
+| Uruguay                          | April-2020     |           15144 |    3473727 |             0.44 |
+| Uruguay                          | May-2020       |           22718 |    3473727 |             0.65 |
+| Uruguay                          | June-2020      |           25962 |    3473727 |             0.75 |
+| Uruguay                          | July-2020      |           32857 |    3473727 |             0.95 |
+| Uruguay                          | August-2020    |           44615 |    3473727 |             1.28 |
+| Uruguay                          | September-2020 |           55050 |    3473727 |             1.58 |
+| Uruguay                          | October-2020   |           77922 |    3473727 |             2.24 |
+| Uruguay                          | November-2020  |          125784 |    3473727 |             3.62 |
+| Uruguay                          | December-2020  |          358979 |    3473727 |            10.33 |
+| Uruguay                          | January-2021   |          960688 |    3473727 |            27.66 |
+| Uruguay                          | February-2021  |         1383421 |    3473727 |            39.83 |
+| Uruguay                          | March-2021     |         2381456 |    3473727 |            68.56 |
+| Uruguay                          | April-2021     |         4664168 |    3473727 |           134.27 |
+| Uzbekistan                       | March-2020     |            1062 |   33469199 |                0 |
+| Uzbekistan                       | April-2020     |           35053 |   33469199 |              0.1 |
+| Uzbekistan                       | May-2020       |           85596 |   33469199 |             0.26 |
+| Uzbekistan                       | June-2020      |          168606 |   33469199 |              0.5 |
+| Uzbekistan                       | July-2020      |          479255 |   33469199 |             1.43 |
+| Uzbekistan                       | August-2020    |         1068133 |   33469199 |             3.19 |
+| Uzbekistan                       | September-2020 |         1468909 |   33469199 |             4.39 |
+| Uzbekistan                       | October-2020   |         1935712 |   33469199 |             5.78 |
+| Uzbekistan                       | November-2020  |         2106636 |   33469199 |             6.29 |
+| Uzbekistan                       | December-2020  |         2334877 |   33469199 |             6.98 |
+| Uzbekistan                       | January-2021   |         2415594 |   33469199 |             7.22 |
+| Uzbekistan                       | February-2021  |         2222824 |   33469199 |             6.64 |
+| Uzbekistan                       | March-2021     |         2511079 |   33469199 |              7.5 |
+| Uzbekistan                       | April-2021     |         2590272 |   33469199 |             7.74 |
+| Vanuatu                          | November-2020  |              21 |     307150 |             0.01 |
+| Vanuatu                          | December-2020  |              31 |     307150 |             0.01 |
+| Vanuatu                          | January-2021   |              31 |     307150 |             0.01 |
+| Vanuatu                          | February-2021  |              28 |     307150 |             0.01 |
+| Vanuatu                          | March-2021     |              79 |     307150 |             0.03 |
+| Vanuatu                          | April-2021     |             100 |     307150 |             0.03 |
+| Vatican                          | March-2020     |              58 |        809 |             7.17 |
+| Vatican                          | April-2020     |             247 |        809 |            30.53 |
+| Vatican                          | May-2020       |             367 |        809 |            45.36 |
+| Vatican                          | June-2020      |             360 |        809 |             44.5 |
+| Vatican                          | July-2020      |             372 |        809 |            45.98 |
+| Vatican                          | August-2020    |             372 |        809 |            45.98 |
+| Vatican                          | September-2020 |             360 |        809 |             44.5 |
+| Vatican                          | October-2020   |             646 |        809 |            79.85 |
+| Vatican                          | November-2020  |             810 |        809 |           100.12 |
+| Vatican                          | December-2020  |             837 |        809 |           103.46 |
+| Vatican                          | January-2021   |             837 |        809 |           103.46 |
+| Vatican                          | February-2021  |             756 |        809 |            93.45 |
+| Vatican                          | March-2021     |             837 |        809 |           103.46 |
+| Vatican                          | April-2021     |             810 |        809 |           100.12 |
+| Venezuela                        | March-2020     |            1296 |   28435943 |                0 |
+| Venezuela                        | April-2020     |            6845 |   28435943 |             0.02 |
+| Venezuela                        | May-2020       |           22391 |   28435943 |             0.08 |
+| Venezuela                        | June-2020      |          101886 |   28435943 |             0.36 |
+| Venezuela                        | July-2020      |          349975 |   28435943 |             1.23 |
+| Venezuela                        | August-2020    |         1023744 |   28435943 |              3.6 |
+| Venezuela                        | September-2020 |         1870624 |   28435943 |             6.58 |
+| Venezuela                        | October-2020   |         2638216 |   28435943 |             9.28 |
+| Venezuela                        | November-2020  |         2924109 |   28435943 |            10.28 |
+| Venezuela                        | December-2020  |         3361140 |   28435943 |            11.82 |
+| Venezuela                        | January-2021   |         3711664 |   28435943 |            13.05 |
+| Venezuela                        | February-2021  |         3732780 |   28435943 |            13.13 |
+| Venezuela                        | March-2021     |         4592207 |   28435943 |            16.15 |
+| Venezuela                        | April-2021     |         5402012 |   28435943 |               19 |
+| Vietnam                          | January-2020   |              18 |   97338583 |                0 |
+| Vietnam                          | February-2020  |             398 |   97338583 |                0 |
+| Vietnam                          | March-2020     |            2514 |   97338583 |                0 |
+| Vietnam                          | April-2020     |            7778 |   97338583 |             0.01 |
+| Vietnam                          | May-2020       |            9465 |   97338583 |             0.01 |
+| Vietnam                          | June-2020      |           10196 |   97338583 |             0.01 |
+| Vietnam                          | July-2020      |           12278 |   97338583 |             0.01 |
+| Vietnam                          | August-2020    |           28091 |   97338583 |             0.03 |
+| Vietnam                          | September-2020 |           31897 |   97338583 |             0.03 |
+| Vietnam                          | October-2020   |           35048 |   97338583 |             0.04 |
+| Vietnam                          | November-2020  |           38113 |   97338583 |             0.04 |
+| Vietnam                          | December-2020  |           43541 |   97338583 |             0.04 |
+| Vietnam                          | January-2021   |           48059 |   97338583 |             0.05 |
+| Vietnam                          | February-2021  |           61812 |   97338583 |             0.06 |
+| Vietnam                          | March-2021     |           78997 |   97338583 |             0.08 |
+| Vietnam                          | April-2021     |           82567 |   97338583 |             0.08 |
+| Yemen                            | April-2020     |              31 |   29825968 |                0 |
+| Yemen                            | May-2020       |            4101 |   29825968 |             0.01 |
+| Yemen                            | June-2020      |           23264 |   29825968 |             0.08 |
+| Yemen                            | July-2020      |           46644 |   29825968 |             0.16 |
+| Yemen                            | August-2020    |           57598 |   29825968 |             0.19 |
+| Yemen                            | September-2020 |           60327 |   29825968 |              0.2 |
+| Yemen                            | October-2020   |           63654 |   29825968 |             0.21 |
+| Yemen                            | November-2020  |           62038 |   29825968 |             0.21 |
+| Yemen                            | December-2020  |           64649 |   29825968 |             0.22 |
+| Yemen                            | January-2021   |           65439 |   29825968 |             0.22 |
+| Yemen                            | February-2021  |           60549 |   29825968 |              0.2 |
+| Yemen                            | March-2021     |           96700 |   29825968 |             0.32 |
+| Yemen                            | April-2021     |          167368 |   29825968 |             0.56 |
+| Zambia                           | March-2020     |             194 |   18383956 |                0 |
+| Zambia                           | April-2020     |            1754 |   18383956 |             0.01 |
+| Zambia                           | May-2020       |           18622 |   18383956 |              0.1 |
+| Zambia                           | June-2020      |           40038 |   18383956 |             0.22 |
+| Zambia                           | July-2020      |           90582 |   18383956 |             0.49 |
+| Zambia                           | August-2020    |          290970 |   18383956 |             1.58 |
+| Zambia                           | September-2020 |          410862 |   18383956 |             2.23 |
+| Zambia                           | October-2020   |          486509 |   18383956 |             2.65 |
+| Zambia                           | November-2020  |          514878 |   18383956 |              2.8 |
+| Zambia                           | December-2020  |          579474 |   18383956 |             3.15 |
+| Zambia                           | January-2021   |         1112407 |   18383956 |             6.05 |
+| Zambia                           | February-2021  |         1923634 |   18383956 |            10.46 |
+| Zambia                           | March-2021     |         2627072 |   18383956 |            14.29 |
+| Zambia                           | April-2021     |         2711129 |   18383956 |            14.75 |
+| Zimbabwe                         | March-2020     |              53 |   14862927 |                0 |
+| Zimbabwe                         | April-2020     |             618 |   14862927 |                0 |
+| Zimbabwe                         | May-2020       |            1871 |   14862927 |             0.01 |
+| Zimbabwe                         | June-2020      |           12096 |   14862927 |             0.08 |
+| Zimbabwe                         | July-2020      |           48113 |   14862927 |             0.32 |
+| Zimbabwe                         | August-2020    |          163293 |   14862927 |              1.1 |
+| Zimbabwe                         | September-2020 |          223571 |   14862927 |              1.5 |
+| Zimbabwe                         | October-2020   |          251343 |   14862927 |             1.69 |
+| Zimbabwe                         | November-2020  |          268984 |   14862927 |             1.81 |
+| Zimbabwe                         | December-2020  |          366341 |   14862927 |             2.46 |
+| Zimbabwe                         | January-2021   |          787416 |   14862927 |              5.3 |
+| Zimbabwe                         | February-2021  |          984049 |   14862927 |             6.62 |
+| Zimbabwe                         | March-2021     |         1132264 |   14862927 |             7.62 |
+| Zimbabwe                         | April-2021     |         1126565 |   14862927 |             7.58 |
+
+
