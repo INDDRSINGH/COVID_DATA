@@ -1,5 +1,59 @@
 # COVID_DATA
 
+````sql
+USE covid_data;
+````
+
+### After uploading the data from CSV file, date format was auto-changed to VARCHAR. Testing to Changing it again to DATE data type.
+
+**TYPE CONVERSION : Updating COVID_DEATH table to change the "date" column from VARCHAR to DATE format and other columns from VARCHAR TO INT**
+
+````sql
+update covid_death set date = date_format(str_to_date(date, '%m/%d/%Y'), '%Y-%m-%d');
+update covid_death set new_deaths = new_deaths*1;
+update covid_death set icu_patients = icu_patients*1;
+update covid_death set new_tests = new_tests*1;
+update covid_death set total_tests = total_tests*1;
+update covid_death set total_vaccinations = total_vaccinations*1;
+update covid_death set people_fully_vaccinated = people_fully_vaccinated*1;
+````
+
+**TYPE CONVERSION : Updating COVID_VACCINATIONS table to change the "date" column from VARCHAR to DATE format and other columns from VARCHAR TO INT**
+
+
+````sql
+update covid_vaccinations set date = date_format(str_to_date(date, '%m/%d/%Y'), '%Y-%m-%d');
+update covid_vaccinations set new_tests = new_tests*1;
+update covid_vaccinations set total_tests = total_tests*1;
+update covid_vaccinations set total_vaccinations = total_vaccinations*1;
+update covid_vaccinations set people_fully_vaccinated = people_fully_vaccinated*1;
+update covid_vaccinations set new_vaccinations = new_vaccinations*1;
+````
+
+
+**Altering the COVID_DEATH table to change table's "date" column from VARCHAR to DATE data type and other columns from VARCHAR to INT.**
+
+````sql
+alter table covid_death change date date date,
+CHANGE COLUMN `new_deaths` `new_deaths` INT NULL DEFAULT NULL, 
+CHANGE COLUMN `icu_patients` `icu_patients` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `new_tests` `new_tests` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `total_tests` `total_tests` INT NULL DEFAULT NULL,
+CHANGE COLUMN `total_vaccinations` `total_vaccinations` INT NULL DEFAULT NULL,
+CHANGE COLUMN `people_fully_vaccinated` `people_fully_vaccinated` INT NULL DEFAULT NULL;
+````
+
+
+**Altering the COVID_VACCINATIONS table to change table's "date" column from VARCHAR to DATE data type and other columns from VARCHAR to INT.**
+
+````sql
+alter table covid_vaccinations change date date date,
+CHANGE COLUMN `new_tests` `new_tests` INT NULL DEFAULT NULL, 
+CHANGE COLUMN `total_tests` `total_tests` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `total_vaccinations` `total_vaccinations` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `people_fully_vaccinated` `people_fully_vaccinated` INT NULL DEFAULT NULL,
+CHANGE COLUMN `new_vaccinations` `new_vaccinations` INT NULL DEFAULT NULL;
+````
 
 
 **Query : Percentage of people died in a month, out of number of cases reported in each month**
