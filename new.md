@@ -56,9 +56,10 @@ CHANGE COLUMN `new_vaccinations` `new_vaccinations` INT NULL DEFAULT NULL;
 ````
 
 
-**
-Query 1 : Percentage of people died in a month, out of number of cases reported in each month
-**
+
+**Query 1 : Percentage of people died in a month, out of number of cases reported in each month**
+
+
 
 ````sql
 select *, round((sum_total_deaths/sum_total_cases)*100,2) as Death_Percentage
