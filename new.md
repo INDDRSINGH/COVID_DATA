@@ -2,7 +2,7 @@
 
 
 
-Q Percentage of people died in a month, out of number of cases reported in each month
+**Query : Percentage of people died in a month, out of number of cases reported in each month**
 
 
 ````sql
@@ -13,7 +13,6 @@ sum(new_deaths) as sum_total_deaths, sum(total_cases) as sum_total_cases
 from covid_death 
 group by Month_year, Location
 ) e ;
-
 ````
 
 **Results:**
