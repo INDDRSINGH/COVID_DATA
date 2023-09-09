@@ -2,7 +2,7 @@
 
 
 
-** Q** Percentage of people died in a month, out of number of cases reported in each month
+**Q ** Percentage of people died in a month, out of number of cases reported in each month
 
 
 ````sql
