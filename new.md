@@ -279,7 +279,8 @@ group by location
 | Zimbabwe                         |         1567 |       38257 |
 
 
-**Query 2 :  Countries with highest percentage of Infection rate, compaared to country's population
+
+**Query 2 :  Countries with highest percentage of Infection rate, compared to country's population, order by Percentage_infected DESC **
 
 ````sql
 select *, round((Total_cases/population)*100,2) as Percentage_infected 
@@ -507,7 +508,7 @@ order by  Percentage_infected desc;
 | Northern Cyprus                  |           0 |          0 |                NULL |
 
 
-**Query 3 :Countries with highest percentage of death rate, compared to country's total cases reported.**
+**Query 3 :Countries with highest percentage of death rate, compared to country's total cases reported, order by Percentage_died DESC.**
 
 
 ```sql
@@ -737,9 +738,1096 @@ order by Percentage_died desc;
 
 
 
+** Qery 4 : Showing global cases, month wise.**
 
-**Query last : Percentage of people died in a month, out of number of cases reported in each month**
+```sql
+select *,  round((deaths/cases_reported)*100,2) as percentage_died
+from (
+select date_format(date,"%M-%Y") as date_mm,max(new_deaths) as deaths, max(total_cases) cases_reported
+from covid_death
+group by date_mm
+) q;	
+````
 
+**Results :**
+
+| date_mm        | deaths | cases_reported | percentage_died |
+|----------------|--------|----------------|-----------------|
+| February-2020  |    252 |          79356 |            0.32 |
+| March-2020     |   1085 |         192301 |            0.56 |
+| April-2020     |   2612 |        1081020 |            0.24 |
+| May-2020       |   2314 |        1798718 |            0.13 |
+| June-2020      |   2003 |        2642174 |            0.08 |
+| July-2020      |   3887 |        4567420 |            0.09 |
+| August-2020    |   4143 |        6026895 |            0.07 |
+| September-2020 |   3852 |        7235428 |            0.05 |
+| October-2020   |   3351 |        9165619 |            0.04 |
+| November-2020  |   2263 |       13670332 |            0.02 |
+| December-2020  |   3731 |       20099363 |            0.02 |
+| January-2021   |   4474 |       26247053 |            0.02 |
+| February-2021  |   3906 |       28648744 |            0.01 |
+| March-2021     |   3869 |       30462210 |            0.01 |
+| April-2021     |   4249 |       32346971 |            0.01 |
+| January-2020   |     49 |           9802 |            0.50 |
+
+
+**Query 5 : Percentage of number of people vaccinated in entire population, order by Percent_vaccinated DESC.**
+
+````sql
+with PopVsVac as (
+select d.location, max(d.population) as population, max(v.people_fully_vaccinated) as total_vaccinated
+from covid_death d
+join covid_vaccinations v
+on d.location = v.location and d.date = v.date
+group by d.location
+)
+select *, round((total_vaccinated/population)*100,2) as Percent_vaccinated
+from PopVsVac 
+order by Percent_vaccinated desc;
+````
+
+**Results :**
+
+
+| location                         | population | total_vaccinated | Percent_vaccinated |
+|----------------------------------|------------|------------------|--------------------|
+| Gibraltar                        |      33691 |            32838 |              97.47 |
+| Seychelles                       |      98340 |            59160 |              60.16 |
+| Israel                           |    8655541 |          5092858 |              58.84 |
+| Falkland Islands                 |       3483 |             1775 |              50.96 |
+| Cayman Islands                   |      65720 |            29920 |              45.53 |
+| United Arab Emirates             |    9890400 |          3836521 |              38.79 |
+| Bermuda                          |      62273 |            23775 |              38.18 |
+| Chile                            |   19116209 |          6693685 |              35.02 |
+| Bahrain                          |    1701583 |           541747 |              31.84 |
+| United States                    |  331002647 |        101407318 |              30.64 |
+| Jersey                           |     101073 |            30333 |              30.01 |
+| Monaco                           |      39244 |            11632 |              29.64 |
+| Turks and Caicos Islands         |      38718 |            10000 |              25.83 |
+| San Marino                       |      33938 |             8701 |              25.64 |
+| Malta                            |     441539 |           105628 |              23.92 |
+| Serbia                           |    6804596 |          1488034 |              21.87 |
+| United Kingdom                   |   67886004 |         14532875 |              21.41 |
+| Aruba                            |     106766 |            22559 |              21.13 |
+| Guernsey                         |      67052 |            13618 |              20.31 |
+| Hungary                          |    9660350 |          1948728 |              20.17 |
+| Qatar                            |    2881060 |           566576 |              19.67 |
+| Uruguay                          |    3473727 |           668468 |              19.24 |
+| Maldives                         |     540542 |           101346 |              18.75 |
+| Isle of Man                      |      85032 |            15773 |              18.55 |
+| Saint Helena                     |       6071 |             1009 |              16.62 |
+| Singapore                        |    5850343 |           849764 |              14.53 |
+| Curacao                          |     164100 |            23445 |              14.29 |
+| Montserrat                       |       4999 |              616 |              12.32 |
+| Faeroe Islands                   |      48865 |             5780 |              11.83 |
+| Morocco                          |   36910558 |          4260412 |              11.54 |
+| Denmark                          |    5792203 |           646129 |              11.16 |
+| Mongolia                         |    3278292 |           362926 |              11.07 |
+| Liechtenstein                    |      38137 |             4175 |              10.95 |
+| Lithuania                        |    2722291 |           295321 |              10.85 |
+| Turkey                           |   84339067 |          9104637 |               10.8 |
+| Switzerland                      |    8654618 |           926024 |               10.7 |
+| Iceland                          |     341250 |            36228 |              10.62 |
+| Spain                            |   46754783 |          4689766 |              10.03 |
+| Romania                          |   19237682 |          1906270 |               9.91 |
+| Slovenia                         |    2078932 |           205657 |               9.89 |
+| Italy                            |   60461828 |          5955692 |               9.85 |
+| Czechia                          |   10708982 |          1006049 |               9.39 |
+| Austria                          |    9006400 |           842480 |               9.35 |
+| Greenland                        |      56772 |             5272 |               9.29 |
+| France                           |   68147687 |          6304097 |               9.25 |
+| Estonia                          |    1326539 |           122340 |               9.22 |
+| Slovakia                         |    5459643 |           498352 |               9.13 |
+| Greece                           |   10423056 |           944133 |               9.06 |
+| Portugal                         |   10196707 |           881462 |               8.64 |
+| Ireland                          |    4937796 |           419665 |                8.5 |
+| Luxembourg                       |     625976 |            50924 |               8.14 |
+| Germany                          |   83783945 |          6381397 |               7.62 |
+| Poland                           |   37846605 |          2872925 |               7.59 |
+| Sweden                           |   10099270 |           755773 |               7.48 |
+| Dominican Republic               |   10847904 |           791831 |                7.3 |
+| Belgium                          |   11589616 |           818258 |               7.06 |
+| Cyprus                           |     875899 |            60183 |               6.87 |
+| Dominica                         |      71991 |             4818 |               6.69 |
+| Hong Kong                        |    7496988 |           497360 |               6.63 |
+| Norway                           |    5421242 |           357285 |               6.59 |
+| Brazil                           |  212559409 |         13549350 |               6.37 |
+| Andorra                          |      77265 |             4681 |               6.06 |
+| Cambodia                         |   16718971 |           945222 |               5.65 |
+| Mexico                           |  128932753 |          7100269 |               5.51 |
+| Costa Rica                       |    5094114 |           280202 |                5.5 |
+| Netherlands                      |   17134873 |           943197 |                5.5 |
+| Macao                            |     649342 |            35464 |               5.46 |
+| Anguilla                         |      15002 |              783 |               5.22 |
+| Russia                           |  145934460 |          7534622 |               5.16 |
+| Azerbaijan                       |   10139175 |           522086 |               5.15 |
+| Croatia                          |    4105268 |           189969 |               4.63 |
+| Panama                           |    4314768 |           190070 |               4.41 |
+| Montenegro                       |     628062 |            21589 |               3.44 |
+| Bulgaria                         |    6948445 |           213354 |               3.07 |
+| Colombia                         |   50882884 |          1546311 |               3.04 |
+| Finland                          |    5540718 |           166233 |                  3 |
+| Canada                           |   37742157 |          1090114 |               2.89 |
+| Indonesia                        |  273523621 |          7646284 |                2.8 |
+| Latvia                           |    1886202 |            52103 |               2.76 |
+| Lebanon                          |    6825442 |           168466 |               2.47 |
+| Jordan                           |   10203140 |           220594 |               2.16 |
+| Argentina                        |   45195777 |           938563 |               2.08 |
+| India                            | 1380004385 |         26621155 |               1.93 |
+| Peru                             |   32971846 |           612073 |               1.86 |
+| Bolivia                          |   11673029 |           214573 |               1.84 |
+| Bangladesh                       |  164689383 |          2805694 |                1.7 |
+| Malaysia                         |   32365998 |           544018 |               1.68 |
+| Kazakhstan                       |   18776707 |           266457 |               1.42 |
+| Ecuador                          |   17643060 |           227972 |               1.29 |
+| New Zealand                      |    4822233 |            60024 |               1.24 |
+| Oman                             |    5106622 |            62691 |               1.23 |
+| El Salvador                      |    6486201 |            68279 |               1.05 |
+| Belarus                          |    9449321 |            84500 |               0.89 |
+| Kuwait                           |    4270563 |            38000 |               0.89 |
+| Grenada                          |     112519 |              985 |               0.88 |
+| Palestine                        |    5101416 |            43880 |               0.86 |
+| Laos                             |    7275556 |            58315 |                0.8 |
+| Japan                            |  126476458 |           995758 |               0.79 |
+| Equatorial Guinea                |    1402985 |            10872 |               0.77 |
+| Tunisia                          |   11818618 |            85696 |               0.73 |
+| Zimbabwe                         |   14862927 |            85607 |               0.58 |
+| Thailand                         |   69799978 |           381848 |               0.55 |
+| South Africa                     |   59308690 |           317656 |               0.54 |
+| South Korea                      |   51269183 |           228399 |               0.45 |
+| Moldova                          |    4033963 |            17097 |               0.42 |
+| Guinea                           |   13132792 |            46877 |               0.36 |
+| Guyana                           |     786559 |             2800 |               0.36 |
+| Philippines                      |  109581085 |           280045 |               0.26 |
+| Iran                             |   83992953 |           209827 |               0.25 |
+| Paraguay                         |    7132530 |            11068 |               0.16 |
+| Sri Lanka                        |   21413250 |            25354 |               0.12 |
+| Gabon                            |    2225728 |             2002 |               0.09 |
+| Myanmar                          |   54409794 |            40000 |               0.07 |
+| Sierra Leone                     |    7976985 |             5702 |               0.07 |
+| Namibia                          |    2540916 |             1168 |               0.05 |
+| Honduras                         |    9904608 |             2639 |               0.03 |
+| Albania                          |    2877800 |              655 |               0.02 |
+| Guatemala                        |   17915567 |             1898 |               0.01 |
+| Afghanistan                      |   38928341 |                0 |                  0 |
+| Algeria                          |   43851043 |                0 |                  0 |
+| Angola                           |   32866268 |                0 |                  0 |
+| Antigua and Barbuda              |      97928 |                0 |                  0 |
+| Armenia                          |    2963234 |                0 |                  0 |
+| Australia                        |   25499881 |                0 |                  0 |
+| Bahamas                          |     393248 |                0 |                  0 |
+| Barbados                         |     287371 |                0 |                  0 |
+| Belize                           |     397621 |                0 |                  0 |
+| Benin                            |   12123198 |                0 |                  0 |
+| Bhutan                           |     771612 |                0 |                  0 |
+| Bosnia and Herzegovina           |    3280815 |                0 |                  0 |
+| Botswana                         |    2351625 |                0 |                  0 |
+| Brunei                           |     437483 |                0 |                  0 |
+| Burkina Faso                     |   20903278 |                0 |                  0 |
+| Burundi                          |   11890781 |                0 |                  0 |
+| Cameroon                         |   26545864 |                0 |                  0 |
+| Cape Verde                       |     555988 |                0 |                  0 |
+| Central African Republic         |    4829764 |                0 |                  0 |
+| Chad                             |   16425859 |                0 |                  0 |
+| China                            | 1439323774 |                0 |                  0 |
+| Comoros                          |     869595 |                0 |                  0 |
+| Congo                            |    5518092 |                0 |                  0 |
+| Cuba                             |   11326616 |                0 |                  0 |
+| Democratic Republic of Congo     |   89561404 |                0 |                  0 |
+| Djibouti                         |     988002 |                0 |                  0 |
+| Egypt                            |  102334403 |                0 |                  0 |
+| Eritrea                          |    3546427 |                0 |                  0 |
+| Eswatini                         |    1160164 |                0 |                  0 |
+| Ethiopia                         |  114963583 |                0 |                  0 |
+| Fiji                             |     896444 |                0 |                  0 |
+| Gambia                           |    2416664 |                0 |                  0 |
+| Georgia                          |    3989175 |                0 |                  0 |
+| Ghana                            |   31072945 |                0 |                  0 |
+| Guinea-Bissau                    |    1967998 |                0 |                  0 |
+| Haiti                            |   11402533 |                0 |                  0 |
+| Iraq                             |   40222503 |                0 |                  0 |
+| Jamaica                          |    2961161 |                0 |                  0 |
+| Kenya                            |   53771300 |                0 |                  0 |
+| Kosovo                           |    1932774 |                0 |                  0 |
+| Kyrgyzstan                       |    6524191 |                0 |                  0 |
+| Lesotho                          |    2142252 |                0 |                  0 |
+| Liberia                          |    5057677 |                0 |                  0 |
+| Libya                            |    6871287 |                0 |                  0 |
+| Madagascar                       |   27691019 |                0 |                  0 |
+| Malawi                           |   19129955 |                0 |                  0 |
+| Mali                             |   20250834 |                0 |                  0 |
+| Marshall Islands                 |      59194 |                0 |                  0 |
+| Mauritania                       |    4649660 |                0 |                  0 |
+| Mauritius                        |    1271767 |                0 |                  0 |
+| Micronesia (country)             |     115021 |                0 |                  0 |
+| Mozambique                       |   31255435 |                0 |                  0 |
+| Nepal                            |   29136808 |                0 |                  0 |
+| Nicaragua                        |    6624554 |                0 |                  0 |
+| Niger                            |   24206636 |                0 |                  0 |
+| Nigeria                          |  206139587 |                0 |                  0 |
+| North Macedonia                  |    2083380 |                0 |                  0 |
+| Pakistan                         |  220892331 |                0 |                  0 |
+| Papua New Guinea                 |    8947027 |                0 |                  0 |
+| Rwanda                           |   12952209 |                0 |                  0 |
+| Saint Kitts and Nevis            |      53192 |                0 |                  0 |
+| Saint Lucia                      |     183629 |                0 |                  0 |
+| Saint Vincent and the Grenadines |     110947 |                0 |                  0 |
+| Samoa                            |     198410 |                0 |                  0 |
+| Sao Tome and Principe            |     219161 |                0 |                  0 |
+| Saudi Arabia                     |   34813867 |                0 |                  0 |
+| Senegal                          |   16743930 |                0 |                  0 |
+| Solomon Islands                  |     686878 |                0 |                  0 |
+| Somalia                          |   15893219 |                0 |                  0 |
+| South Sudan                      |   11193729 |                0 |                  0 |
+| Sudan                            |   43849269 |                0 |                  0 |
+| Suriname                         |     586634 |                0 |                  0 |
+| Syria                            |   17500657 |                0 |                  0 |
+| Taiwan                           |   23816775 |                0 |                  0 |
+| Tajikistan                       |    9537642 |                0 |                  0 |
+| Tanzania                         |   59734213 |                0 |                  0 |
+| Timor                            |    1318442 |                0 |                  0 |
+| Togo                             |    8278737 |                0 |                  0 |
+| Trinidad and Tobago              |    1399491 |                0 |                  0 |
+| Uganda                           |   45741000 |                0 |                  0 |
+| Ukraine                          |   43733759 |              260 |                  0 |
+| Uzbekistan                       |   33469199 |                0 |                  0 |
+| Vanuatu                          |     307150 |                0 |                  0 |
+| Vatican                          |        809 |                0 |                  0 |
+| Venezuela                        |   28435943 |                0 |                  0 |
+| Vietnam                          |   97338583 |                0 |                  0 |
+| Yemen                            |   29825968 |                0 |                  0 |
+| Zambia                           |   18383956 |                0 |                  0 |
+| Tonga                            |     105697 |                0 |                  0 |
+| Nauru                            |      10834 |                0 |                  0 |
+| Northern Cyprus                  |          0 |            48848 |               NULL |
+
+
+**Created stored procedure with input as country name, to see the number of deaths and vaccination happened in each month.**
+
+````sql
+DELIMITER //
+create procedure vaccination_trend (in country varchar(50))
+begin
+	select date_format(d.date,"%Y-%m") as month_year, d.location, max(d.new_deaths) as deaths, sum(v.people_fully_vaccinated) as vaccinated
+	from covid_death d
+	join covid_vaccinations v
+	on d.location = v.location and d.date = v.date
+	group by month_year, location
+    having location = country
+    order by month_year ;
+end //
+DELIMITER ;
+````
+
+**Query 6 : Calling stored proceedure vaccination_trend with country "India".**
+
+
+````sql
+CALL vaccination_trend('India');
+````
+
+
+**Results :**
+
+
+| month_year | location | deaths | vaccinated |
+|------------|----------|--------|------------|
+| 2020-01    | India    |      0 |          0 |
+| 2020-02    | India    |      0 |          0 |
+| 2020-03    | India    |      8 |          0 |
+| 2020-04    | India    |     75 |          0 |
+| 2020-05    | India    |    269 |          0 |
+| 2020-06    | India    |   2003 |          0 |
+| 2020-07    | India    |   1129 |          0 |
+| 2020-08    | India    |   1115 |          0 |
+| 2020-09    | India    |   1290 |          0 |
+| 2020-10    | India    |   1095 |          0 |
+| 2020-11    | India    |    704 |          0 |
+| 2020-12    | India    |    540 |          0 |
+| 2021-01    | India    |    441 |          0 |
+| 2021-02    | India    |    138 |   16614639 |
+| 2021-03    | India    |    459 |  190428458 |
+| 2021-04    | India    |   3645 |  427137196 |
+
+
+**Query 7 : Calling stored proceedure vaccination_trend with country "Australia".**
+
+
+````sql
+CALL vaccination_trend('Australia');
+````
+
+**Results :**
+
+| month_year | location  | deaths | vaccinated |
+|------------|-----------|--------|------------|
+| 2020-01    | Australia |      0 |          0 |
+| 2020-02    | Australia |      0 |          0 |
+| 2020-03    | Australia |      5 |          0 |
+| 2020-04    | Australia |      8 |          0 |
+| 2020-05    | Australia |      1 |          0 |
+| 2020-06    | Australia |      1 |          0 |
+| 2020-07    | Australia |     13 |          0 |
+| 2020-08    | Australia |     41 |          0 |
+| 2020-09    | Australia |     59 |          0 |
+| 2020-10    | Australia |      5 |          0 |
+| 2020-11    | Australia |      1 |          0 |
+| 2020-12    | Australia |      1 |          0 |
+| 2021-01    | Australia |      0 |          0 |
+| 2021-02    | Australia |      0 |          0 |
+| 2021-03    | Australia |      0 |          0 |
+| 2021-04    | Australia |      1 |          0 |
+
+
+**Query 8 : Calling stored proceedure vaccination_trend with country "United States".**
+
+
+````sql
+CALL vaccination_trend('united states');
+````
+
+**Results :**
+
+
+| month_year | location      | deaths | vaccinated |
+|------------|---------------|--------|------------|
+| 2020-01    | United States |      0 |          0 |
+| 2020-02    | United States |      1 |          0 |
+| 2020-03    | United States |   1085 |          0 |
+| 2020-04    | United States |   2612 |          0 |
+| 2020-05    | United States |   2314 |          0 |
+| 2020-06    | United States |   1013 |          0 |
+| 2020-07    | United States |   1414 |          0 |
+| 2020-08    | United States |   1499 |          0 |
+| 2020-09    | United States |   1200 |          0 |
+| 2020-10    | United States |   1121 |          0 |
+| 2020-11    | United States |   2263 |          0 |
+| 2020-12    | United States |   3731 |          0 |
+| 2021-01    | United States |   4474 |   49123911 |
+| 2021-02    | United States |   3906 |  383610786 |
+| 2021-03    | United States |   2491 | 1218064777 |
+| 2021-04    | United States |   2586 | 2374031843 |
+
+
+**Query 9 : checking if there is any correlation of number of cases report with population density and GDP of a country.**
+
+```sql
+select location, max(total_cases) as cases_reported, max(population_density) as population_density, max(gdp_per_capita) as GDP
+from covid_death
+group by location
+order by cases_reported desc, population_density desc;
+````
+
+**Results :**
+
+
+| location                         | cases_reported | population_density | GDP        |
+|----------------------------------|----------------|--------------------|------------|
+| United States                    |       32346971 |             35.608 |  54225.446 |
+| India                            |       19164969 |            450.419 |   6426.674 |
+| Brazil                           |       14659011 |              25.04 |  14103.452 |
+| France                           |        5677835 |            122.578 |  38605.671 |
+| Turkey                           |        4820591 |            104.914 |  25129.341 |
+| Russia                           |        4750755 |              8.823 |  24765.954 |
+| United Kingdom                   |        4432246 |            272.898 |  39753.244 |
+| Italy                            |        4022653 |            205.859 |  35220.084 |
+| Spain                            |        3524077 |             93.105 |   34272.36 |
+| Germany                          |        3405365 |            237.016 |  45229.245 |
+| Argentina                        |        2977363 |             16.177 |  18933.907 |
+| Colombia                         |        2859724 |             44.223 |  13254.949 |
+| Poland                           |        2792142 |            124.027 |  27216.445 |
+| Iran                             |        2499077 |             49.831 |   19082.62 |
+| Mexico                           |        2344755 |             66.444 |  17336.469 |
+| Ukraine                          |        2124070 |              77.39 |   7894.393 |
+| Peru                             |        1799445 |             25.129 |  12236.706 |
+| Indonesia                        |        1668368 |            145.725 |  11188.744 |
+| Czechia                          |        1630758 |            137.176 |  32605.906 |
+| South Africa                     |        1581210 |             46.754 |  12294.876 |
+| Netherlands                      |        1522973 |            508.544 |  48472.545 |
+| Canada                           |        1228367 |              4.037 |  44017.591 |
+| Chile                            |        1198245 |             24.282 |  22767.037 |
+| Iraq                             |        1065199 |             88.125 |  15663.986 |
+| Romania                          |        1055265 |             85.129 |  23313.199 |
+| Philippines                      |        1037460 |            351.873 |   7599.188 |
+| Belgium                          |         990229 |            375.564 |  42658.576 |
+| Sweden                           |         973604 |             24.718 |  46949.283 |
+| Israel                           |         838481 |            402.606 |   33132.32 |
+| Portugal                         |         836493 |            112.371 |  27936.896 |
+| Pakistan                         |         825519 |            255.573 |   5034.708 |
+| Hungary                          |         779348 |            108.043 |  26777.561 |
+| Bangladesh                       |         759132 |           1265.036 |   3523.984 |
+| Jordan                           |         711373 |            109.285 |    8337.49 |
+| Serbia                           |         689557 |             80.291 |  14048.881 |
+| Switzerland                      |         659974 |            214.243 |  57410.166 |
+| Austria                          |         618870 |            106.749 |  45436.686 |
+| Japan                            |         593264 |            347.778 |  39002.223 |
+| Lebanon                          |         526578 |            594.561 |  13367.565 |
+| United Arab Emirates             |         520236 |            112.442 |  67293.483 |
+| Morocco                          |         511249 |              80.08 |   7485.013 |
+| Saudi Arabia                     |         417363 |             15.322 |  49045.411 |
+| Malaysia                         |         408713 |             96.254 |  26808.164 |
+| Bulgaria                         |         404380 |              65.18 |  18563.307 |
+| Slovakia                         |         382211 |            113.128 |  30155.152 |
+| Ecuador                          |         381862 |             66.939 |  10581.936 |
+| Kazakhstan                       |         375539 |              6.681 |  24055.588 |
+| Panama                           |         364576 |             55.133 |  22267.037 |
+| Belarus                          |         358738 |             46.858 |  17167.967 |
+| Greece                           |         345033 |             83.479 |  24574.382 |
+| Croatia                          |         332183 |             73.726 |  22669.797 |
+| Nepal                            |         323187 |             204.43 |   2442.804 |
+| Azerbaijan                       |         319109 |            119.309 |  15847.419 |
+| Georgia                          |         310310 |             65.032 |   9745.079 |
+| Tunisia                          |         309119 |             74.228 |  10849.297 |
+| Bolivia                          |         303732 |             10.202 |   6885.829 |
+| Palestine                        |         296462 |            778.202 |   4449.898 |
+| Paraguay                         |         279077 |             17.144 |    8827.01 |
+| Kuwait                           |         273991 |            232.128 |  65530.537 |
+| Dominican Republic               |         266561 |            222.873 |  14600.861 |
+| Ethiopia                         |         257442 |            104.957 |   1729.927 |
+| Denmark                          |         251249 |             136.52 |  46682.515 |
+| Costa Rica                       |         250991 |             96.079 |  15524.995 |
+| Moldova                          |         250837 |            123.655 |   5189.972 |
+| Ireland                          |         248870 |             69.874 |  67335.293 |
+| Lithuania                        |         247269 |             45.135 |  29524.265 |
+| Slovenia                         |         240292 |            102.619 |   31400.84 |
+| Guatemala                        |         227671 |            157.834 |   7423.808 |
+| Egypt                            |         227552 |             97.999 |  10550.206 |
+| Armenia                          |         216064 |            102.931 |    8787.58 |
+| Honduras                         |         212333 |             82.805 |   4541.795 |
+| Qatar                            |         205652 |            227.322 |   116935.6 |
+| Bosnia and Herzegovina           |         198461 |             68.496 |  11713.895 |
+| Uruguay                          |         198428 |             19.751 |  20551.409 |
+| Venezuela                        |         197683 |             36.253 |  16745.022 |
+| Oman                             |         193253 |              14.98 |  37960.709 |
+| Libya                            |         177508 |              3.623 |  17881.509 |
+| Bahrain                          |         176934 |           1935.907 |  43290.705 |
+| Nigeria                          |         165110 |            209.588 |   5338.454 |
+| Kenya                            |         159318 |             87.324 |   2993.028 |
+| North Macedonia                  |         152367 |               82.6 |  13111.214 |
+| Myanmar                          |         142817 |             81.721 |   5591.597 |
+| Albania                          |         131085 |            104.871 |  11803.431 |
+| South Korea                      |         122634 |            527.967 |  35938.374 |
+| Algeria                          |         122108 |             17.348 |  13913.839 |
+| Estonia                          |         122019 |             31.033 |  29481.252 |
+| Latvia                           |         118558 |             31.212 |  25063.846 |
+| Norway                           |         112970 |             14.462 |  64800.057 |
+| Sri Lanka                        |         108146 |            341.955 |  11669.077 |
+| Cuba                             |         106707 |            110.408 |          0 |
+| Kosovo                           |         103638 |            168.155 |   9795.834 |
+| China                            |         102494 |            147.674 |  15308.712 |
+| Montenegro                       |          97389 |              46.28 |  16409.288 |
+| Kyrgyzstan                       |          95275 |             32.333 |   3393.474 |
+| Ghana                            |          92562 |            126.719 |    4227.63 |
+| Zambia                           |          91586 |             22.995 |   3689.251 |
+| Uzbekistan                       |          90808 |             76.134 |   6253.104 |
+| Finland                          |          86808 |             18.136 |  40585.721 |
+| Cameroon                         |          72250 |             50.885 |   3364.926 |
+| Mozambique                       |          69917 |             37.728 |   1136.103 |
+| El Salvador                      |          69198 |            307.811 |   7292.458 |
+| Luxembourg                       |          67205 |            231.447 |  94277.965 |
+| Cyprus                           |          65233 |            127.657 |  32415.132 |
+| Thailand                         |          65153 |            135.132 |  16277.671 |
+| Singapore                        |          61145 |           7915.731 |  85535.383 |
+| Afghanistan                      |          59745 |             54.422 |   1803.987 |
+| Namibia                          |          48351 |              3.078 |   9541.808 |
+| Botswana                         |          46934 |              4.044 |  15807.374 |
+| Jamaica                          |          45578 |            266.879 |   8193.571 |
+| Uganda                           |          41866 |            213.759 |   1697.707 |
+| Senegal                          |          40344 |             82.328 |    2470.58 |
+| Zimbabwe                         |          38257 |             42.729 |   1899.775 |
+| Mongolia                         |          37285 |               1.98 |  11840.846 |
+| Madagascar                       |          37014 |             43.951 |    1416.44 |
+| Malawi                           |          34078 |            197.519 |   1095.042 |
+| Sudan                            |          33944 |             23.258 |   4466.507 |
+| Malta                            |          30292 |           1454.037 |  36513.323 |
+| Democratic Republic of Congo     |          29853 |             35.879 |    808.133 |
+| Maldives                         |          29835 |           1454.433 |  15183.616 |
+| Australia                        |          29811 |              3.202 |   44648.71 |
+| Angola                           |          26652 |              23.89 |   5819.495 |
+| Rwanda                           |          25116 |            494.869 |   1854.211 |
+| Cape Verde                       |          23882 |             135.58 |   6222.554 |
+| Gabon                            |          23075 |              7.859 |  16562.413 |
+| Syria                            |          22733 |                  0 |          0 |
+| Guinea                           |          22215 |             51.755 |   1998.926 |
+| Eswatini                         |          18458 |             79.492 |   7738.975 |
+| Mauritania                       |          18402 |              4.289 |   3597.633 |
+| Somalia                          |          13915 |               23.5 |          0 |
+| Mali                             |          13858 |             15.196 |   2014.306 |
+| Cambodia                         |          13402 |             90.672 |    3645.07 |
+| Burkina Faso                     |          13310 |             70.151 |   1703.102 |
+| Tajikistan                       |          13308 |             64.281 |   2896.913 |
+| Guyana                           |          13283 |              3.952 |   7435.047 |
+| Andorra                          |          13232 |            163.755 |          0 |
+| Haiti                            |          13056 |            398.448 |   1653.173 |
+| Togo                             |          12967 |            143.366 |   1429.813 |
+| Belize                           |          12668 |             16.426 |   7824.362 |
+| Djibouti                         |          11100 |             41.285 |   2705.406 |
+| Papua New Guinea                 |          10997 |              18.22 |   3823.194 |
+| Trinidad and Tobago              |          10824 |            266.886 |  28763.071 |
+| Lesotho                          |          10731 |             73.562 |   2851.153 |
+| Congo                            |          10678 |             15.405 |   4881.406 |
+| South Sudan                      |          10583 |                  0 |   1569.888 |
+| Bahamas                          |          10453 |             39.497 |  27717.847 |
+| Suriname                         |          10363 |              3.612 |  13767.119 |
+| Benin                            |           7821 |              99.11 |   2064.236 |
+| Equatorial Guinea                |           7694 |             45.194 |  22604.873 |
+| Nicaragua                        |           6898 |             51.667 |   5321.444 |
+| Iceland                          |           6472 |              3.404 |  46482.958 |
+| Central African Republic         |           6411 |              7.479 |     661.24 |
+| Yemen                            |           6317 |             53.508 |   1479.147 |
+| Gambia                           |           5898 |            207.566 |   1561.767 |
+| Seychelles                       |           5873 |            208.354 |  26382.287 |
+| Niger                            |           5228 |             16.955 |        926 |
+| San Marino                       |           5066 |            556.667 |   56861.47 |
+| Chad                             |           4817 |             11.833 |   1768.153 |
+| Saint Lucia                      |           4552 |            293.187 |  12951.839 |
+| Sierra Leone                     |           4054 |              104.7 |     1390.3 |
+| Burundi                          |           3995 |            423.062 |    702.225 |
+| Barbados                         |           3855 |            664.463 |  16978.068 |
+| Comoros                          |           3834 |            437.352 |    1413.89 |
+| Guinea-Bissau                    |           3734 |             66.191 |   1548.675 |
+| Eritrea                          |           3671 |             44.304 |   1510.459 |
+| Vietnam                          |           2928 |            308.127 |   6171.884 |
+| Liechtenstein                    |           2926 |            237.012 |          0 |
+| New Zealand                      |           2613 |             18.206 |  36085.843 |
+| Monaco                           |           2454 |            19347.5 |          0 |
+| Sao Tome and Principe            |           2302 |            212.841 |   3052.714 |
+| Timor                            |           2276 |             87.176 |   6570.102 |
+| Liberia                          |           2099 |             49.127 |    752.788 |
+| Saint Vincent and the Grenadines |           1864 |            281.787 |  10727.146 |
+| Antigua and Barbuda              |           1232 |            231.845 |  21490.943 |
+| Mauritius                        |           1209 |            622.962 |  20292.745 |
+| Taiwan                           |           1128 |                  0 |          0 |
+| Bhutan                           |           1074 |             21.188 |   8708.597 |
+| Laos                             |            757 |             29.715 |    6397.36 |
+| Tanzania                         |            509 |             64.699 |   2683.304 |
+| Brunei                           |            224 |             81.347 |  71809.251 |
+| Dominica                         |            174 |             98.567 |   9673.367 |
+| Grenada                          |            160 |            317.132 |  13593.877 |
+| Fiji                             |            117 |             49.562 |   8702.975 |
+| Saint Kitts and Nevis            |             44 |            212.865 |  24654.385 |
+| Vatican                          |             27 |                  0 |          0 |
+| Solomon Islands                  |             20 |             21.841 |   2205.923 |
+| Marshall Islands                 |              4 |             295.15 |   3819.202 |
+| Vanuatu                          |              4 |             22.662 |   2921.909 |
+| Samoa                            |              3 |             69.413 |   6021.557 |
+| Micronesia (country)             |              1 |            150.777 |   3299.464 |
+| Macao                            |              0 |          20546.766 | 104861.851 |
+| Hong Kong                        |              0 |           7039.714 |   56054.92 |
+| Gibraltar                        |              0 |             3457.1 |          0 |
+| Bermuda                          |              0 |            1308.82 |  50669.315 |
+| Nauru                            |              0 |             682.45 |  12895.635 |
+| Aruba                            |              0 |              584.8 |  35973.781 |
+| Curacao                          |              0 |            362.644 |          0 |
+| Cayman Islands                   |              0 |            256.496 |  49903.029 |
+| Tonga                            |              0 |            150.028 |   5425.621 |
+| Isle of Man                      |              0 |            147.872 |          0 |
+| Turks and Caicos Islands         |              0 |             37.312 |          0 |
+| Faeroe Islands                   |              0 |             35.308 |          0 |
+| Greenland                        |              0 |              0.137 |          0 |
+| Anguilla                         |              0 |                  0 |          0 |
+| Falkland Islands                 |              0 |                  0 |          0 |
+| Guernsey                         |              0 |                  0 |          0 |
+| Jersey                           |              0 |                  0 |          0 |
+| Montserrat                       |              0 |                  0 |          0 |
+| Northern Cyprus                  |              0 |                  0 |          0 |
+| Saint Helena                     |              0 |                  0 |          0 |
+
+
+
+**Query 10 : Representing month-wise number of cases reported with countries in rows and months in columns.**
+
+````sql
+with month_wise as 
+(
+select location, case when date_format(date,"%Y-%m") = "2020-02" then (new_cases) else 0 end as feb , 
+case when date_format(date,"%Y-%m") = "2020-03" then (new_cases) else 0 end as mar,
+case when date_format(date,"%Y-%m") = "2020-04" then (new_cases) else 0 end as apr,
+case when date_format(date,"%Y-%m") = "2020-05" then (new_cases) else 0 end as may,
+case when date_format(date,"%Y-%m") = "2020-06" then (new_cases) else 0 end as jun,
+case when date_format(date,"%Y-%m") = "2020-07" then (new_cases) else 0 end as jul,
+case when date_format(date,"%Y-%m") = "2020-08" then (new_cases) else 0 end as aug,
+case when date_format(date,"%Y-%m") = "2020-09" then (new_cases) else 0 end as sep,
+case when date_format(date,"%Y-%m") = "2020-10" then (new_cases) else 0 end as oct,
+case when date_format(date,"%Y-%m") = "2020-11" then (new_cases) else 0 end as nov,
+case when date_format(date,"%Y-%m") = "2020-12" then (new_cases) else 0 end as dece,
+case when date_format(date,"%Y-%m") = "2021-01" then (new_cases) else 0 end as jan
+from covid_death
+) 
+
+select location, sum(feb) as "Feb-2020", sum(mar) as "Mar-2020", sum(apr) as "Apr-2020", sum(may)as "May-2020", sum(jun) as "Jun-2020", sum(jul) as "Jul-2020", 
+sum(aug)as "Aug-2020", sum(sep)as "Sept-2020",sum(oct) as "Oct-2020",sum(nov)as "Nov-2020",sum(dece)as "Feb-2020", sum(jan) as "Jan-2021"
+from month_wise
+group by location; 
+````
+
+
+**Results :**
+
+
+| location                         | Feb-2020 | Mar-2020 | Apr-2020 | May-2020 | Jun-2020 | Jul-2020 | Aug-2020 | Sept-2020 | Oct-2020 | Nov-2020 | Feb-2020 | Jan-2021 |
+|----------------------------------|----------|----------|----------|----------|----------|----------|----------|-----------|----------|----------|----------|----------|
+| Afghanistan                      |        1 |      174 |     1952 |    13081 |    16299 |     5158 |     1494 |      1109 |     2157 |     4849 |     5252 |     3497 |
+| Albania                          |        0 |      243 |      530 |      364 |     1398 |     2741 |     4237 |      4136 |     7226 |    17307 |    20134 |    19811 |
+| Algeria                          |        1 |      715 |     3290 |     5388 |     4513 |    16487 |    14100 |      7036 |     6412 |    25257 |    16411 |     7729 |
+| Andorra                          |        0 |      376 |      369 |       19 |       91 |       70 |      251 |       874 |     2706 |     1989 |     1304 |     1888 |
+| Angola                           |        0 |        7 |       20 |       59 |      198 |      864 |     1506 |      2318 |     5833 |     4334 |     2414 |     2243 |
+| Anguilla                         |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Antigua and Barbuda              |        0 |        7 |       17 |        2 |       43 |       22 |        3 |         7 |       27 |       13 |       18 |       75 |
+| Argentina                        |        0 |     1054 |     3374 |    12423 |    47679 |   126772 |   226433 |    333266 |   415923 |   257609 |   200981 |   301725 |
+| Armenia                          |        0 |      532 |     1534 |     7216 |    16260 |    13008 |     5231 |      6578 |    39454 |    45311 |    24285 |     7617 |
+| Aruba                            |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Australia                        |       16 |     4534 |     2207 |      436 |      718 |     9360 |     8539 |      1277 |      499 |      317 |      513 |      393 |
+| Austria                          |        9 |    10171 |     5272 |     1279 |     1035 |     3364 |     6308 |     17375 |    60112 |   177531 |    78359 |    53583 |
+| Azerbaijan                       |        0 |      298 |     1506 |     3690 |    12030 |    14354 |     4557 |      3794 |    15040 |    65907 |    97524 |    11519 |
+| Bahamas                          |        0 |       14 |       67 |       21 |        2 |      470 |     1643 |      1906 |     2591 |      827 |      330 |      303 |
+| Bahrain                          |       41 |      526 |     2473 |     8358 |    15360 |    14224 |    10990 |     18892 |    10781 |     5311 |     5719 |    10382 |
+| Bangladesh                       |        0 |       51 |     7616 |    39486 |    98330 |    92178 |    75335 |     50483 |    44205 |    57248 |    48578 |    21629 |
+| Barbados                         |        0 |       34 |       47 |       11 |        5 |       13 |       64 |        16 |       47 |       39 |      107 |     1162 |
+| Belarus                          |        1 |      151 |    13875 |    28529 |    19562 |     5690 |     4035 |      6788 |    19851 |    38165 |    57637 |    54052 |
+| Belgium                          |        1 |    12774 |    35744 |     9862 |     3046 |     7324 |    16485 |     33216 |   310777 |   148116 |    69151 |    63657 |
+| Belize                           |        0 |        3 |       15 |        0 |        6 |       24 |      959 |       985 |     1495 |     2367 |     4922 |     1132 |
+| Benin                            |        0 |        9 |       55 |      168 |      967 |      606 |      340 |       212 |      286 |      372 |      236 |      642 |
+| Bermuda                          |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Bhutan                           |        0 |        4 |        3 |       36 |       34 |       24 |      124 |        57 |       67 |       61 |      260 |      189 |
+| Bolivia                          |        0 |      107 |     1060 |     8815 |    23237 |    43570 |    39809 |     18713 |     6446 |     2951 |    15416 |    56711 |
+| Bosnia and Herzegovina           |        0 |      420 |     1337 |      753 |     1943 |     7423 |     8088 |      7505 |    22621 |    37811 |    23084 |    10512 |
+| Botswana                         |        0 |        4 |       19 |       12 |      192 |      577 |      829 |      1539 |     3470 |     4100 |     4063 |     6488 |
+| Brazil                           |        2 |     5715 |    81470 |   427662 |   887192 |  1260444 |  1245787 |    902663 |   724670 |   800273 |  1340095 |  1528758 |
+| Brunei                           |        0 |      129 |        9 |        3 |        0 |        0 |        3 |         2 |        2 |        2 |        7 |       23 |
+| Bulgaria                         |        0 |      399 |     1107 |     1007 |     2476 |     6701 |     4576 |      4567 |    32011 |    92456 |    56966 |    16482 |
+| Burkina Faso                     |        0 |      261 |      384 |      202 |      115 |      144 |      262 |       688 |      444 |      386 |     3821 |     3975 |
+| Burundi                          |        0 |        2 |        9 |       52 |      107 |      217 |       58 |        63 |       77 |      103 |      130 |      814 |
+| Cambodia                         |        0 |      108 |       13 |        3 |       16 |       98 |       35 |         3 |       14 |       35 |       52 |       88 |
+| Cameroon                         |        0 |      193 |     1639 |     4072 |     6688 |     4663 |     1887 |      1696 |      955 |     2652 |     1832 |     3340 |
+| Canada                           |       16 |     8507 |    45930 |    38022 |    13618 |    12184 |    12637 |     30189 |    76206 |   144244 |   202852 |   199286 |
+| Cape Verde                       |        0 |        6 |      115 |      314 |      792 |     1224 |     1433 |      2140 |     2769 |     1968 |     1079 |     2230 |
+| Cayman Islands                   |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Central African Republic         |        0 |        3 |       47 |      961 |     2734 |      863 |      103 |       118 |       37 |       47 |       50 |       18 |
+| Chad                             |        0 |        7 |       66 |      705 |       88 |       70 |       77 |       187 |      283 |      205 |      425 |     1263 |
+| Chile                            |        2 |     2842 |    14858 |   105848 |   155843 |    76274 |    56059 |     51265 |    47265 |    41487 |    57230 |   118136 |
+| China                            |    69554 |     2923 |     1677 |      190 |      639 |     2870 |     2259 |       631 |      821 |     1536 |     3061 |     4100 |
+| Colombia                         |        0 |      906 |     5601 |    22876 |    68463 |   197662 |   319586 |    214585 |   244505 |   242622 |   325969 |   452109 |
+| Comoros                          |        0 |        0 |        1 |      105 |      197 |       75 |       45 |        56 |       66 |       66 |      212 |     1903 |
+| Congo                            |        0 |       19 |      201 |      391 |      476 |     2113 |      779 |      1110 |      201 |      484 |     1333 |      780 |
+| Costa Rica                       |        0 |      347 |      372 |      337 |     2403 |    14361 |    23467 |     34473 |    34211 |    29667 |    29683 |    23955 |
+| Croatia                          |        6 |      861 |     1209 |      170 |      531 |     2362 |     5130 |      6324 |    32723 |    79126 |    82395 |    21589 |
+| Cuba                             |        0 |      186 |     1315 |      544 |      296 |      267 |     1424 |      1565 |     1290 |     1397 |     3579 |    14823 |
+| Curacao                          |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Cyprus                           |        0 |      262 |      588 |       94 |       54 |      116 |      374 |       267 |     2611 |     6199 |    11454 |     8857 |
+| Czechia                          |        0 |     3308 |     4374 |     1586 |     2686 |     4620 |     8044 |     46145 |   264339 |   188196 |   195363 |   266113 |
+| Democratic Republic of Congo     |        0 |       98 |      474 |     2498 |     3969 |     2031 |     1027 |       562 |      647 |     1466 |     4886 |     5113 |
+| Denmark                          |        3 |     3036 |     6317 |     2513 |     1099 |     1060 |     3382 |     11069 |    18384 |    34139 |    83114 |    35040 |
+| Djibouti                         |        0 |       30 |     1059 |     2265 |     1328 |      402 |      303 |        29 |      145 |      118 |      152 |      101 |
+| Dominica                         |        0 |       12 |        4 |        0 |        2 |        0 |        2 |        10 |       20 |       35 |        3 |       29 |
+| Dominican Republic               |        0 |     1109 |     5863 |    10313 |    15283 |    37081 |    25066 |     17494 |    14809 |    16970 |    26797 |    43275 |
+| Ecuador                          |        0 |     2240 |    22694 |    14164 |    17334 |    28923 |    28412 |     23280 |    31145 |    24493 |    19827 |    38316 |
+| Egypt                            |        1 |      709 |     4827 |    19448 |    43326 |    25767 |     4861 |      4259 |     4357 |     8356 |    22151 |    27889 |
+| El Salvador                      |        0 |       32 |      363 |     2122 |     3921 |    10194 |     9097 |      3348 |     4749 |     5115 |     7301 |     8724 |
+| Equatorial Guinea                |        0 |       12 |      303 |      991 |      695 |     2820 |      120 |        89 |       58 |       65 |      124 |      239 |
+| Eritrea                          |        0 |       15 |       24 |        0 |      164 |       76 |       40 |        56 |       88 |      114 |      743 |      815 |
+| Estonia                          |        1 |      744 |      944 |      180 |      120 |       75 |      311 |       996 |     1534 |     7403 |    15682 |    16218 |
+| Eswatini                         |        0 |        9 |       91 |      185 |      527 |     1836 |     1929 |       905 |      435 |      502 |     2939 |     6353 |
+| Ethiopia                         |        0 |       26 |      105 |     1041 |     4674 |    11684 |    34601 |     23237 |    20801 |    13905 |    14190 |    13386 |
+| Faeroe Islands                   |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Falkland Islands                 |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Fiji                             |        0 |        5 |       13 |        0 |        0 |        9 |        1 |         4 |        2 |        8 |        7 |        6 |
+| Finland                          |        2 |     1415 |     3577 |     1864 |      355 |      218 |      654 |      1906 |     6121 |     8799 |    11195 |     9131 |
+| France                           |       95 |    52178 |   116583 |    22114 |    13269 |    22995 |    93921 |    284733 |   808471 |   862510 |   400792 |   578254 |
+| Gabon                            |        0 |       16 |      260 |     2379 |     2739 |     1958 |     1181 |       233 |      202 |      246 |      357 |     1177 |
+| Gambia                           |        0 |        4 |        7 |       14 |       24 |      449 |     2465 |       616 |       93 |       70 |       55 |      293 |
+| Georgia                          |        1 |      109 |      429 |      244 |      145 |      240 |      319 |      4705 |    32744 |    96648 |    91836 |    30691 |
+| Germany                          |       74 |    71729 |    91201 |    20401 |    12008 |    14981 |    34403 |     48111 |   238877 |   538122 |   690608 |   465139 |
+| Ghana                            |        0 |      161 |     1913 |     5996 |     9671 |    17760 |     8797 |      2328 |     1429 |     3612 |     3104 |    12239 |
+| Gibraltar                        |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Greece                           |        4 |     1310 |     1277 |      326 |      492 |     1068 |     5840 |      8158 |    20776 |    66020 |    33579 |    18107 |
+| Greenland                        |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Grenada                          |        0 |        9 |       11 |        3 |        0 |        1 |        0 |         0 |        4 |       13 |       86 |       21 |
+| Guatemala                        |        0 |       38 |      561 |     4488 |    13009 |    31693 |    24285 |     17672 |    16193 |    14123 |    15950 |    21492 |
+| Guernsey                         |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Guinea                           |        0 |       22 |     1473 |     2211 |     1685 |     1917 |     2101 |      1243 |     1420 |     1047 |      603 |      824 |
+| Guinea-Bissau                    |        0 |        8 |      197 |     1051 |      398 |      327 |      224 |       119 |       89 |       28 |       11 |      182 |
+| Guyana                           |        0 |       12 |       70 |       71 |       92 |      168 |      893 |      1588 |     1268 |     1244 |      926 |     1309 |
+| Haiti                            |        0 |       15 |       61 |     1508 |     4263 |     1531 |      831 |       531 |      314 |      218 |      727 |     1534 |
+| Honduras                         |        0 |      141 |      630 |     4431 |    14356 |    22456 |    19000 |     15886 |    19988 |    11365 |    13574 |    26016 |
+| Hong Kong                        |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Hungary                          |        0 |      492 |     2283 |     1101 |      279 |      350 |     1634 |     20322 |    48860 |   141801 |   105392 |    45072 |
+| Iceland                          |        1 |     1134 |      662 |        9 |       18 |       61 |      222 |       621 |     2137 |      527 |      362 |      248 |
+| India                            |        2 |     1394 |    33466 |   155746 |   394872 |  1110507 |  1995178 |   2621418 |  1871498 |  1278727 |   803865 |   490936 |
+| Indonesia                        |        0 |     1528 |     8590 |    16355 |    29912 |    51991 |    66420 |    112212 |   123080 |   128795 |   204315 |   335116 |
+| Iran                             |      593 |    44012 |    50035 |    56826 |    76196 |    76542 |    71008 |     82007 |   155553 |   349298 |   263072 |   192857 |
+| Iraq                             |       13 |      681 |     1391 |     4354 |    42670 |    75500 |   110325 |    128047 |   109649 |    79919 |    42742 |    24345 |
+| Ireland                          |        1 |     3234 |    17377 |     4378 |      483 |      592 |     2746 |      7344 |    25301 |    11088 |    19235 |   104768 |
+| Isle of Man                      |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Israel                           |        6 |     5711 |    10179 |     1183 |     8359 |    46296 |    45172 |    130505 |    66938 |    22842 |    86071 |   220173 |
+| Italy                            |     1126 |   104664 |    99671 |    27534 |     7581 |     6959 |    21677 |     45647 |   364569 |   922124 |   505612 |   445866 |
+| Jamaica                          |        0 |       36 |      386 |      164 |      116 |      176 |     1581 |      4023 |     2612 |     1669 |     2064 |     2826 |
+| Japan                            |      230 |     2010 |    12029 |     2467 |     1864 |    17619 |    32162 |     15195 |    17736 |    47635 |    86849 |   154355 |
+| Jersey                           |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Jordan                           |        0 |      274 |      179 |      286 |      393 |       61 |      841 |      9791 |    60782 |   146823 |    75064 |    32361 |
+| Kazakhstan                       |        0 |      343 |     3059 |     7456 |    11450 |    68059 |    40306 |     10034 |     8992 |    24864 |    26633 |    34648 |
+| Kenya                            |        0 |       59 |      337 |     1566 |     4404 |    14270 |    13565 |      4328 |    16663 |    28426 |    12840 |     4315 |
+| Kosovo                           |        0 |      106 |      693 |      271 |     1729 |     5531 |     5124 |      2166 |     3708 |    20268 |    11548 |     9074 |
+| Kuwait                           |       45 |      244 |     3735 |    23019 |    19152 |    20762 |    18152 |     20073 |    20744 |    16709 |     7949 |    14673 |
+| Kyrgyzstan                       |        0 |      107 |      639 |     1002 |     3758 |    30299 |     8093 |      2771 |    12209 |    14300 |     7856 |     3554 |
+| Laos                             |        0 |        9 |       10 |        0 |        0 |        1 |        2 |         1 |        1 |       15 |        2 |        3 |
+| Latvia                           |        0 |      398 |      460 |      208 |       52 |      113 |      165 |       428 |     4070 |    11181 |    23829 |    25337 |
+| Lebanon                          |        4 |      466 |      255 |      495 |      558 |     2777 |    12753 |     22326 |    41594 |    46716 |    53559 |   119549 |
+| Lesotho                          |        0 |        0 |        0 |        2 |       25 |      577 |      481 |       510 |      358 |      156 |      985 |     5570 |
+| Liberia                          |        0 |        3 |      138 |      147 |      492 |      406 |      118 |        39 |       83 |      169 |      184 |      160 |
+| Libya                            |        0 |       10 |       51 |       95 |      668 |     2797 |    10345 |     20559 |    26570 |    21714 |    17468 |    18354 |
+| Liechtenstein                    |        0 |       68 |       14 |        0 |        0 |        6 |       19 |        11 |      415 |      737 |      866 |      357 |
+| Lithuania                        |        1 |      467 |      907 |      292 |      145 |      257 |      831 |      1788 |    10127 |    46496 |    80644 |    40588 |
+| Luxembourg                       |        1 |     2177 |     1606 |      234 |      281 |     2396 |      -70 |      1884 |     8625 |    17544 |    11737 |     3973 |
+| Macao                            |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Madagascar                       |        0 |       57 |       71 |      643 |     1443 |     8654 |     3995 |      1545 |      703 |      230 |      373 |     1351 |
+| Malawi                           |        0 |        0 |       37 |      247 |      940 |     2854 |     1488 |       207 |      157 |       98 |      555 |    17380 |
+| Malaysia                         |       17 |     2741 |     3236 |     1817 |      820 |      337 |      364 |      1884 |    20324 |    34149 |    47313 |   101949 |
+| Maldives                         |        0 |       18 |      450 |     1305 |      588 |     1432 |     4011 |      2487 |     1368 |     1352 |      746 |     2084 |
+| Mali                             |        0 |       28 |      462 |      775 |      916 |      354 |      241 |       342 |      436 |     1156 |     2380 |     1001 |
+| Malta                            |        0 |      169 |      296 |      153 |       52 |      154 |     1059 |      1175 |     2984 |     3831 |     2901 |     5129 |
+| Marshall Islands                 |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        2 |        2 |        0 |        0 |
+| Mauritania                       |        0 |        6 |        2 |      522 |     3833 |     1947 |      738 |       454 |      201 |      898 |     5763 |     2271 |
+| Mauritius                        |        0 |      143 |      189 |        3 |        6 |        3 |       12 |        25 |       60 |       63 |       23 |       42 |
+| Mexico                           |        4 |     1211 |    18009 |    71440 |   135425 |   198548 |   174923 |    143656 |   181746 |   188581 |   312551 |   438166 |
+| Micronesia (country)             |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        1 |
+| Moldova                          |        0 |      353 |     3544 |     4354 |     8362 |     8120 |    12187 |     16122 |    22998 |    31324 |    37454 |    14986 |
+| Monaco                           |        1 |       51 |       43 |        4 |        4 |       17 |       34 |        64 |      141 |      250 |      266 |      614 |
+| Mongolia                         |        0 |       12 |       26 |      141 |       41 |       71 |       13 |         9 |       33 |      455 |      419 |      594 |
+| Montenegro                       |        0 |      109 |      213 |        2 |      224 |     2525 |     1762 |      5937 |     7569 |    16924 |    12982 |    13412 |
+| Montserrat                       |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Morocco                          |        0 |      617 |     3806 |     3384 |     4726 |    11789 |    38268 |     61063 |    95431 |   137252 |    82857 |    31964 |
+| Mozambique                       |        0 |        8 |       68 |      178 |      635 |      975 |     2052 |      4812 |     4141 |     2832 |     2941 |    20012 |
+| Myanmar                          |        0 |       15 |      136 |       73 |       75 |       54 |      529 |     12491 |    39333 |    38007 |    33917 |    15515 |
+| Namibia                          |        0 |       11 |        5 |        8 |      181 |     1924 |     5421 |      3715 |     1670 |     1445 |     9561 |    10003 |
+| Nauru                            |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Nepal                            |        0 |        4 |       52 |     1515 |    11992 |     6207 |    19689 |     38357 |    92926 |    62709 |    27141 |    10366 |
+| Netherlands                      |        6 |    12661 |    26845 |     7133 |     3838 |     4107 |    18642 |     52756 |   231652 |   174290 |   276452 |   183693 |
+| New Zealand                      |        1 |      646 |      832 |       25 |       24 |       34 |      190 |        96 |      111 |      100 |      103 |      142 |
+| Nicaragua                        |        0 |        5 |        9 |      745 |     1760 |     1153 |      822 |       676 |      344 |      270 |      262 |      207 |
+| Niger                            |        0 |       27 |      692 |      239 |      117 |       59 |       42 |        21 |       23 |      328 |     1775 |     1194 |
+| Nigeria                          |        1 |      134 |     1797 |     8230 |    15532 |    17457 |    10857 |      4840 |     4005 |     4704 |    20050 |    43635 |
+| North Macedonia                  |        1 |      328 |     1136 |      761 |     4108 |     4420 |     3587 |      3636 |    13595 |    30306 |    21451 |     9364 |
+| Northern Cyprus                  |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Norway                           |       15 |     4626 |     3097 |      702 |      439 |      361 |     1542 |      3245 |     6304 |    15819 |    13417 |    13399 |
+| Oman                             |        6 |      186 |     2156 |     9089 |    28633 |    39089 |     6563 |     12863 |    15849 |     9265 |     5168 |     5459 |
+| Pakistan                         |        4 |     2114 |    15996 |    54346 |   141010 |    64835 |    17544 |     16957 |    21164 |    66512 |    81696 |    64250 |
+| Palestine                        |        0 |      119 |      225 |      104 |     1980 |     9409 |    10892 |     17170 |    13621 |    32127 |    52357 |    20958 |
+| Panama                           |        0 |     1181 |     5351 |     6931 |    20087 |    31706 |    27726 |     19613 |    21003 |    32208 |    80984 |    73589 |
+| Papua New Guinea                 |        0 |        1 |        7 |        0 |        3 |       61 |      387 |        75 |       55 |       67 |      124 |       71 |
+| Paraguay                         |        0 |       65 |      201 |      720 |     1235 |     3117 |    12324 |     23096 |    22427 |    19239 |    25508 |    25295 |
+| Peru                             |        0 |     1065 |    35911 |   127500 |   120737 |   122279 |   239674 |    164602 |    88412 |    62350 |    52607 |   123102 |
+| Philippines                      |        2 |     2081 |     6404 |     9598 |    19428 |    55840 |   127465 |     90875 |    69035 |    50901 |    42434 |    51554 |
+| Poland                           |        0 |     2311 |    10566 |    10909 |    10607 |    11295 |    21684 |     24142 |   271217 |   628080 |   304067 |   218507 |
+| Portugal                         |        0 |     7443 |    17602 |     7455 |     9641 |     8931 |     6940 |     17530 |    65737 |   156782 |   115617 |   306838 |
+| Qatar                            |        1 |      780 |    12628 |    43501 |    39178 |    14607 |     8083 |      6982 |     6796 |     6277 |     5001 |     7501 |
+| Romania                          |        3 |     2242 |     9995 |     7017 |     7713 |    23916 |    36654 |     40032 |   113767 |   234023 |   156901 |    96480 |
+| Russia                           |        0 |     2335 |   104161 |   299345 |   241086 |   191532 |   153941 |    178397 |   435468 |   669669 |   851411 |   681001 |
+| Rwanda                           |        0 |       75 |      168 |      127 |      655 |      997 |     2041 |       777 |      297 |      797 |     2449 |     6921 |
+| Saint Helena                     |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Saint Kitts and Nevis            |        0 |        8 |        7 |        0 |        0 |        2 |        0 |         2 |        0 |        3 |       10 |        5 |
+| Saint Lucia                      |        0 |       13 |        4 |        1 |        1 |        6 |        1 |         1 |       51 |      181 |       94 |      842 |
+| Saint Vincent and the Grenadines |        0 |        1 |       15 |       10 |        3 |       25 |        6 |         4 |       10 |       11 |       36 |      780 |
+| Samoa                            |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        2 |        0 |        0 |
+| San Marino                       |        1 |      235 |      333 |      102 |       27 |        1 |       16 |        17 |      196 |      684 |      816 |      597 |
+| Sao Tome and Principe            |        0 |        0 |       14 |      469 |      231 |      157 |       25 |        15 |       34 |       46 |       23 |      243 |
+| Saudi Arabia                     |        0 |     1563 |    21190 |    62508 |   105562 |    85082 |    39867 |     18833 |    12677 |    10078 |     5381 |     5333 |
+| Senegal                          |        0 |      175 |      758 |     2712 |     3148 |     3439 |     3379 |      1371 |      634 |      473 |     3051 |     7383 |
+| Serbia                           |        0 |      900 |     8109 |     2403 |     3152 |    10988 |     5854 |      2145 |    13403 |   128484 |   162485 |    57340 |
+| Seychelles                       |        0 |       10 |        1 |        0 |       70 |       33 |       22 |         8 |        9 |       30 |       73 |      949 |
+| Sierra Leone                     |        0 |        1 |      123 |      737 |      601 |      361 |      199 |       209 |      135 |       46 |      199 |      982 |
+| Singapore                        |       89 |      824 |    15243 |    18715 |     9023 |     8298 |     4607 |       953 |      250 |      203 |      381 |      937 |
+| Slovakia                         |        0 |      363 |     1033 |      125 |      146 |      625 |     1625 |      6224 |    47523 |    48265 |    73614 |    70370 |
+| Slovenia                         |        0 |      802 |      627 |       44 |      127 |      556 |      727 |      2807 |    28617 |    41507 |    46338 |    44321 |
+| Solomon Islands                  |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        8 |        9 |        0 |        0 |
+| Somalia                          |        0 |        5 |      596 |     1375 |      948 |      288 |       98 |       278 |      353 |      510 |      263 |       70 |
+| South Africa                     |        0 |     1353 |     4294 |    27036 |   118526 |   341974 |   133858 |     47298 |    51113 |    64552 |   267157 |   396600 |
+| South Korea                      |     3139 |     6636 |      988 |      729 |     1347 |     1486 |     5846 |      3707 |     2746 |     8017 |    27117 |    16739 |
+| South Sudan                      |        0 |        0 |       35 |      959 |     1013 |      315 |      205 |       177 |      201 |      204 |      449 |      371 |
+| Spain                            |       45 |    95878 |   117512 |    26044 |     9792 |    39251 |   174336 |    306330 |   416490 |   462509 |   280078 |   814854 |
+| Sri Lanka                        |        0 |      142 |      520 |      970 |      414 |      768 |      234 |       331 |     7283 |    13324 |    19312 |    20858 |
+| Sudan                            |        0 |        7 |      368 |     4425 |     4572 |     2207 |     1610 |       457 |      158 |     4241 |     7455 |     3880 |
+| Suriname                         |        0 |        9 |        1 |       13 |      492 |     1135 |     2384 |       843 |      326 |      109 |      898 |     2228 |
+| Sweden                           |       14 |     4820 |    16767 |    17060 |    29263 |     9152 |     7303 |      8484 |    31492 |   118774 |   194250 |   129578 |
+| Switzerland                      |       18 |    16587 |    12981 |     1276 |      852 |     3518 |     6945 |     11105 |   100969 |   172821 |   125224 |    69024 |
+| Syria                            |        0 |       10 |       33 |       79 |      157 |      478 |     2008 |      1435 |     1528 |     2159 |     3547 |     2614 |
+| Taiwan                           |       29 |      283 |      107 |       13 |        5 |       20 |       21 |        26 |       41 |      120 |      124 |      112 |
+| Tajikistan                       |        0 |        0 |       15 |     3915 |     1970 |     1509 |     1174 |      1186 |     1248 |     1177 |     1102 |       12 |
+| Tanzania                         |        0 |       19 |      461 |       29 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Thailand                         |       23 |     1609 |     1303 |      127 |       90 |      139 |      102 |       157 |      215 |      224 |     3155 |    12455 |
+| Timor                            |        0 |        1 |       23 |        0 |        0 |        0 |        3 |         1 |        2 |        0 |       14 |       26 |
+| Togo                             |        0 |       34 |       82 |      326 |      208 |      291 |      459 |       384 |      547 |      643 |      659 |     1441 |
+| Tonga                            |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Trinidad and Tobago              |        0 |       87 |       29 |        1 |       13 |       39 |     1590 |      2772 |     1161 |      977 |      481 |      414 |
+| Tunisia                          |        0 |      394 |      600 |       83 |       97 |      361 |     2268 |     14610 |    41400 |    36956 |    42371 |    69745 |
+| Turkey                           |        0 |    13531 |   106673 |    43738 |    35964 |    30967 |    39260 |     48530 |    56704 |   263480 |   746580 |   268811 |
+| Turks and Caicos Islands         |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Uganda                           |        0 |       44 |       39 |      334 |      472 |      265 |     1818 |      5157 |     4366 |     7964 |    14757 |     4363 |
+| Ukraine                          |        0 |      645 |     9761 |    13266 |    21582 |    26150 |    52728 |     90314 |   184884 |   353013 |   334654 |   174549 |
+| United Arab Emirates             |       17 |      643 |    11817 |    22076 |    14110 |    11839 |     9725 |     23959 |    38439 |    36231 |    38962 |    95787 |
+| United Kingdom                   |       59 |    38754 |   139956 |    78768 |    27677 |    19577 |    33290 |    117765 |   558947 |   618941 |   862499 |  1331952 |
+| United States                    |       17 |   192276 |   888719 |   717698 |   843456 |  1925246 |  1459475 |   1208533 |  1930191 |  4504713 |  6429031 |  6147690 |
+| Uruguay                          |        0 |      338 |      305 |      180 |      113 |      328 |      331 |       451 |     1078 |     2733 |    13262 |    22619 |
+| Uzbekistan                       |        0 |      172 |     1867 |     1584 |     4880 |    15506 |    17884 |     14824 |    10215 |     6162 |     3966 |     1651 |
+| Vanuatu                          |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        1 |        0 |        0 |
+| Vatican                          |        0 |        6 |        5 |        1 |        0 |        0 |        0 |         0 |       15 |        0 |        0 |        0 |
+| Venezuela                        |        0 |      135 |      198 |     1177 |     4322 |    12742 |    28154 |     28394 |    16891 |    10381 |    11164 |    13369 |
+| Vietnam                          |       14 |      196 |       58 |       58 |       27 |      203 |      486 |        50 |       86 |      167 |      118 |      352 |
+| Yemen                            |        0 |        0 |        6 |      317 |      835 |      570 |      230 |        76 |       29 |       14 |       22 |       22 |
+| Zambia                           |        0 |       35 |       71 |      951 |      537 |     4369 |     6134 |      2662 |     1673 |     1215 |     3078 |    33492 |
+| Zimbabwe                         |        0 |        8 |       32 |      138 |      413 |     2578 |     3328 |      1341 |      529 |     1583 |     3917 |    19521 |
+
+
+**Query 11 : Representing month-wise number of deaths reported with countries in rows and months in columns.**
+
+**Common Table Expression (CTE)**
+
+
+````sql
+with month_wise as 
+(
+select location, case when date_format(date,"%Y-%m") = "2020-02" then (new_deaths) else 0 end as feb , 
+case when date_format(date,"%Y-%m") = "2020-03" then (new_deaths) else 0 end as mar,
+case when date_format(date,"%Y-%m") = "2020-04" then (new_deaths) else 0 end as apr,
+case when date_format(date,"%Y-%m") = "2020-05" then (new_deaths) else 0 end as may,
+case when date_format(date,"%Y-%m") = "2020-06" then (new_deaths) else 0 end as jun,
+case when date_format(date,"%Y-%m") = "2020-07" then (new_deaths) else 0 end as jul,
+case when date_format(date,"%Y-%m") = "2020-08" then (new_deaths) else 0 end as aug,
+case when date_format(date,"%Y-%m") = "2020-09" then (new_deaths) else 0 end as sep,
+case when date_format(date,"%Y-%m") = "2020-10" then (new_deaths) else 0 end as oct,
+case when date_format(date,"%Y-%m") = "2020-11" then (new_deaths) else 0 end as nov,
+case when date_format(date,"%Y-%m") = "2020-12" then (new_deaths) else 0 end as dece,
+case when date_format(date,"%Y-%m") = "2021-01" then (new_deaths) else 0 end as jan
+from covid_death
+) 
+````
+
+
+````sql
+select location, sum(feb) as "Feb-2020", sum(mar) as "Mar-2020", sum(apr) as "Apr-2020", sum(may)as "May-2020", sum(jun) as "Jun-2020", sum(jul) as "Jul-2020", 
+sum(aug)as "Aug-2020", sum(sep)as "Sept-2020",sum(oct) as "Oct-2020",sum(nov)as "Nov-2020",sum(dece)as "Feb-2020", sum(jan) as "Jan-2021"
+from month_wise
+group by location; 
+````
+
+**Results :**
+
+
+| location                         | Feb-2020 | Mar-2020 | Apr-2020 | May-2020 | Jun-2020 | Jul-2020 | Aug-2020 | Sept-2020 | Oct-2020 | Nov-2020 | Feb-2020 | Jan-2021 |
+|----------------------------------|----------|----------|----------|----------|----------|----------|----------|-----------|----------|----------|----------|----------|
+| Afghanistan                      |        0 |        4 |       60 |      194 |      494 |      532 |      119 |        57 |       78 |      257 |      396 |      209 |
+| Albania                          |        0 |       15 |       16 |        2 |       29 |       95 |      127 |       103 |      122 |      301 |      371 |      199 |
+| Algeria                          |        0 |       44 |      406 |      203 |      259 |      298 |      300 |       226 |      228 |      467 |      325 |      135 |
+| Andorra                          |        0 |       12 |       30 |        9 |        1 |        0 |        1 |         0 |       22 |        1 |        8 |       17 |
+| Angola                           |        0 |        2 |        0 |        2 |        9 |       39 |       56 |        75 |      101 |       64 |       57 |       61 |
+| Anguilla                         |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Antigua and Barbuda              |        0 |        0 |        3 |        0 |        0 |        0 |        0 |         0 |        0 |        1 |        1 |        2 |
+| Argentina                        |        0 |       27 |      191 |      321 |      768 |     2236 |     5117 |      8277 |    14065 |     7728 |     4515 |     4729 |
+| Armenia                          |        0 |        3 |       29 |       99 |      312 |      295 |      141 |        80 |      382 |      823 |      659 |      257 |
+| Aruba                            |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Australia                        |        0 |       18 |       75 |       10 |        1 |       97 |      456 |       231 |       19 |        1 |        1 |        0 |
+| Austria                          |        0 |      128 |      456 |       84 |       37 |       13 |       15 |        66 |      310 |     2075 |     3038 |     1499 |
+| Azerbaijan                       |        0 |        5 |       19 |       39 |      150 |      235 |       86 |        57 |      139 |      662 |     1249 |      491 |
+| Bahamas                          |        0 |        0 |       11 |        0 |        0 |        3 |       36 |        46 |       48 |       19 |        7 |        6 |
+| Bahrain                          |        0 |        4 |        4 |       11 |       68 |       60 |       43 |        61 |       70 |       20 |       11 |       23 |
+| Bangladesh                       |        0 |        5 |      163 |      482 |     1197 |     1264 |     1170 |       970 |      672 |      721 |      915 |      568 |
+| Barbados                         |        0 |        0 |        7 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        7 |
+| Belarus                          |        0 |        1 |       88 |      146 |      157 |      167 |      122 |       152 |      147 |      178 |      266 |      294 |
+| Belgium                          |        0 |      705 |     6889 |     1873 |      280 |       94 |       54 |       121 |     1609 |     5020 |     2883 |     1564 |
+| Belize                           |        0 |        0 |        2 |        0 |        0 |        0 |       11 |        14 |       32 |       89 |      100 |       53 |
+| Benin                            |        0 |        0 |        1 |        2 |       18 |       15 |        4 |         1 |        0 |        2 |        1 |        8 |
+| Bermuda                          |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Bhutan                           |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        1 |
+| Bolivia                          |        0 |        6 |       56 |      251 |      810 |     1854 |     2050 |      2938 |      760 |      232 |      208 |     1214 |
+| Bosnia and Herzegovina           |        0 |       13 |       56 |       84 |       33 |      153 |      270 |       247 |      378 |     1447 |     1369 |      629 |
+| Botswana                         |        0 |        1 |        0 |        0 |        0 |        1 |        4 |        10 |        8 |       10 |        8 |       92 |
+| Brazil                           |        0 |      201 |     5805 |    23308 |    30280 |    32881 |    28906 |     22571 |    15932 |    13236 |    21829 |    29555 |
+| Brunei                           |        0 |        1 |        0 |        1 |        1 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Bulgaria                         |        0 |        8 |       58 |       74 |       90 |      153 |      246 |       196 |      454 |     2756 |     3541 |     1469 |
+| Burkina Faso                     |        0 |       14 |       29 |       10 |        0 |        0 |        2 |         3 |        9 |        1 |       17 |       35 |
+| Burundi                          |        0 |        0 |        1 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        1 |        0 |
+| Cambodia                         |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Cameroon                         |        0 |        6 |       55 |      130 |      122 |       78 |       20 |         7 |        8 |       11 |       11 |       14 |
+| Canada                           |        0 |      152 |     4027 |     3727 |      874 |      245 |      168 |       198 |      885 |     1963 |     3523 |     4279 |
+| Cape Verde                       |        0 |        1 |        0 |        3 |       11 |        8 |       17 |        20 |       35 |       10 |        8 |       21 |
+| Cayman Islands                   |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Central African Republic         |        0 |        0 |        0 |        2 |       45 |       12 |        3 |         0 |        0 |        1 |        0 |        0 |
+| Chad                             |        0 |        0 |        5 |       60 |        9 |        1 |        2 |         8 |       13 |        3 |        3 |       14 |
+| Chile                            |        0 |       12 |      215 |      827 |     4634 |     3769 |     1832 |      1452 |     1466 |     1203 |     1198 |     1844 |
+| China                            |     2624 |      472 |     1328 |        1 |        3 |       20 |       62 |        16 |        0 |        4 |       39 |       35 |
+| Colombia                         |        0 |       16 |      277 |      646 |     2395 |     6771 |     9557 |      6336 |     5316 |     5452 |     6447 |    10770 |
+| Comoros                          |        0 |        0 |        0 |        2 |        5 |        0 |        0 |         0 |        0 |        0 |        3 |       83 |
+| Congo                            |        0 |        0 |        9 |       11 |       17 |       17 |       24 |        11 |        3 |        2 |       14 |        9 |
+| Costa Rica                       |        0 |        2 |        4 |        4 |        6 |      134 |      286 |       468 |      481 |      341 |      459 |      419 |
+| Croatia                          |        0 |        6 |       63 |       34 |        4 |       38 |       41 |        94 |      266 |     1240 |     2134 |     1107 |
+| Cuba                             |        0 |        6 |       55 |       22 |        3 |        1 |        7 |        28 |        6 |        7 |       11 |       68 |
+| Curacao                          |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Cyprus                           |        0 |        8 |        7 |        2 |        2 |        0 |        1 |         2 |        4 |       23 |       70 |       80 |
+| Czechia                          |        0 |       31 |      205 |       84 |       29 |       33 |       42 |       231 |     2596 |     5044 |     3285 |     4728 |
+| Democratic Republic of Congo     |        0 |        8 |       23 |       41 |       98 |       45 |       43 |        14 |       35 |       26 |      258 |       80 |
+| Denmark                          |        0 |       90 |      362 |      122 |       31 |       10 |        9 |        26 |       71 |      116 |      461 |      828 |
+| Djibouti                         |        0 |        0 |        2 |       22 |       30 |        4 |        2 |         1 |        0 |        0 |        0 |        2 |
+| Dominica                         |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Dominican Republic               |        0 |       51 |      250 |      201 |      245 |      413 |      550 |       395 |      140 |       86 |       83 |      252 |
+| Ecuador                          |        0 |       75 |      825 |     2458 |     1169 |     1175 |      854 |      4799 |     1315 |      791 |      573 |      825 |
+| Egypt                            |        0 |       46 |      346 |      567 |     1994 |     1852 |      616 |       509 |      336 |      384 |      981 |     1685 |
+| El Salvador                      |        0 |        1 |        9 |       36 |      128 |      274 |      269 |       126 |      132 |      139 |      213 |      296 |
+| Equatorial Guinea                |        0 |        0 |        1 |       11 |       20 |       51 |        0 |         0 |        0 |        2 |        1 |        0 |
+| Eritrea                          |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        3 |        4 |
+| Estonia                          |        0 |        4 |       48 |       16 |        1 |        0 |       -5 |         0 |        9 |       45 |      111 |      190 |
+| Eswatini                         |        0 |        0 |        1 |        1 |        9 |       30 |       50 |        18 |        8 |        5 |       83 |      360 |
+| Ethiopia                         |        0 |        0 |        3 |        8 |       92 |      171 |      535 |       389 |      271 |      237 |      217 |      170 |
+| Faeroe Islands                   |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Falkland Islands                 |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Fiji                             |        0 |        0 |        0 |        0 |        0 |        1 |        1 |         0 |        0 |        0 |        0 |        0 |
+| Finland                          |        0 |       17 |      194 |      109 |        8 |        1 |        7 |         8 |       14 |       41 |      162 |      110 |
+| France                           |        2 |     3524 |    20823 |     4456 |     1041 |      422 |      378 |      1332 |     4849 |    15992 |    11940 |    11442 |
+| Gabon                            |        0 |        1 |        2 |       14 |       25 |        7 |        4 |         1 |        1 |        5 |        4 |        4 |
+| Gambia                           |        0 |        1 |        0 |        0 |        1 |        7 |       87 |        16 |        7 |        4 |        1 |        4 |
+| Georgia                          |        0 |        0 |        6 |        6 |        3 |        2 |        2 |        20 |      268 |      960 |     1238 |      673 |
+| Germany                          |        0 |      775 |     5848 |     1917 |      450 |      157 |      156 |       192 |      988 |     6211 |    17097 |    23372 |
+| Ghana                            |        0 |        5 |       12 |       19 |       76 |       70 |       94 |        25 |       19 |        3 |       12 |       81 |
+| Gibraltar                        |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Greece                           |        0 |       49 |       91 |       35 |       17 |       14 |       60 |       125 |      235 |     1780 |     2432 |      958 |
+| Greenland                        |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Grenada                          |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        1 |
+| Guatemala                        |        0 |        1 |       15 |       92 |      665 |     1151 |      836 |       486 |      483 |      442 |      642 |      830 |
+| Guernsey                         |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Guinea                           |        0 |        0 |        7 |       16 |       10 |       13 |       13 |         7 |        6 |        4 |        5 |        1 |
+| Guinea-Bissau                    |        0 |        0 |        1 |        7 |       16 |        2 |        8 |         5 |        2 |        3 |        1 |        0 |
+| Guyana                           |        0 |        2 |        7 |        3 |        0 |        8 |       19 |        41 |       44 |       27 |       13 |       12 |
+| Haiti                            |        0 |        0 |        6 |       29 |       69 |       55 |       42 |        26 |        5 |        0 |        4 |        9 |
+| Honduras                         |        0 |        7 |       64 |      141 |      285 |      840 |      536 |       480 |      316 |      249 |      212 |      480 |
+| Hong Kong                        |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Hungary                          |        0 |       16 |      296 |      214 |       59 |       11 |       19 |       150 |      985 |     3073 |     4714 |     2987 |
+| Iceland                          |        0 |        2 |        8 |        0 |        0 |        0 |        0 |         0 |        2 |       14 |        3 |        0 |
+| India                            |        0 |       35 |     1119 |     4254 |    11992 |    19111 |    28777 |     33390 |    23433 |    15510 |    11117 |     5654 |
+| Indonesia                        |        0 |      136 |      656 |      821 |     1263 |     2255 |     2286 |      3323 |     3129 |     3076 |     5193 |     7860 |
+| Iran                             |       43 |     2855 |     3130 |     1769 |     3020 |     5949 |     4805 |      4598 |     8695 |    13382 |     6977 |     2736 |
+| Iraq                             |        0 |       50 |       43 |      112 |     1738 |     2798 |     2301 |      2139 |     1729 |     1348 |      555 |      234 |
+| Ireland                          |        0 |       71 |     1161 |      420 |       84 |       27 |       14 |        27 |      109 |      140 |      184 |     1070 |
+| Isle of Man                      |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Israel                           |        0 |       21 |      204 |       62 |       40 |      237 |      389 |       651 |      957 |      311 |      453 |     1471 |
+| Italy                            |       29 |    12399 |    15539 |     5448 |     1352 |      374 |      342 |       411 |     2724 |    16958 |    18583 |    14357 |
+| Jamaica                          |        0 |        1 |        7 |        1 |        1 |        0 |       11 |        86 |       99 |       51 |       45 |       48 |
+| Japan                            |        6 |       61 |      414 |      417 |       74 |       36 |      290 |       277 |      194 |      307 |     1216 |     2461 |
+| Jersey                           |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Jordan                           |        0 |        5 |        3 |        1 |        0 |        2 |        4 |        46 |      768 |     1922 |     1083 |      482 |
+| Kazakhstan                       |        0 |        2 |       23 |       15 |      148 |      605 |      988 |       297 |      148 |      207 |      328 |      285 |
+| Kenya                            |        0 |        1 |       16 |       47 |       84 |      193 |      236 |       134 |      270 |      488 |      201 |       93 |
+| Kosovo                           |        0 |        1 |       21 |        8 |       19 |      178 |      298 |       100 |       53 |      338 |      316 |      166 |
+| Kuwait                           |        0 |        0 |       26 |      186 |      142 |       93 |       84 |        79 |      169 |      101 |       54 |       25 |
+| Kyrgyzstan                       |        0 |        0 |        8 |        8 |       45 |     1317 |     -320 |         6 |       80 |      131 |       80 |       57 |
+| Laos                             |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Latvia                           |        0 |        0 |       15 |        9 |        6 |        2 |        2 |         3 |       34 |      135 |      429 |      560 |
+| Lebanon                          |        0 |       12 |       12 |        3 |        7 |       27 |      106 |       200 |      270 |      381 |      450 |     1614 |
+| Lesotho                          |        0 |        0 |        0 |        0 |        0 |       13 |       18 |         5 |        8 |        0 |        7 |      121 |
+| Liberia                          |        0 |        0 |       16 |       11 |        9 |       39 |        7 |         0 |        0 |        1 |        0 |        1 |
+| Libya                            |        0 |        0 |        3 |        2 |       19 |       50 |      163 |       314 |      306 |      326 |      295 |      399 |
+| Liechtenstein                    |        0 |        0 |        1 |        0 |        0 |        0 |        0 |         0 |        2 |       13 |       23 |       13 |
+| Lithuania                        |        0 |        4 |       28 |       22 |        7 |        2 |        6 |         8 |       75 |      468 |     1176 |     1012 |
+| Luxembourg                       |        0 |       23 |       67 |       20 |        0 |        4 |       10 |         0 |       28 |      169 |      174 |       82 |
+| Macao                            |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Madagascar                       |        0 |        0 |        0 |        6 |       14 |       86 |       86 |        38 |       14 |        7 |       10 |       20 |
+| Malawi                           |        0 |        0 |        3 |        1 |       10 |      100 |       61 |         4 |        5 |        1 |        4 |      513 |
+| Malaysia                         |        0 |       43 |       59 |       13 |        6 |        4 |        2 |         9 |      113 |      111 |      111 |      289 |
+| Maldives                         |        0 |        0 |        1 |        4 |        4 |        7 |       12 |         6 |        4 |        8 |        2 |        4 |
+| Mali                             |        0 |        2 |       24 |       51 |       39 |        8 |        2 |         5 |        5 |       20 |      113 |       61 |
+| Malta                            |        0 |        0 |        4 |        5 |        0 |        0 |        3 |        23 |       27 |       75 |       82 |       48 |
+| Marshall Islands                 |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Mauritania                       |        0 |        1 |        0 |       22 |      106 |       28 |        2 |         2 |        2 |       14 |      170 |       75 |
+| Mauritius                        |        0 |        5 |        5 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Mexico                           |        0 |       29 |     1830 |     8071 |    17839 |    18919 |    17726 |     13232 |    14107 |    14187 |    19867 |    32729 |
+| Micronesia (country)             |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Moldova                          |        0 |        4 |      112 |      179 |      250 |      233 |      217 |       325 |      465 |      519 |      681 |      453 |
+| Monaco                           |        0 |        1 |        3 |        0 |        0 |        0 |        0 |        -2 |        0 |        1 |        0 |       10 |
+| Mongolia                         |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        1 |        1 |
+| Montenegro                       |        0 |        2 |        5 |        2 |        3 |       36 |       52 |        69 |      132 |      198 |      183 |      123 |
+| Montserrat                       |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Morocco                          |        0 |       36 |      134 |       35 |       23 |      125 |      788 |      1053 |     1501 |     2151 |     1542 |      887 |
+| Mozambique                       |        0 |        0 |        0 |        2 |        4 |        5 |       12 |        38 |       31 |       39 |       35 |      201 |
+| Myanmar                          |        0 |        1 |        5 |        0 |        0 |        0 |        0 |       304 |      927 |      704 |      741 |      449 |
+| Namibia                          |        0 |        0 |        0 |        0 |        0 |       10 |       65 |        46 |       12 |       18 |       54 |      147 |
+| Nauru                            |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Nepal                            |        0 |        0 |        0 |        8 |       21 |       27 |      172 |       270 |      439 |      571 |      348 |      173 |
+| Netherlands                      |        0 |     1040 |     3771 |     1164 |      157 |       34 |       86 |       205 |     1002 |     1994 |     2072 |     2583 |
+| New Zealand                      |        0 |        1 |       18 |        3 |        0 |        0 |        0 |         3 |        0 |        0 |        0 |        0 |
+| Nicaragua                        |        0 |        1 |        2 |       32 |       48 |       33 |       21 |        14 |        5 |        4 |        5 |        4 |
+| Niger                            |        0 |        3 |       29 |       32 |        3 |        2 |        0 |         0 |        0 |        3 |       32 |       55 |
+| Nigeria                          |        0 |        2 |       56 |      229 |      303 |      289 |      134 |        99 |       32 |       29 |      116 |      297 |
+| North Macedonia                  |        0 |        9 |       68 |       56 |      169 |      184 |      117 |       136 |      255 |      769 |      740 |      352 |
+| Northern Cyprus                  |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Norway                           |        0 |       39 |      171 |       26 |       14 |        5 |        9 |        10 |        8 |       50 |      104 |      128 |
+| Oman                             |        0 |        1 |       10 |       38 |      127 |      245 |      264 |       250 |      273 |      215 |       76 |       30 |
+| Pakistan                         |        0 |       27 |      390 |     1126 |     2852 |     1556 |      343 |       190 |      339 |     1268 |     2085 |     1507 |
+| Palestine                        |        0 |        1 |        1 |        1 |        5 |       74 |       70 |       159 |      172 |      249 |      668 |      433 |
+| Panama                           |        0 |       30 |      158 |      148 |      295 |      790 |      581 |       370 |      328 |      379 |      943 |     1248 |
+| Papua New Guinea                 |        0 |        0 |        0 |        0 |        0 |        2 |        3 |         2 |        0 |        0 |        2 |        0 |
+| Paraguay                         |        0 |        3 |        7 |        1 |        6 |       32 |      277 |       531 |      547 |      352 |      506 |      456 |
+| Peru                             |        0 |       30 |     1021 |     3455 |     5171 |     9344 |     9767 |      3608 |     2015 |     1512 |     1757 |     3346 |
+| Philippines                      |        1 |       87 |      480 |      389 |      309 |      757 |     1535 |      1946 |     1717 |     1171 |      852 |     1505 |
+| Poland                           |        0 |       33 |      611 |      420 |      399 |      253 |      323 |       474 |     3118 |    11519 |    11404 |     8626 |
+| Portugal                         |        0 |      160 |      829 |      421 |      166 |      159 |       87 |       149 |      536 |     1998 |     2401 |     5576 |
+| Qatar                            |        0 |        2 |        8 |       28 |       75 |       61 |       23 |        17 |       18 |        5 |        8 |        3 |
+| Romania                          |        0 |       82 |      635 |      549 |      385 |      692 |     1278 |      1204 |     2143 |     4363 |     4436 |     2568 |
+| Russia                           |        0 |       17 |     1056 |     3620 |     4613 |     4633 |     3189 |      3502 |     7157 |    11704 |    16780 |    15758 |
+| Rwanda                           |        0 |        0 |        0 |        1 |        1 |        3 |       11 |        13 |        6 |       14 |       43 |      104 |
+| Saint Helena                     |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Saint Kitts and Nevis            |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Saint Lucia                      |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        2 |        3 |        8 |
+| Saint Vincent and the Grenadines |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        2 |
+| Samoa                            |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| San Marino                       |        0 |       26 |       15 |        1 |        0 |        0 |        0 |         0 |        0 |        4 |       13 |        8 |
+| Sao Tome and Principe            |        0 |        0 |        0 |       12 |        1 |        2 |        0 |         0 |        1 |        1 |        0 |        0 |
+| Saudi Arabia                     |        0 |       10 |      152 |      341 |     1146 |     1217 |     1031 |       871 |      634 |      494 |      327 |      152 |
+| Senegal                          |        0 |        0 |        9 |       33 |       70 |       93 |       79 |        27 |       13 |        9 |       77 |      218 |
+| Serbia                           |        0 |       16 |      163 |       64 |       34 |      296 |      140 |        36 |       71 |      784 |     1607 |      809 |
+| Seychelles                       |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        4 |
+| Sierra Leone                     |        0 |        0 |        7 |       39 |       14 |        7 |        3 |         2 |        2 |        0 |        2 |        3 |
+| Singapore                        |        0 |        3 |       12 |        8 |        3 |        1 |        0 |         0 |        1 |        1 |        0 |        0 |
+| Slovakia                         |        0 |        0 |       23 |        5 |        0 |        1 |        4 |        15 |      171 |      620 |     1299 |     2504 |
+| Slovenia                         |        0 |       15 |       76 |       17 |        3 |        8 |       14 |        17 |      188 |     1097 |     1262 |      806 |
+| Solomon Islands                  |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Somalia                          |        0 |        0 |       28 |       50 |       12 |        3 |        5 |         1 |        5 |        9 |       17 |        0 |
+| South Africa                     |        0 |        5 |       98 |      580 |     1974 |     5348 |     6144 |      2585 |     2542 |     2259 |     6934 |    15695 |
+| South Korea                      |       16 |      146 |       86 |       23 |       11 |       19 |       23 |        91 |       51 |       60 |      391 |      508 |
+| South Sudan                      |        0 |        0 |        0 |       10 |       28 |        8 |        1 |         2 |        9 |        3 |        2 |        1 |
+| Spain                            |        0 |     8464 |    16079 |     2584 |     1228 |       90 |      649 |      2697 |     4087 |     9191 |     5768 |     7482 |
+| Sri Lanka                        |        0 |        2 |        5 |        3 |        1 |        0 |        1 |         1 |        7 |       98 |       86 |      112 |
+| Sudan                            |        0 |        2 |       29 |      255 |      286 |      174 |       77 |        13 |        1 |      412 |      219 |      339 |
+| Suriname                         |        0 |        0 |        1 |        0 |       12 |       13 |       45 |        33 |        7 |        6 |        5 |       32 |
+| Sweden                           |        0 |      385 |     2201 |     1809 |      938 |      410 |       78 |        72 |       45 |      743 |     2046 |     2864 |
+| Switzerland                      |        0 |      433 |     1304 |      183 |       43 |       18 |       25 |        68 |      223 |     2518 |     2830 |     1736 |
+| Syria                            |        0 |        2 |        1 |        2 |        4 |       34 |       69 |        88 |       88 |      129 |      294 |      210 |
+| Taiwan                           |        1 |        4 |        1 |        1 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        1 |
+| Tajikistan                       |        0 |        0 |        0 |       47 |        5 |        8 |        8 |         8 |        6 |        4 |        4 |        0 |
+| Tanzania                         |        0 |        1 |       15 |        5 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Thailand                         |        0 |       10 |       44 |        3 |        1 |        0 |        0 |         1 |        0 |        1 |        3 |       14 |
+| Timor                            |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Togo                             |        0 |        1 |        8 |        4 |        1 |        5 |        9 |        20 |        9 |        7 |        4 |        9 |
+| Tonga                            |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Trinidad and Tobago              |        0 |        3 |        5 |        0 |        0 |        0 |       14 |        54 |       32 |       12 |        7 |        7 |
+| Tunisia                          |        0 |       10 |       31 |        7 |        2 |        0 |       27 |       188 |     1052 |     1943 |     1416 |     2078 |
+| Turkey                           |        0 |      214 |     2960 |     1366 |      591 |      560 |      679 |      1825 |     2057 |     3494 |     7135 |     5112 |
+| Turks and Caicos Islands         |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Uganda                           |        0 |        0 |        0 |        0 |        0 |        3 |       29 |        43 |       36 |       94 |       46 |       73 |
+| Ukraine                          |        0 |       17 |      244 |      447 |      465 |      544 |      888 |      1616 |     3178 |     5332 |     6550 |     4579 |
+| United Arab Emirates             |        0 |        6 |       99 |      159 |       51 |       36 |       33 |        35 |       76 |       77 |       97 |      181 |
+| United Kingdom                   |        0 |     2457 |    24297 |    10773 |     2952 |      795 |      315 |       644 |     4412 |    11900 |    15077 |    32745 |
+| United States                    |        1 |     5368 |    60862 |    41602 |    19767 |    26547 |    29655 |     23399 |    24532 |    39263 |    81097 |    97248 |
+| Uruguay                          |        0 |        1 |       16 |        5 |        5 |        8 |        9 |         4 |       10 |       19 |      104 |      255 |
+| Uzbekistan                       |        0 |        2 |        7 |        6 |       11 |      115 |      179 |       150 |       96 |       44 |        4 |        7 |
+| Vanuatu                          |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Vatican                          |        0 |        0 |        0 |        0 |        0 |        0 |        0 |         0 |        0 |        0 |        0 |        0 |
+| Venezuela                        |        0 |        3 |       13 |       -2 |       37 |      113 |      222 |       242 |      170 |       99 |      131 |      161 |
+| Vietnam                          |        0 |        0 |        0 |        0 |        0 |        3 |       31 |         1 |        0 |        0 |        0 |        0 |
+| Yemen                            |        0 |        0 |        2 |       78 |      232 |      181 |       73 |        21 |       12 |        6 |        5 |        5 |
+| Zambia                           |        0 |        0 |        3 |        4 |       17 |      127 |      137 |        44 |       17 |        8 |       31 |      375 |
+| Zimbabwe                         |        0 |        1 |        3 |        0 |        3 |       60 |      135 |        26 |       15 |       33 |       87 |      854 |
+
+
+
+**Query 12 : Percentage of people died in a month, out of number of cases reported in each month**
 
 
 ````sql
@@ -750,7 +1838,7 @@ sum(new_deaths) as sum_total_deaths, sum(total_cases) as sum_total_cases
 from covid_death 
 group by Month_year, Location
 ) e ;
-````
+```
 
 **Results:**
 
@@ -3539,7 +4627,7 @@ group by Month_year, Location
 
 
 
-**Query : Percentage of people diagnosed in a month, out of total population** 
+**Query 13 : Percentage of people diagnosed in a month, out of total population** 
 
 
 ````sql
